@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script> -->
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <title>upload flyer</title>
+    </head>
+
+    <body onload="showErrors()">
+
+        {% load static %}
+
+        <div id="logoDiv">
+            <img id = "logo" src="{% static '/mainApp/cafeLogo.png' %}" alt="cafeLogo">
+        </div>
+        
+        <div id="border" ></div>
+
+                    
+        <div id="mainDiv">
+        
+            <div id="imageFormDiv">
+                <form id="imageForm" runat="server" action="saveImage/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="fileInput">
+                        <div id="iconDiv">
+                            <img id="icon" src="{% static '/mainApp/uploadImageIcon1.jpg' %}" alt="upload Image icon">
+                            
+                        </div>
+                        <div id="imageFormButtons">
+                            <div id="chooseDifferentImageButton" type="button" class="btn btn-primary btn-sm" >choose different image</div>
+                            <input id="nextButton" type="submit" class="btn btn-primary btn-sm" value="next">
+                            <!-- <a id="nextButton" class="btn btn-primary btn-sm" href="/saveImage" role="button">next</a> -->
+                            <!-- <button id="nextButton" type="button" class="btn btn-primary btn-sm" onclick="next()">Primary</button> -->
+                        </div>
+                    </label>
+
+
+                    <input accept="image/*" type='file' id="fileInput" name="Flyer_image"/>
+                </form>
+            </div>
+            
+            <div id="textFomDiv">
+                <form action="/saveFlyerDestop/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="selectors">
+                        <div class="selectorDiv">
+                            <label for="boroSelector">Boro:</label>
+                                <select id="boroSelector" name="boroSelector" class="selector">
+                                    <option value=""></option>
+                                    <option value="brooklyn">Brooklyn</option>
+                                    <option value="queens">Queens</option>
+                                    <option value="manhattan">Manhattan</option>
+                                    <option value="bronx">Bronx</option>
+                                    <option value="staten">Staten Island</option>
+                                    <option value="nassau">Nassau</option>
+                                </select>
+                        </div>
+                    
+                    <div class="selectorDiv">
+                        <label for="eventTypeSelector">Event Type:</label>
+                            <select id="eventTypeSelector" name="eventTypeSelector" class="selector">
+                                <option value=""></option>
+                                <option value="comedy">Comedy</option>
+                                <option value="food">Food/Drink</option>
+                                <option value="athletic">Athletic</option>
+                                <option value="sports">Sports</option>
+                                <option value="seasonal">Seasonal</option>
+                                <option value="rock">Live Music: Rock</option>
+                                <option value="hipHop">Live Music: HipHop</option>
+                                <option value="dance">Live Music: Dance</option>
+                                <option value="other">Live Music: Other</option>
+                            </select><br><br>
+                    </div>
+                </div>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" name="eventDate" ><br><br>
+                <!-- Event Date:  <div id="datepicker"></div> -->
+
+                    <br><p style="width: 80%;"> These fields are optional\n
+                     we recommend you fill them out So guests have an easier time finding your event
+                    contact info can be an email address, website, or social media account</p>                
+                    <label for="contactInfo">Contact Info:</label><br>
+                        <input type="text" id="contactInfo" name="contactInfo" class="textField"><br>
+                    <label for="address">Event Adress:</label><br>
+                        <input type="text" id="address" name="address" class="textField"><br>
+
+                        <input accept="image/*" type='file' id="difImgFile" name="Flyer_image" style="display: none;"/>
+                        <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <br><br>
+        
+        <!-- {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %} -->
+    </body>
+
+</html>
+
+<style>
+
+#logoDiv{
+        text-align: center;
+    }
+        #logo{
+        
+            height: 10vh;
+            width: auto;
+        }
+  #border{
+    
+    width: 55%;
+    border-bottom: 1px solid #F76F07;
+    margin: auto;
+    padding-top: 1%;
+    padding-right: 5%;
+    margin-bottom: 8.5%;
+    }
+
+    #mainDiv{
+       display: flex;
+       
+    }
+        #imageFormDiv{
+            /* margin: auto; */
+            /* width: 40vw; */
+            /* width: 50%; */
+            /* height: auto; */
+            /* text-align: center; */
+            /* display: inline-block; */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* background-color: cyan; */
+        }
+                #iconDiv{
+
+                    width: 15vw;
+                    height: auto;
+                    /* margin: auto; */
+                    box-shadow: 2px 2px 5px #333;
+                    border: 1px solid;
+                    /* padding: 10px;
+                    box-shadow: 5px 10px #888888; */
+
+                }
+                #icon{
+                    width: 100%;
+                    height: 100%;
+                }
+                #imageFormButtons{
+                    margin-top: 2%;
+                    /* text-align: right; */
+                    /* display: flex; */
+                    justify-content: flex-end;
+                    gap: 2%;
+                    display: none;
+                }
+                #imageForm > input{
+                    display: none;
+                }
+
+        #textFomDiv{
+            /* display: inline-block; */
+            /* background-color: crimson; */
+            /* width: 50%; */
+            flex: 1;
+            /* display: flex;
+            flex-direction: column; */
+            
+        }
+        #textFomDiv > * {
+            margin-left:10%;
+            
+        }
+        input[type=text] {
+
+            width: 70%;
+            /* padding: 12px 20px; */
+            /* margin-left:2%; */
+            margin-bottom: 2%;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .selector, input[type="date"]{
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        #selectors{
+            display:flex;
+            /* justify-content:space-between; */
+            gap: 10%;
+            padding-bottom: .5%;
+        }
+         /* input[type=date]{
+            opacity:0;
+            }  */
+        .ui-widget-content .ui-state-default {
+            border: 0px;
+            text-align: center;
+            background: #fff;
+            font-weight: normal;
+            color: #000;
+            }
+            .ui-widget-content .ui-state-default:hover {
+                border: 0px;
+                border-radius: 50%;
+                text-align: center;
+                background: rgb(60, 68, 75);
+                font-weight: normal;
+                color: #fff;
+                }
+
+            .ui-widget-content .ui-state-active {
+                border: 0px;
+                border-radius: 50%;
+                background: #F76F07;
+                color: #fff;
+            
+                }
+                tr{height:100%;
+                width: 100%;}
+                /* table  {
+                    
+    table-layout: fixed;
+} */
+
+    @media only screen and (min-width: 1001px) {
+
+
+        /* #logoDiv{
+            max-height: 1%;
+            width: auto;
+        } */
+        
+        #iconDiv{
+           position: sticky;}
+    }
+
+    @media only screen and (max-width: 1000px) {
+
+        #textFomDiv{
+            display: none;}
+
+        #iconDiv{
+            width: 50vw;}
+
+        #logo{
+            width: 100vw;
+            height:auto;}
+
+        #border{
+            margin-bottom: 20vh;}
+    }
+
+
+</style>
+
+<script>
+    fileInput.onchange = evt => {
+  const [file] = fileInput.files
+  if (file) {
+    icon.src = URL.createObjectURL(file);
+    
+    imageFormButtons.style["display"]="flex";
+    console.log(screen.width);
+    iconDiv.style["width"] = "80vw";
+    if (screen.width > 1000){
+        console.log(screen.width);
+        iconDiv.style["height"] = "60vh";
+        iconDiv.style["width"] = "auto";
+        nextButton.style["display"]="none";
+    }
+
+  }
+}
+
+
+function disableWeekdays(date) {
+    var string = $.datepicker.formatDate('yy-mm-dd', date);
+          
+    var filterDate = new Date(string);
+    var day = filterDate.getDay();
+    return [day != 0 && day !=1 && day !=2]
+ }
+
+$( function() {
+    $( "#datepicker" ).datepicker({ beforeShowDay: disableWeekdays,
+                                                         minDate:0});
+  } );
+
+  function next(){
+    const [file] = fileInput.files
+    console.log(file["name"])
+     let url = '/newFlyerForm?imageName=' + file["name"]
+    window.location.href = url;
+  }
+
+  function validateForm() {
+
+    let requiredFields = document.getElementsByClassName("required");
+    // let x = document.forms["myForm"]["fname"].value;
+    var valid = true;
+    for (i = 0; i < requiredFields.length; i++){
+    console.log(requiredFields[i].previousElementSibling.innerHTML);
+    requiredFields[i].style["border-color"] = "black";
+        if (requiredFields[i].value == "") 
+        {
+            requiredFields[i].style["border-color"] = "red";
+            errorMessage.innerHTML += 
+                requiredFields[i].previousElementSibling.innerHTML.slice(0,-1) + " is a required field <br>"
+            valid = false;
+        }
+    }
+
+    // var imgInput = document.getElementById("difImgFile");
+    difImgFile.value = fileInput.files
+    console.log(difImgFile.value)
+    return valid;
+    }
+
+
+  function showErrors(){
+      console.log("{% if messages %}<ul >{% for message in messages %}<li{% if message.tags %} {% endif %}>{{ message }}</li>{% endfor %}</ul>{% endif %}")
+      if("{% if messages %}<ul >{% for message in messages %}<li{% if message.tags %} {% endif %}>{{ message }}</li>{% endfor %}</ul>{% endif %}")
+      {
+          alert("There was an ERROR.  Please try again(replace this alert with a MODAL!!)")
+      }
+  }
+ 
+
+</script>

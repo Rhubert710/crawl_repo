@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>CRAWL-NYC</title>
+    <meta name="description" content="Find things to do this weekend in the five boroughs. Events in Brooklyn, Queens, Manhattan, Staten Island, the Bronx, and NJ. advertise New York, nyc">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/a2fdac4b18.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- <link rel="stylesheet" href="gg.css"> -->
+
+</head>
+<body onload="onLoadFunction()">
+
+    <div id="bodyDiv">
+      <!-- leftPanel start -->
+      <section id="leftPanel">
+  
+        <!-- mainLogo -->
+        <div>
+            {% load static %}
+            <img id = "mainLogo" src="{% static '/mainApp/clo.png' %}" alt="cafeLogo">
+        </div>
+
+        <div id="border" ></div>
+
+                  <!-- boroBar_left -->
+                  <div id="boroBar_left" >
+                    <div id="boros_left">
+                          <button type="button" value="flyer" class="borobtn borobtn_desk active current_boro">&nbsp;All&nbsp;</button>
+                          <button type="button" value="brooklyn" class="borobtn borobtn_desk">Brooklyn</button>
+                          <button type="button" value="queens" class="borobtn borobtn_desk">Queens</button>
+                          <button type="button" value="manhattan" class="borobtn borobtn_desk">Manhattan</button>                      <!-- </div>
+                      <div class="btn-group_left" role="group"> -->
+                          
+                          <button type="button" value="bronx" class="borobtn borobtn_desk">Bronx</button>
+                          <button type="button" value="staten" class="borobtn borobtn_desk">Staten Island</button>
+
+
+                    </div>
+                </div>
+                <div id="a"><p></p></div>
+                <!-- weekBar_left -->
+              <!-- <div id="weekBar_left" >
+                
+                <button type="button" value="flyer" class="btn btn-dark weekday_button btn-sm active current_day">All</button>
+                <button type="button" value="thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
+                <button type="button" value="friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
+                <button type="button" value="saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
+                <button type="button" value="sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
+               
+          </div> -->
+          <div  id="weekBar_desk">
+                
+            <button type="button" value="flyer" class="weekbtn_desk weekday_button btn-sm current_day">&nbsp;All&nbsp;</button>
+            <button type="button" value="thursday" class="weekbtn_desk weekday_button ">Thursday</button>
+            <button type="button" value="friday" class="weekbtn_desk weekday_button btn-sm">Friday</button>
+            <button type="button" value="saturday" class="weekbtn_desk weekday_button btn-sm">Saturday</button>
+            <button type="button" value="sunday" class="weekbtn_desk weekday_button btn-sm">Sunday</button>
+           
+      </div>
+          <!-- flterBarDiv -->
+          <div id="filterBarDesk">
+                
+                    <div id="filter-options-Desktop">
+
+                        <div class="check_option" onclick="expandCollapse(this)"><div class="expand_symbol">+</div><div class="filter_text_desk" >Live Music</div></div>
+                                <ul class="nest">
+                                    <div class="check_option" onclick="check(this)" data-value="rock"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Rock</div></div>
+                                    <div class="check_option" onclick="check(this)" data-value="hipHop"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  HipHop</div></div>
+                                    <div class="check_option" onclick="check(this)" data-value="dance"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Dance</div></div>
+                                    <div class="check_option" onclick="check(this)" data-value="otherLiveMusic"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Other</div></div>
+                                </ul>
+
+                        <div class="check_option" onclick="check(this)" data-value="comedy"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Comedy</div></div>
+                        <div class="check_option" onclick="check(this)" data-value="food"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Food / Drink</div></div>
+                        <div class="check_option" onclick="check(this)" data-value="athletic"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Athletic</div></div>
+                        <div class="check_option" onclick="check(this)" data-value="sports"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Sports</div></div>
+                        <div class="check_option" onclick="check(this)" data-value="seasonal"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Seasonal</div></div>
+                            
+                        <!-- <br> -->
+                        <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol_desk" src="{% static '/mainApp/refresh.jpeg' %}" alt="refresh_symbol"><div class="filter_text_desk" style="font-size: 1.29rem;padding-left: 7px;">Clear Filters</div></div>
+                    </div>
+                    <!-- <div id="blank-space"></div> -->
+            
+                    <!-- <form>
+
+                        <input type="checkbox" onclick="check(this)" id="live_music_checkbox" class="filter_text" name="live_music_checkbox" value="rock">
+                        <label for="live_music_checkbox" class="filter_text"> Live Music</label><br>
+                        <input type="checkbox" onclick="check(this)" id="Comedy_checkbox" class="filter_text" name="Comedy_checkbox" value="comedy">
+                        <label for="Comedy_checkbox" class="filter_text"> Comedy</label><br>
+                        <input type="checkbox" onclick="check(this)" id="Food_checkbox" class="filter_text" name="Food_checkbox" value="food">
+                        <label for="Food_checkbox" class="filter_text"> Food/Drink</label><br>
+                        <input type="checkbox" onclick="check(this)" id="Seasonal_checkbox" class="filter_text" name="Seasonal_checkbox" value="seasonal">
+                        <label for="Seasonal_checkbox" class="filter_text"> Seasonal</label><br>
+                    </form> -->
+
+
+                </div>
+            <!-- buttonsBottom -->
+            <footer id="buttonsBottom" >
+                <!-- <button id="myRemindersButton" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
+                        My Reminders</button> -->
+                        <button id="myRemindersButton" type="button" class="btn btn-info bottomLeftButton bottomButtonDesk btn-sm" onclick="myRemindersButton()"><i class="bi bi-alarm"></i>&nbsp;
+                            My Reminders</button>
+                    <!-- <button id="postFlyerButton" type="button" class="btn btn-warning btn-lg bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
+                        <a id="postFlyerButton" class="btn btn-warning bottomLeftButton bottomButtonDesk btn-sm" href="/uploadImage" role="button">
+                            Post Flyer</a>
+            <a style="margin-left: auto;margin-right: auto;" href="/about">Help / About</a>
+            </footer>
+        
+      </section>
+      <!-- END leftPanel -->
+  
+      <!-- mainPanel start -->
+      <section id="mainPanel" >
+  
+          <!-- mobileLogo -->
+          <div id="mobileLogoDiv">
+            {% load static %}
+            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.jpg' %}" alt="cafeLogo">
+            </div>
+          
+  
+          <!-- boroBar -->
+          <div id="boroBar" >
+             
+              <div id="boros">
+                
+                <div id="boro-btn-group-mobile" class="btn-group" role="group">
+                    <button type="button" value="flyer" class="btn btn-dark btn-sm borobtn active current_boro">All</button>
+                    <button type="button" value="brooklyn" class="btn btn-dark btn-sm borobtn">Brooklyn</button>
+                    <button type="button" value="queens" class="btn btn-dark btn-sm borobtn">Queens</button>
+                    <button type="button" value="manhattan" class="btn btn-dark btn-sm borobtn">Manhattan</button>
+                    <button type="button" value="bronx" class="btn btn-dark btn-sm borobtn">Bronx</button>
+                    <button type="button" value="staten" class="btn btn-dark btn-sm borobtn">SI</button>
+                  </div>    
+              </div>
+          </div>
+          <!-- blogDiv -->
+          <!-- <div id="blogDiv" > -->
+              <!-- weekBar -->
+              <div id="weekBar" >
+
+                <button type="button" value="flyer" class="btn btn-dark weekday_button btn-sm active current_day">All</button>
+                <button type="button" value="thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
+                <button type="button" value="friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
+                <button type="button" value="saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
+                <button type="button" value="sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
+                    
+              </div>
+              <!-- blog -->
+
+                <div id="blog" >
+                    <div id="side-bar-mobile">
+                        <!-- <div id="mobileLogoDiv">
+                            <img id="mobileLogo" src="cafeLogo.png" alt="mobileLogo">
+                          </div> -->
+                        <button id="filterButton" type="button" class="btn btn-dark" onclick="toggleSideBar(this)"><i class="bi bi-list"></i></button>
+                          <div id="mobile-side-bar-inner">
+                            <div id="filter-options-mobile">
+
+                                <div onclick="expandCollapse(this)"><div class="expand_symbol">+</div><div class="filter_text" >Live Music</div></div>
+                                        <ul class="nest">
+                                            <div class="check_option" onclick="check(this)" data-value="rock"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Rock</div></div>
+                                            <div class="check_option" onclick="check(this)" data-value="hipHop"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  HipHop</div></div>
+                                            <div class="check_option" onclick="check(this)" data-value="dance"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Dance</div></div>
+                                            <div class="check_option" onclick="check(this)" data-value="otherLiveMusic"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Other</div></div>
+                                        </ul>
+
+                                <div class="check_option" onclick="check(this)" data-value="comedy"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Comedy</div></div>
+                                <div class="check_option" onclick="check(this)" data-value="food"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Food/Drink</div></div>
+                                <div class="check_option" onclick="check(this)" data-value="athletic"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Athletic</div></div>
+                                <div class="check_option" onclick="check(this)" data-value="sports"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Sports</div></div>
+                                <div class="check_option" onclick="check(this)" data-value="seasonal"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Seasonal</div></div>
+                                    
+                                <br>
+                                <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol" src="{% static '/mainApp/refresh.jpeg' %}" alt="refresh_symbol"><div class="filter_text" >  Clear Filters</div></div>
+                                <!-- <div class="check_box" style="background: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> -->
+                            </div>
+                            <!-- <div id="blank-space"></div> -->
+                            <!-- bottom buttons -->
+                            <div id = "buttonsBottomLeft">
+                                <!-- <button id="myRemindersButton" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
+                                     My Reminders</button> -->
+                                     <button id="myRemindersButton" type="button" class="btn btn-info bottomLeftButton btn-sm" onclick="myRemindersButton()"><i class="bi bi-alarm"></i>&nbsp;
+                                        My Reminders</button>
+                                <!-- <button id="postFlyerButton" type="button" class="btn btn-warning bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
+                                    <a id="postFlyerButton" class="btn btn-warning bottomLeftButton btn-sm" href="/uploadImage" role="button">
+                                        Post Flyer</a>
+                                    
+                                    <a style="margin-left: auto;margin-right: auto;" href="/about">Help / About</a>
+                            </div>
+                        </div>
+                            
+                    </div>
+                <div id="blog-inner" >
+                </div>
+                
+                  <div id="no_result_div" class="no_results_text" style="display:none;">No Results</div>
+                  <div id="no_reminders_div" class="no_results_text" style="display:none;">
+                    <i class="bi bi-alarm"></i> No Upcoming Reminders</div>
+
+                  <!-- <div class="flyer-div flyer Brooklyn comedy Friday">
+                      <img class = "flyer-img" src="dummyFlyer1.png" alt="flyer1">
+                      <div class="flyer-buttons">
+                          <i class="bi bi-alarm" onclick="watch(this)"></i>
+                          <br><i class="bi bi-three-dots-vertical"></i>
+                      </div>
+                  </div> -->
+
+                  {% for event in flyerList reversed %}
+                  
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-pk = "{{event.pk}}" data-md5 = "{{event.Flyer.Flyer_image.Hash}}">
+                      
+                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Url}}" {% endif %} alt="Flyer_image">
+
+                        <div class="flyer-buttons">
+                            <i class="bi bi-alarm flyerAlarm" onclick="watch(this)" data-value="{{event.Flyer.pk}}"></i>
+                            <i class="bi bi-three-dots-vertical" onclick="toggleMoreInfo(this)"></i>
+                        </div>
+                    </div>
+                        <!-- more info -->
+                        <div id="info{{event.pk}}" class="moreInfo flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" >
+                            <p>&nbsp;</p>                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
+                            <a class="user_info" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and 'http://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
+                        <p>Address:</p>
+                        <a class="user_info" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
+                            
+                    </div>
+                        
+                 
+                    
+                <!-- <p style="color: #F76F07;">{{flyer.dayOfWeek}}</p> -->
+                  {% endfor %}
+                  <!-- <div class="flyer-div flyer Queens rock music Saturday"><img class = "flyer-img" src="dummyFlyer2.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer stni rock show Saturday"><img class = "flyer-img" src="dummyFlyer7.jpeg" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer Nassau food Sunday"><img class = "flyer-img " src="DummyFlyer4.jpeg" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn food Saturday"><img class = "flyer-img" src="/media/flyer_imgs/dummyFlyer0.png" alt="fuck"><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Friday"><img class = "flyer-img" src="dummyFlyer1.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer Brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+
+                  <i class="fas fa-plus-circle fa-4x newPostIcon"></i> -->
+              
+              
+          </div>
+          <!-- end blogDiv-->
+          
+      </section>
+      <!-- END mainPanel -->
+    <!-- Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h5 class="modal-title" id="emailModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 80%;">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 80%;">&times;</span>
+                </button>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button> -->
+               <br><p id="emailModalText"> Enter your email to see all the events your watching.  We can send you a weekly email to remind you of upcoming events your watching <br></p>
+                <label for="emailField">email:</label>
+                <input type="email" id="emailField" name="emailField" autocomplete="on">
+                <p id="emailErrorText" style="color: crimson; font-style: italic; display: none;">
+                    *Please enter a valid email address</p>
+            </div>
+            <div class="modal-footer" style="height: 5px;">
+                <button type="button" class="btn btn-sm btn-secondary"data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" id="email_modal_ok">OK</button>
+            </div>
+        </div></div></div>
+    </div>
+
+    <!-- // successful post modal //-->
+
+    <div id="success_modal" style="display: none;">
+        <h5 style="text-align: center;">Your Flyer Successfully Posted!</h5>
+        <div id="modal_line"></div>
+        <p>If your dont see your flyer, It is beacuse only flyers for the <i>upcoming</i> weekend are displayed.  
+            <br> So, if your event is two weeks from now, vistors will be able to see your flyer <i>after</i> this weekend.
+            <br> If you have any other questions, feel free to contact us: <a href="mailto">r@cafe.com</a></p>
+
+            <button id="success_modal_btn" onclick="(function()
+                {success_modal.style['display']='none'})();">ok</button>
+    </div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+
+    var current_user_email = "null";
+    var csrftoken = getCookie('csrftoken');
+
+    // boro Bar Logic
+    $('.borobtn').click(function()
+        {
+            console.log(current_user_email)
+            $('.borobtn').removeClass('active');
+            $('.borobtn').removeClass('current_boro');
+            $(this).addClass('active');
+            $(this).addClass('current_boro');
+            
+            filter()
+        });
+    
+    // week Bar Logic
+    $('.weekday_button').click(function()
+    {
+        $('.weekday_button').removeClass('active');
+        $('.weekday_button').removeClass('current_day');
+        $(this).addClass('active');
+        $(this).addClass('current_day');
+        
+        filter()
+    });
+
+    // check box Logic
+
+    function expandCollapse(x)
+    {  
+        var thisNest = x.nextElementSibling
+
+        if (thisNest.style["display"] == "" || thisNest.style["display"] == "none")
+        {
+            // console.log(thisNest)
+            
+            //show nest
+            thisNest.style["display"] = "block";
+            x.firstChild.innerHTML = "-";
+
+            //select all options in nest when expanded(if none are already selected)
+            // let nodes = thisNest.children
+            // let anyAlreadyChecked = false;
+            // for(var i=0; i < nodes.length; i++) {
+            //     if(nodes[i].classList.contains("checked")){anyAlreadyChecked=true}
+            // }
+            // if(anyAlreadyChecked){return}
+            // else
+            // {
+            //     for(var i=0; i < nodes.length; i++) {
+            //         // console.log(nodes[i]);
+            //         // nodes[i].click();
+            //         check(nodes[i]);
+            //     }
+            // }
+        }
+        else{
+            thisNest.style["display"] = "none";
+            x.firstChild.innerHTML = "+";}
+        // console.log(x.nextElementSibling)
+    }
+    function check(x)
+    {
+        //turn off "show all" button
+        let showAllButton = document.getElementsByClassName("showAll_button")
+
+        for (i = 0; i < showAllButton.length; i++) 
+        {
+            showAllButton[i].classList.remove("showingAll");
+        }
+
+
+        // console.log(x.value)
+        if(x.classList.contains("checked"))
+        {
+            x.classList.remove("checked");
+            x.firstChild.style.background = "white";
+        }
+        else{
+            console.log("added checked");
+            x.classList.add("checked");
+            x.firstChild.style.background = "black";
+        }
+        
+        // console.log( x.nextElementSibling);
+        filter();
+    }
+    function getCookie(name) 
+    {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function showAll(x)
+    {
+
+        // if(x.classList.contains("showingAll"))
+        // {
+        //    x.classList.remove("showingAll");
+        // }
+        // else
+        // {
+            //uncheck all other options
+            var check_options = document.getElementsByClassName("check_option")
+
+            for (i = 0; i < check_options.length; i++)
+            {
+                check_options[i].firstChild.style["background-color"] = "white";
+                check_options[i].classList.remove("checked");
+            }
+
+            // x.classList.add("showingAll");
+            filterBarDesk.scrollTop = 0;
+
+            //filter
+            filter();
+
+            //collapse open nests
+            let nests = document.getElementsByClassName("nest")
+            for (i = 0; i < nests.length; i++) 
+            {
+                nests[i].style["display"] = "none"
+            }
+            document.querySelectorAll('.expand_symbol').forEach((symbol) => {symbol.innerHTML = "+";});
+        // }
+    }
+
+    // filter_func
+    function filterOLD() {
+        
+        $('.flyer').show("slow");
+        
+        var actives = document.getElementsByClassName("active");
+        var checked = document.getElementsByClassName("checked");
+        var flyers = document.getElementsByClassName("flyer");
+        var blog = document.getElementById("blog");
+        
+        blog.scrollTop = 0;
+
+        for (i = 0; i < actives.length; i++) {
+            for (j = 0; j < flyers.length; j++) 
+            {
+                if (flyers[j].classList.contains(actives[i].value) == false)
+                {
+                        flyers[j].style.display ="none";
+                }
+            }
+        }
+
+        for (i = 0; i < checked.length; i++) {
+            for (j = 0; j < flyers.length; j++) 
+            {
+
+                if (i==0 && flyers[j].classList.contains(checked[i].value) == false)
+                {
+                        flyers[j].style.display = "none";
+                }
+                if (i!=0 && flyers[j].classList.contains(checked[i].value) == true && flyers[j].style.display =="none")
+                {
+                        flyers[j].style.display ="block";
+                }
+            }
+        }
+    
+    // console.log(blog.scrollTop)
+    }
+
+    function filter() {
+        
+        var boro = document.getElementsByClassName("current_boro");
+        var day = document.getElementsByClassName("current_day");
+        var checked = document.getElementsByClassName("checked");
+        var flyers = document.getElementsByClassName("flyer-div");
+        var moreInfo_divs = document.getElementsByClassName("moreInfo");
+        var blog = document.getElementById("blog");
+        
+        // blog.scrollTop = 0; //smooth scroll moved to bottom
+        let sb =document.getElementById('side-bar-mobile');
+        if (sb.classList.contains('open')){toggleSideBar();}
+
+        $('.flyer').hide();
+        no_result_div.style['display'] = 'none';
+        no_reminders_div.style['display']='none';
+        let no_Results = true;
+
+
+        let hash_list = [];
+
+        if (checked.length > 0)
+        {
+            for (i = 0; i < flyers.length; i++){
+                for (j = 0; j < checked.length; j++)
+                {
+                    if(flyers[i].classList.contains(boro[0].value) &&
+                        flyers[i].classList.contains(day[0].value) &&
+                        flyers[i].classList.contains(checked[j].dataset.value) &&
+                        !hash_list.includes(flyers[i].dataset.md5))
+                    {
+                        flyers[i].style.display ="flex";
+                        moreInfo_divs[i].style.display ="flex";
+
+                        hash_list.push(flyers[i].dataset.md5)
+                        no_Results = false;
+                    }
+                }
+            }
+        }
+
+        if (checked.length == 0)
+        {
+            for (i = 0; i < flyers.length; i++){
+                if(flyers[i].classList.contains(boro[0].value) &&
+                    flyers[i].classList.contains(day[0].value) &&
+                    !hash_list.includes(flyers[i].dataset.md5))
+                {
+                    flyers[i].style.display ="flex";
+                    moreInfo_divs[i].style.display ="flex";
+
+                    hash_list.push(flyers[i].dataset.md5)
+                    no_Results=false;
+                }
+            }
+        }
+
+        blog.scrollTo({top: 0, behavior: 'smooth'});
+
+        if(no_Results)
+            {no_result_div.style['display'] = 'block';}
+    }
+
+    function toggleSideBar(){
+
+        // console.log("bb")
+        var filterButton = document.getElementById("filterButton")
+
+        if(filterButton.firstChild.classList.contains("bi-list"))
+        {
+            var sideBar =document.getElementById("side-bar-mobile");
+                sideBar.style.width = "59%";
+                sideBar.classList.add('open');
+            var options =document.getElementById("filter-options-mobile");
+                options.style["padding-left"] = "25%";
+            var filter_btn = filterButton.firstChild
+                filter_btn.classList.remove("bi-list");
+                filter_btn.classList.add("bi-chevron-double-left");
+            filterButton.style["left"] = "100%";
+
+            // adding listener to flyer-div so user can click off and away mobile-side-bar
+            var currentFlyers = document.getElementsByClassName("flyer-div")
+            for (var i = 0; i < currentFlyers.length; i++) {
+                currentFlyers[i].addEventListener("click", toggleSideBar);
+            }
+            // blog-inner.addEventListener("click", toggleSideBar);no_results_text
+            let no_results_text = document.getElementsByClassName("no_results_text")
+            for (var i = 0; i < no_results_text.length; i++) {
+                no_results_text[i].addEventListener("click", toggleSideBar);
+            }
+        }
+        else{
+            var sideBar =document.getElementById("side-bar-mobile");
+                sideBar.style.width = "0px";
+                sideBar.classList.remove('open')
+            var options =document.getElementById("filter-options-mobile");
+                options.style["padding-left"] = "0px";
+            var filter_btn = filterButton.firstChild
+                filter_btn.classList.remove("bi-chevron-double-left");
+                filter_btn.classList.add("bi-list");
+            filterButton.style["left"] = "105%";
+
+            // removing listener to flyer-div
+            var currentFlyers = document.getElementsByClassName("flyer-div")
+            for (var i = 0; i < currentFlyers.length; i++) {
+                currentFlyers[i].removeEventListener("click", toggleSideBar);
+            }
+            let no_results_text = document.getElementsByClassName("no_results_text")
+            for (var i = 0; i < no_results_text.length; i++) {
+                no_results_text[i].removeEventListener("click", toggleSideBar);
+            }
+        }
+    }
+
+    function watch(x)
+    {   
+        if (current_user_email != "null")
+        {
+            // console.log(x.style["color"])
+            // console.log()
+            let flyer_id = x.dataset.value;
+            
+
+            if(x.style["color"] =="" || x.style["color"] =="rgb(240, 248, 255)")//watch
+            {
+                x.style["color"] ="#034694"//blue
+                x.parentElement.parentElement.classList.add("watched");
+
+                //ajax to update db
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "/watchList"); 
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xhttp.onreadystatechange = function() 
+                {
+                    if (this.readyState == 4 && this.status == 200) 
+                    {
+                        // Response
+                        var response = this.responseText;
+                        console.log(response)
+                    }
+                }
+                var data = {"email":current_user_email, "id":flyer_id, "func":"add"};
+                console.log(data)
+                xhttp.send(JSON.stringify(data));
+
+
+                        
+            }
+            else//un-watch
+            {
+                x.style["color"] ="#f0f8ff"//white
+                .parentElement.parentElement.classList.remove("watched");
+
+                //ajax to DELETE from db
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "/watchList"); 
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xhttp.onreadystatechange = function() 
+                {
+                    if (this.readyState == 4 && this.status == 200) 
+                    {
+                        // Response
+                        var response = this.responseText;
+                        console.log(response)
+                    }
+                }
+                var data = {"email":current_user_email, "id":flyer_id, "func":"del"};
+                console.log(data)
+                xhttp.send(JSON.stringify(data));
+            }
+        }
+        else//if current email == "null"
+        {  
+            $('#emailModal').modal('show');
+            // keep working here.to handle alrm clock click new login
+        }
+    }
+    function ValidateEmail(mail) 
+    {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+    {
+        return (true)
+    }
+    //show error message
+        document.getElementById("emailErrorText").style["display"] = "block";
+        return (false)
+    }
+
+    function getFlyers()
+    {   
+        
+        //get email IF there is none
+        if (current_user_email == "null"){
+            //vaildate email input
+            new_email = document.getElementById("emailField").value
+            if(ValidateEmail(new_email) == false) 
+                {return}
+        
+            //if email is valid:
+            current_user_email = new_email;
+            localStorage.setItem('current_user_email', new_email);
+        }
+        //hide and reset modal
+        $('#emailModal').modal('hide')
+        document.getElementById("emailErrorText").style["display"] = "none";
+        document.getElementById("emailField").value = ""
+
+        if(filterButton.firstChild.classList.contains("bi-chevron-double-left"))
+        {
+            toggleSideBar();
+        }
+
+        //ajax to get the current users watched_flyerList
+        url = "/watchList?useremail=" + current_user_email
+        flyers = document.getElementsByClassName("flyerAlarm")
+
+        console.log("clicked")
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url);
+       
+        xhttp.onreadystatechange = function() 
+        {
+            const DONE = 4; // readyState 4 means the request is done.
+            const OK = 200; // status 200 is a successful return.
+            if (xhttp.readyState === DONE) {
+                if (xhttp.status === OK) {
+                // Response
+                var response = JSON.parse(this.responseText);
+                var watchedFlyers = response["flyers"]
+                console.log(response)
+                
+                $(".flyer").hide();
+                no_reminders_div.style['display']='none';
+
+                let no_Results = true;
+                for (i = 0; i < flyers.length; i++){
+                    for (j = 0; j < watchedFlyers.length; j++)
+                    {
+                        if(flyers[i].dataset.value == watchedFlyers[j])
+                        {
+                            flyers[i].style["color"] ="#034694";//blue
+                            flyers[i].parentElement.parentElement.style["display"] = "flex";
+                            flyers[i].parentElement.parentElement.classList.add("watched");
+                            no_Results = false;
+                            // console.log (flyers[i].parentElement.parentElement);
+
+                        }
+                    }
+                }
+                blog.scrollTop = 0;
+                if(no_Results){no_reminders_div.style['display']='block';}
+
+                
+
+            }
+        }else {
+			console.log('Error: ' + xhttp.status);}
+            // alert("Sorry there was an error")
+        }
+        xhttp.send();
+
+    }
+
+    function myRemindersButton(){
+        
+        if (current_user_email != "null"){
+            
+            let flyers = document.getElementsByClassName("watched")
+
+            $('.flyer').hide();
+            for (i = 0; i < flyers.length; i++)
+            {
+                flyers[i].style["display"] = "flex";
+            }
+            
+            if(filterButton.firstChild.classList.contains("bi-chevron-double-left"))
+            {
+                toggleSideBar();
+            }
+
+            blog.scrollTop = 0;
+        }
+        else
+        $('#emailModal').modal('show');
+    }
+
+    // $('.bi-three-dots-vertical').on('click', function(evt) {
+    //     $(this).children().slideDown(); // does not run a DOM query
+    // }); 
+
+    function toggleMoreInfo(x){
+
+        let moreInfo = x.parentElement.parentElement.nextElementSibling;
+        let children = moreInfo.children;
+        let userInfo = moreInfo.getElementsByClassName("user_info");
+
+        if(moreInfo.style["height"]== "0px" || moreInfo.style["height"]== ""){
+
+            if(document.documentElement.clientWidth >=1000)
+            {
+                moreInfo.style["height"]= "150px";
+            }
+            else
+            {
+                moreInfo.style["height"]= "119px";
+            }
+            
+            moreInfo.style["bottom"]= "0%";
+            moreInfo.style["margin-bottom"]= "2%";
+            children[0].innerHTML="Contact Info:";
+
+            for(i=0; i<userInfo.length; i++)
+            {
+                userInfo[i].style["padding"] = "2%";
+
+                if(document.documentElement.clientWidth >=1000)
+                {
+                userInfo[i].style["height"] = "52px";
+                }
+                else
+                {
+                    userInfo[i].style["height"] = "34px";
+                }
+            }
+
+            //make sure moe info div doesnt appear below viewable screen
+
+            let rect = moreInfo.getBoundingClientRect();
+
+            if(rect.bottom >=469 && document.documentElement.clientWidth >=1000){
+                blog.scrollTop = moreInfo.offsetTop - 470;}
+
+            console.log(rect.bottom+','+document.documentElement.clientWidth)
+        }
+        else{
+            moreInfo.style["height"]= "0px";
+
+            moreInfo.style["bottom"]= "15%";
+            moreInfo.style["margin-bottom"]= "auto";
+
+            // children[0].innerHTML="\u00A0";  added to bottom to make animation look smoother
+
+
+            for(i=0; i<userInfo.length; i++){
+                userInfo[i].style["padding"] = "0px";
+                userInfo[i].style["padding-left"] = "20%";
+                userInfo[i].style["padding-right"] = "20%";
+                // children[i].style["padding-top"] = "2%";
+                userInfo[i].style["height"] = "0px";
+            }
+
+            children[0].innerHTML="\u00A0";
+        }
+
+    }
+
+
+    function onLoadFunction()
+    {
+        //show errors (if errors)
+        //   console.log("{% if messages %}<ul >{% for message in messages %}<li{% if message.tags %} {% endif %}>{{ message }}</li>{% endfor %}</ul>{% endif %}")
+        if("{% if messages %}<ul >{% for message in messages %}<li{% if message.tags %} {% endif %}>{{ message }}</li>{% endfor %}</ul>{% endif %}")
+        {
+            success_modal.style['display'] = 'block';
+        }
+
+        if(localStorage.getItem('current_user_email'))
+        {
+            current_user_email =localStorage.getItem('current_user_email');
+            console.log(current_user_email);
+        }
+        else
+        {
+            current_user_email ='null';
+        }
+
+        filter(); //to remove duplicte Flyers on load
+
+    }
+
+
+  </script>
+
+  <style>
+    
+    html {
+  scroll-behavior: smooth;}
+
+      body{
+    padding: 0;
+    margin: 0;
+  }
+  #bodyDiv{
+    display: flex;
+    height: 100vh;
+    width:100vw;
+    /* overflow: hidden; */
+  }
+  .btn:focus {
+        box-shadow: none !important;
+      }
+
+  /* ----------- leftPanel ----------- */
+  #leftPanel{
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    
+    flex: 2.5;
+    /* background-color: white; */
+  
+  }
+  #mainLogo{
+    max-width: 100%;
+    max-height: 100%;
+    padding-right: 5%;
+
+  } 
+    #border{
+    align-self: center;
+    width: 55%;
+    border-bottom: 1px solid #F76F07;
+    margin: 4%;
+    padding-right: 5%;
+}
+  
+#boroBar_left{
+    /* background-color: #F76F07; */
+    text-align: center;
+    /* flex-wrap: wrap; */
+    margin: 1%;
+    padding: 1%;
+    margin-bottom: 0%;
+    user-select: none;
+}
+.borobtn_desk{
+    border-radius: 25px;
+    background-color: white;
+    margin: 5px;
+    border: 1px solid black;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    padding: 0px 8px;
+    user-select: none;
+}
+
+.borobtn_desk:hover {
+  /* background: #eef1f5;
+  color: #174ea6; */
+
+  background-color: #eef1f5;
+  opacity: 50;
+}
+.borobtn_desk:active {
+  outline: 0 !important;
+}
+.borobtn_desk:focus {
+  outline: 0 !important;
+}
+
+#boros_left .active {
+
+  background-color: black;
+  color: white;
+
+  outline: 0 !important;
+  user-select: none;
+}
+
+
+/* ---- */
+.button-17 {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-family: "Google Sans",Roboto,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: .25px;
+  line-height: normal;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform,opacity;
+  z-index: 0;
+}
+
+.button-17:hover {
+  background: #F6F9FE;
+  color: #174ea6;
+}
+
+.button-17:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+}
+
+.button-17:focus {
+  outline: none;
+  border: 2px solid #4285f4;
+}
+
+.button-17:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.button-17:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+
+.button-17:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.button-17:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+
+.button-17:disabled {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+.boro_topRow{
+    margin-bottom: 5px;
+}
+
+#a{
+  background-color: #F76F07;
+  display: none;
+}
+#weekBar_left{
+    background-color:rgb(60, 68, 75);
+    /* height:5%; */
+    border: 1px solid;
+    box-shadow: 5px 10px 20px black inset;
+    padding:.2%;
+    text-align: center;
+    margin: 1%;
+    
+    margin-top: 0%;
+    /* min-height: 0; */
+}
+#weekBar_desk{
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    user-select: none;
+}
+.weekbtn_desk{
+    /* border-radius: 5px; */
+    background-color: white;
+    /* margin: 5px; */
+    border: 1px solid black;
+    border-style: none;
+    /* box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0; */
+    /* padding: 0px 8px; */
+    user-select: none;
+}
+.weekbtn_desk:hover{
+    background-color: #eef1f5;
+    opacity: 50;
+}
+.weekbtn_desk:active {
+  outline: 0 !important;
+}
+.weekbtn_desk:focus {
+  outline: 0 !important;
+}
+#weekBar_desk .active{
+  background-color: black;
+  color: white;
+
+  outline: 0 !important;
+  user-select: none;
+}
+#filterBarDesk{
+    display:flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    cursor: pointer;
+    scroll-behavior: smooth;
+    flex-grow: 1;
+}
+    #filter-options-Desktop{
+        margin-top: 4%;
+        margin-left: 25%;
+
+        
+
+
+    }
+
+            .filter_text_desk{
+                color:white;
+                display: inline-block;
+
+                padding: 4%;
+                font-weight: bold;
+                font-size: 19px;
+                /* text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+                            #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px; */
+                            /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
+                            /* text-shadow:-1px -1px 0 #000,
+                                        0   -1px 0 #000,
+                                        1px -1px 0 #000,
+                                        1px  0   0 #000,
+                                        1px  1px 0 #000,
+                                        0    1px 0 #000,
+                                        -1px  1px 0 #000,
+                                        -1px  0   0 #000; */
+                                        /* text-shadow:
+                                                    -1px -1px 0 black,
+                                                    0px -1px 0 black,
+                                                    1px -1px 0 black,
+                                                    -1px 1px 0 black,
+                                                    0px 1px 0 black,
+                                                    1px 1px 0 black; */
+                                                    /* text-shadow:
+                                                        3px 3px 0 #000,
+                                                        -1px -1px 0 #000,  
+                                                        1px -1px 0 #000,
+                                                        -1px 1px 0 #000,
+                                                        1px 1px 0 #000; */
+
+                /* -webkit-font-smoothing: antialiased; */
+                --stroke-color:black;
+  --stroke-width:1.5px;
+text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * 0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * 0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * 0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0) calc(var(--stroke-width) * 1) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * 0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * 0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * 0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -1) calc(var(--stroke-width) * 0) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * -0.3827) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * -0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * -0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0) calc(var(--stroke-width) * -1) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * -0.9239) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * -0.7071) 0
+      var(--stroke-color),
+    calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * -0.3827) 0
+      var(--stroke-color);
+
+      white-space: nowrap;
+
+            }
+            .filter_text{
+                
+                color:white;
+                font-size: 135%;
+                font-weight: bold;
+                text-shadow:1px 1px 1px black,
+                        4px  1px 0 rgba(0,0,0,0.7),
+                        3px  2px 0 rgba(0,0,0,0.7),
+                        3px  3px 0 rgba(0,0,0,0.7),
+                        2px  3px 0 rgba(0,0,0,0.7),
+                        1px  4px 0 rgba(0,0,0,0.7),
+
+                        0px  4px 0 rgba(0,0,0,0.7),
+                    -1px  4px 0 rgba(0,0,0,0.7),
+                    -2px  3px 0 rgba(0,0,0,0.7),
+                    -3px  3px 0 rgba(0,0,0,0.7),
+                    -3px  2px 0 rgba(0,0,0,0.7),
+                    -4px  1px 0 rgba(0,0,0,0.7),
+
+                    -4px  0px 0 rgba(0,0,0,0.7),
+                    -4px -1px 0 rgba(0,0,0,0.7),
+                    -3px -2px 0 rgba(0,0,0,0.7),
+                    -3px -3px 0 rgba(0,0,0,0.7),
+                    -2px -3px 0 rgba(0,0,0,0.7),
+                    -1px -4px 0 rgba(0,0,0,0.7),
+
+                        0px -4px 0 rgba(0,0,0,0.7),
+                        1px -4px 0 rgba(0,0,0,0.7),
+                        2px -3px 0 rgba(0,0,0,0.7),
+                        3px -3px 0 rgba(0,0,0,0.7),
+                        3px -2px 0 rgba(0,0,0,0.7),
+                        4px -1px 0 rgba(0,0,0,0.7);
+                margin: 0;
+                padding:4%;
+                display: inline-block;
+                /* cursor: pointer; */
+                white-space: nowrap;
+            }
+            .check_box{
+            
+            display: inline-block;
+            border: 1.5px solid black;
+            /* padding: 0%; */
+            font-size: 50%;
+            cursor: pointer;
+            transform: translateY(-2.9px);
+            }
+            .expand_symbol{
+            
+            display: inline-block;
+            /* border-style: solid; */
+            /* padding: 0%; */
+            font-size: 200%;
+            width: 15px;
+            transform: translateX(-4px);
+            cursor: pointer;
+            }
+            #clear_all_symbol{
+            font-size: 150%;
+            font-weight: bold;
+            cursor: pointer;
+            transform: scale(1, 7);
+
+            }
+            .showAll_button{
+                transform: translateX(-10px);
+            }
+            .refresh_symbol{
+                width: 1.4rem;
+                transform: translateY(-2.9px);
+            }
+            .refresh_symbol_desk{
+                width: 19.9px;
+                transform: translateY(-2.5px);
+
+                margin-top: 2;
+                
+            }
+
+    #buttonsBottom{
+
+    display: flex;
+    flex-direction: column;
+    /* padding: 2%; */
+    padding-left: 2%;
+    padding-right: 2%;
+    /* position: fixed; */
+    /* bottom: 0; */
+    
+    /* position: absolute;  */
+    /* width: 100%; */
+    /* bottom: 5;  */
+    
+    }
+                /* .bottomButtonDesk{
+                    
+                } */
+/* Custom Checkboxes */
+/* https://codepen.io/elujambio/pen/rKKLbx */
+
+
+  /* ---------- mainPanel ----------- */
+  #mainPanel{
+      flex: 7.5;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  #mobileLogoDiv{
+      /* display: none; */
+      width: auto;
+      max-height: 7%;
+      /* height: auto; */
+      /* background-color: #c4ff61; */
+      
+      
+  }
+  #mobileLogo{
+
+    max-width: 100%;
+    max-height: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+  }
+  
+  #boroBar{
+      background-color: #F76F07;
+      /* background-color: #c4ff61; */
+      
+      
+  }
+
+  #boros{
+    text-align: center;
+  }
+  /* #boros .btn{
+      font-size: smaller;
+  } */
+
+  
+  /* #blogDiv{ */
+      /* display: flex; */
+      /* flex-direction: column; */
+      /* height: 100%; */
+      /* height: 92vh; */
+      /* background-color: rgb(22, 28, 23); */
+      /* max-height: 100%;
+       */
+      /* min-height: 0; keeps blogDiv from overflowing parent.(flexbox bug) */
+      /* padding: 0;
+      margin: 0; */
+      /* overflow-x: hidden;  */
+    /* } */
+  
+  #weekBar{
+    
+      background-color:rgb(60, 68, 75);
+      /* height:5%; */
+      border: 1px solid;
+      box-shadow: 5px 10px 20px black inset;
+      padding:.2%;
+      text-align: center;
+      /* min-height: 0; */
+  }
+  #weekBar .weekday_button{
+      border-radius: 50%;
+      /* margin-left: 1%; */
+    }
+
+    #blog{
+        scroll-behavior: smooth;
+      /* height: 92vh; */
+      /* background-color: #009493; */
+      /* background-color: #12E0DF; */
+      /* background-color: #1B944F; */
+      /* background-color: #943A06; */
+      /* background-color: #1B5594; */
+      /* background-color: #076FE0;  */
+      /* background-color: #7A633B; */
+      /* background-color: #612808; */
+      /* background-color: #613B25; */
+      /* background-color: #612808; */
+      /* background-color: #393D41; */
+      background-color: #252629;
+  
+      /* text-align: center; */
+      /* align-items: center; */
+      overflow: scroll;
+      overflow-x: hidden; 
+      /* line-height: 10ßx; space between posts */
+      /* display: flex;
+      flex-direction: column; */
+      flex: 1;
+      height: 100%;
+      
+    }
+    /* #blog-inner{
+        display: inline-block;
+    } */
+
+    #side-bar-mobile{
+        position: fixed;
+        background-color: #f5f5f5;
+        padding-left: 0px;
+        width: 0px;
+        height: 100%;
+        /* margin-top: 5%;
+        margin-left: 25%; */
+        transition: 0.4s;
+        z-index: 2;
+        /* display: flex; */    
+    }
+    #mobile-side-bar-inner{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      /* background-color: brown; */
+      padding-bottom: 60%;
+      
+    }
+    #filter-options-mobile{
+        /* margin-top: 10%; */
+        overflow-x:scroll;
+        flex-grow: 1;
+        /* margin-bottom: auto; */
+    }
+    li{
+      list-style-type: none;
+    }
+    .nest{
+      display: none;
+    }
+    #filterButton{
+
+        position: relative;
+        top: 1%;
+        right:105%;
+        font-weight: bold;
+    }
+    #filterButton:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      #blank-space{
+        flex-grow: 1;
+      }
+
+    #buttonsBottomLeft{
+    
+      display: flex;
+      flex-direction: column;
+      padding: 5%;
+      transform: translateY(-10px);
+      
+    }
+    .bottomLeftButton{
+      margin: 1%;
+    }
+    .fa-bars{
+        color:white;
+    }
+ 
+    .no_results_text{
+        margin-top: 5%;
+        color:seashell;
+        text-align: center;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 150%;
+        padding-bottom: 80vh;
+    }
+
+    .flyer-div
+    {
+      /* height: 95%;
+      width:fit-content; */
+      width: 45vw;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top:1%;
+
+      display: flex;
+      /* margin-left: auto;
+margin-right: auto; */
+  /* position: relative; */
+    
+    }
+
+    .flyer-img{
+      /* width: 80%; */
+      /* height: 100%; */
+      width: 100%;
+      /* object-fit: contain; */
+      /* margin-left: 10%; */
+      /* margin-right: 10%; */
+      /* margin-bottom: 1em; */
+      /* margin:1em; */
+      display: block;
+      z-index: 1;
+      
+      
+    }
+    .flyer-buttons{
+      
+      align-self: flex-end;
+      font-size: 200%;
+      /* position: absolute; */
+      /* bottom: 8px; */
+      /* right: 2%; */
+      margin-right: auto;
+      margin-left: 1%;
+      color: aliceblue;
+    }
+        .dropdown-menu{
+            /* background-color: rgb(60, 68, 75); */
+            background-color: rgb(40, 44, 49);;
+        }
+
+        .dropdown-item{
+            background-color:rgb(40, 44, 49);
+            color: rgb(249,247,249);
+        }
+        .dropdown-item:hover{
+            background-color: rgb(23,25,27);
+            color: rgb(249,247,249);
+        }
+
+        .moreInfo
+      {
+        height: 0px;
+        /* width: 80vw;
+        margin-left: auto;
+        margin-right: auto; */
+        margin-top:1%;
+        display: flex;
+        flex-direction: column;
+        color:rgb(249,247,249);
+        font-size: 80%;
+        align-items: center;
+        transition: 0.4s;
+        position: relative;
+        bottom: 15%;
+        /* z-index: 0; */
+      }
+      .moreInfo>*{
+          margin: 0px;
+          /* display: none; */
+          /* height: 0px; */
+          transition: 0.4s;
+          
+          /* display:inline-block */
+      }
+
+      .user_info{
+          /* padding: 2%; */
+          background-color: rgb(249,247,249);
+          width:45vw;
+          border-radius: 4px;
+          color: black;
+          padding: 0px;
+          padding-left: 20%;
+          padding-right: 20%;
+          height: 0px;
+          color: #007bff;
+          text-decoration: none;
+          white-space:nowrap;
+          overflow-y: hidden;
+          overflow-x: scroll;
+          /* for IE and firefox */
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+        
+            .user_info::-webkit-scrollbar {
+                display: none;}
+
+    .newPostIcon{
+        color: yellow;
+        position: fixed;
+        bottom: 2%;
+        right: 5%;
+    }
+
+    #emailModalText{
+        font-size: 78%;
+    }
+
+    #success_modal{
+        background-color: white;
+        width: 90vw;
+        height: auto;
+        padding: 5%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        font-size: 70%;
+        border: 1px solid black;
+        line-height: 1.8;;
+    }
+        #modal_line{
+            width: 55%;
+            border-bottom: 1px solid #F76F07;
+            margin: auto;
+            padding-top: 1%;
+            padding-right: 5%;
+            margin-bottom: 4%;
+        }
+        #success_modal_btn{
+            /* box-shadow:inset 0px -3px 7px 0px #29bbff; */
+            /* background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%); */
+            background: #F76F07;
+            /* background-color:#F76F07; */
+            border-radius:1px;
+            border:1px solid #0b0e07;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:15px;
+            padding:9px 23px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #263666;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2%;
+        }
+  
+  
+    @media only screen and (max-width: 1298px) {
+        
+    
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #boroBar_left{
+            background-color:yellowgreen;
+        }
+        #leftPanel{
+            display: none;
+        }
+        #mainPanel{
+          flex: 1;
+        }
+        .flyer-div
+      {
+        height: auto;
+        width:80vw;
+        /* margin-left: auto;
+        margin-right: auto;
+        margin-top:1%;
+
+        display: flex; */
+        
+        /* margin-left: auto;
+      margin-right: auto; */
+      /* position: relative; */
+      }
+      
+
+    .flyer-buttons{
+    font-size: 120%;}
+   
+    .user_info{
+    width: 80vw;}
+
+
+    }
+    @media only screen and (min-width: 1001px) {
+
+        /* main panel */
+
+        #mobileLogoDiv{
+        display: none;
+        }
+        #boroBar{
+        display: none;
+        }
+        #weekBar{
+          display: none;
+        }
+        #side-bar-mobile{
+          display: none;
+        }
+
+        #success_modal{
+            /* height: 46vh; */
+            width: 40vw;
+            padding: 2%;
+            font-size: 95%;
+        }
+
+    }
+
+    
+  </style>
+
+  <!-- Your flyer was successflly Posted!  
+  If you dont see your flyer its because cafe burner only displays flyers for the upcoming weekend.
+  So if your event is taking place after this upcoming weekend, you wont see your flyer untill then.
+  Any questions? contact support@grepper.com -->

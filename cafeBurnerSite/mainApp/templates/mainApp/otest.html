@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="o" >
+        <div id="m" ></div>
+    </div>
+    <button onclick="h()">fuck</button>
+</body>
+</html>
+<style>
+    #o{
+        height: 200px;
+        width: 400px;
+        background-color: red;
+        display: flex;
+  justify-content: center;
+  align-items: center;
+    }
+    #m{
+        height: 50px;
+        width: 100px;
+        background-color: yellow;
+        /* opacity: 0%; */
+        transition: visibility 0s, opacity 0.5s linear;
+        
+    }
+</style>
+<script>
+    function h()
+    {
+        if (m.style['opacity'] == 0)
+        {
+            m.style['opacity'] = 1;
+            m.style['visibility'] = 'visible';
+        }
+        else{
+            m.style['opacity'] = 0;
+            m.style['visibility'] = 'hidden';
+        }
+        console.log(m.style['opacity']);
+    }
+    o.addEventListener("click", function(){console.log('out4r');});
+    m.onclick=function(event){  event.stopPropagation();console.log('imner');}
+</script>

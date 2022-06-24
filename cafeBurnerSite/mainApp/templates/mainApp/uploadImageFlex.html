@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <title>upload image</title>
+    </head>
+
+    <body>
+
+        {% load static %}
+        <div id="bodyDiv">
+            <div id="firstDiv">
+                <div id="mobileLogoDiv">
+                    <img id = "mobileLogo" src="{% static '/mainApp/cafeLogo.png' %}" alt="cafeLogo">
+                </div>
+                
+                <div id="border" ></div><br><br><br><br><br>
+            </div>
+            
+            <div id="secondDiv">
+                <div id="formDiv">
+                    <form runat="server">
+                        <label for="fileInput">
+                            <div id="iconDiv">
+                                <img id="icon" src="{% static '/mainApp/uploadImageIcon1.jpg' %}" alt="upload Image icon">
+                            </div>
+
+                            <div id="formButtons">
+                                <div id="chooseDifferentImageButton" type="button" class="btn btn-primary btn-sm" >choose different image</div>
+                                <a id="" class="btn btn-primary btn-sm" href="/newFlyerForm" role="button">next</a>
+                            </div>
+                        </label>
+                        <!-- HTML !-->
+
+
+
+                        <input accept="image/*" type='file' id="fileInput"/>
+                        
+                        
+                    </form>
+                </div>
+
+                    <!-- <label for="file-input">
+                        <img id="icon" src="{% static '/mainApp/uploadImageIcon1.jpg' %}" alt="upload Image icon">
+                    </label>
+                
+                    <input id="file-input" type="file"/> -->
+                </div>
+            <br><br>
+        </div>
+    </body>
+
+</html>
+
+<style>
+    #bodyDiv{
+        display: flex;
+        flex-direction: column;
+    }
+
+        #firstDiv{
+            flex: .5;
+        }
+
+        
+            #mobileLogo{
+
+                height: 10vh;
+                width:auto;
+                margin:auto;
+                }
+            #border{
+                
+                width: 55%;
+                border-bottom: 1px solid #F76F07;
+                margin: auto;
+                padding-right: 5%;
+                }
+
+        #secondDiv{
+            flex:5;
+            
+        }
+            #formDiv{
+                margin: auto;
+                width: 40vw;
+                height: auto;
+            }
+            #iconDiv{
+                box-shadow: 2px 2px 5px #333;
+                border: 1px solid;
+                box-shadow: 5px 10px #888888;
+
+            }
+            #icon{
+                width: 100%;
+                height: 100%;
+            }
+            #formButtons{
+
+                margin-top: 4%;
+                /* text-align: right; */
+                /* display: flex; */
+                justify-content: flex-end;
+                gap: 2%;
+
+                display: none;
+            }
+            form > input{
+                display: none;
+            }
+
+
+    @media only screen and (min-width: 1299px) {
+
+        #secondDiv{
+            flex:20;
+        }
+        #formDiv{
+            width: 20vw;
+        }
+        /* #mobileLogoDiv{
+            max-height: 1%;
+            width: auto;
+        } */
+    }
+
+
+</style>
+
+<script>
+    fileInput.onchange = evt => {
+  const [file] = fileInput.files
+  if (file) {
+    icon.src = URL.createObjectURL(file)
+    formButtons.style["display"]="flex";
+    formDiv.style["width"] = "80vw";
+    if (screen.width > 800){
+        formDiv.style["width"] = "50vw";
+    }
+
+  }
+}
+</script>

@@ -1,0 +1,3 @@
+Pillow
+pip install mysqlclient
+brew install mysql-client
