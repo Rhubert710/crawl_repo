@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> uplaod Multiple </title>
+    
+</head>
+<body>
+
+    <textarea name="data" id="text_area" cols="99" rows="19"></textarea>
+    <button id="post_button" onclick="post_to_crawl()">Post</button>
+
+    <p id="res_p"></p>
+
+</body>
+</html>
+
+<style>
+    body
+    {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    textarea{
+
+    }
+    button
+    {
+        margin: 5ch;
+        background-color: rgb(63, 63, 255);
+        height:5ch;
+        width:19ch;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+    }
+</style>
+
+<script>
+
+function post_to_crawl()
+{
+    let data = text_area.value;
+
+    post_button.disabled = true;
+    post_button.style['background-color'] = 'rgb(255, 236, 63)';
+
+
+    fetch("/saveMultiple", 
+    {
+
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "Accept": "application/json",
+          'Content-Type': 'application/json'
+        },
+
+    body: `{"new_flyers_data": ${data}}`
+
+    }).then(res => {
+
+    console.log("Request complete! response:", res);
+    res_p.innerText = `${res.status} ${res.statusText}`;
+
+    });
+}
+</script>

@@ -5,7 +5,7 @@ class Flyer_Image(models.Model):
     
     # Flyer_image = models.ImageField(upload_to='flyer_imgs/',height_field=None, width_field=None, max_length=200, null = False, blank = False)
     Flyer_image = models.ImageField(upload_to='flyer_imgs/', null = True, blank=True)
-    Url = models.CharField(max_length=500, null=True, blank=True)
+    Img_src_url = models.CharField(max_length=500, null=True, blank=True)
     Hash = models.CharField(max_length=200, null=True, blank=True)
     Flyer = models.ForeignKey('Flyer', on_delete=models.CASCADE, null=True, blank=True)
 

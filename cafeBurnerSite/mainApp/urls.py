@@ -1,6 +1,8 @@
 from django.urls import path
-
 from . import views
+
+from django.contrib.auth import views as auth_views
+from django.conf.urls import include
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -17,5 +19,9 @@ urlpatterns = [
     path('data', views.data, name='data'),
     path('promote', views.promote, name='promote'),
     path('about', views.about, name='about'),
+    path('uploadMultiple', views.uploadMultiple, name='uploadMultiple'),
+    path('saveMultiple', views.saveMultiple, name='saveMultiple'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='admin/login.html')),
+    path('accounts/', include('django.contrib.auth.urls')),
     
 ]

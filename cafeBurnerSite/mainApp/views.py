@@ -11,6 +11,8 @@ from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from collections import Counter
 import hashlib
 
+from django.contrib.auth.decorators import user_passes_test
+
 
 def index(request):
 
@@ -133,6 +135,7 @@ def saveFlyerDesktop(request):
             new_md5 = hashlib.md5(f).hexdigest()
             newImg.Hash = new_md5
             newImg.save()
+
         p = request.POST.dict()
 
         #formatting time
@@ -230,3 +233,40 @@ def promote(request):
 
 def about(request):
     return render(request, 'mainApp/about.html')
+
+@user_passes_test(lambda u: u.is_superuser)
+def uploadMultiple(request):
+    
+    return render(request, 'mainApp/uploadMultiple.html')
+
+def saveMultiple(request):
+
+    p = json.loads(request.body)
+    
+    for obj in p['new_flyers_data']:
+         
+        #create new img object
+        new_img = Flyer_Image(Img_src_url = obj['Img_src_url'])
+
+        new_img.full_clean()
+        new_img.save()
+
+
+        #create ne flyer object
+        new_flyer = Flyer(Boro = obj['Boro'], Address= obj['Address'], Event_type= obj['Event_type'],
+                            Contact_information= obj['Contact_information'], Description= obj['Description'],
+                            Posted_by_me= obj['Posted_by_me'], Flyer_image= new_img)
+
+        new_flyer.full_clean()
+        new_flyer.save()
+
+
+        #create new event object
+        new_event = Event(Date= obj['Date'], Day_of_week= obj['Day_of_week'],
+                            Flyer= new_flyer)
+
+        new_event.full_clean()
+        new_event.save()
+    
+    return HttpResponse('okll')
+    

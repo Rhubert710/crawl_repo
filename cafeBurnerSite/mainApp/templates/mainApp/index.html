@@ -17,7 +17,7 @@
     <!-- <link rel="stylesheet" href="gg.css"> -->
 
 </head>
-<body onload="onLoadFunction()">
+<body onload="onLoadFunction()" style="display:none;">
 
     <div id="bodyDiv">
       <!-- leftPanel start -->
@@ -218,9 +218,9 @@
 
                   {% for event in flyerList reversed %}
                   
-                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-pk = "{{event.pk}}" data-md5 = "{{event.Flyer.Flyer_image.Hash}}">
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-pk = "{{event.pk}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.pk}}" {% endif %}>
                       
-                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Url}}" {% endif %} alt="Flyer_image">
+                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="Flyer_image">
 
                         <div class="flyer-buttons">
                             <i class="bi bi-alarm flyerAlarm" onclick="watch(this)" data-value="{{event.Flyer.pk}}"></i>
@@ -230,11 +230,18 @@
                         <!-- more info -->
                         <div id="info{{event.pk}}" class="moreInfo flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" >
                             <p>&nbsp;</p>                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
-                            <a class="user_info" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and 'http://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
-                        <p>Address:</p>
-                        <a class="user_info" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
+                           <div class="user_info">
+
+                               <div class="tag_div"> <span class="type_tag">Comedy</span> <span class="boro_tag">Brooklyn</span> </div>
+                               <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maiores quasi eveniet et vel, a iure dignissimos delectus neque nihil</div>
+                               <div>full Description / ticket info:</div>
+                               <a class="contact_info" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and 'http://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
+                        
+                            </div> 
+                            <p>Address:</p>
+                            <a class="user_info address" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
                             
-                    </div>
+                        </div>
                         
                  
                     
@@ -811,7 +818,7 @@
 
                 if(document.documentElement.clientWidth >=1000)
                 {
-                userInfo[i].style["height"] = "52px";
+                userInfo[i].style["height"] = "auto";
                 }
                 else
                 {
@@ -829,6 +836,7 @@
             console.log(rect.bottom+','+document.documentElement.clientWidth)
         }
         else{
+            moreInfo.style["transition"] ="0.4s";
             moreInfo.style["height"]= "0px";
 
             moreInfo.style["bottom"]= "15%";
@@ -878,13 +886,19 @@
   </script>
 
   <style>
-    
+
+    @font-face {
+    font-family: comicy;
+    src: url({% static '/mainApp/ComicNeue-Bold.ttf' %});
+}
     html {
   scroll-behavior: smooth;}
 
       body{
     padding: 0;
     margin: 0;
+
+    display: block !important;
   }
   #bodyDiv{
     display: flex;
@@ -906,12 +920,14 @@
     /* background-color: white; */
   
   }
+
   #mainLogo{
     max-width: 100%;
-    max-height: 100%;
-    padding-right: 5%;
+    /* height: 100%; */
 
+    padding-right: 5%;
   } 
+    
     #border{
     align-self: center;
     width: 55%;
@@ -1515,7 +1531,8 @@ margin-right: auto; */
         display: flex;
         flex-direction: column;
         color:rgb(249,247,249);
-        font-size: 80%;
+        /* font-size: 80%; */
+        font-size: smaller;
         align-items: center;
         transition: 0.4s;
         position: relative;
@@ -1543,7 +1560,7 @@ margin-right: auto; */
           height: 0px;
           color: #007bff;
           text-decoration: none;
-          white-space:nowrap;
+          
           overflow-y: hidden;
           overflow-x: scroll;
           /* for IE and firefox */
@@ -1553,6 +1570,17 @@ margin-right: auto; */
         
             .user_info::-webkit-scrollbar {
                 display: none;}
+
+    .tag_div{
+        font-family: comicy;
+        font-size: larger;
+    }
+    .contact_info{
+        white-space:nowrap;
+    }
+    .address{
+        white-space:nowrap;
+    }
 
     .newPostIcon{
         color: yellow;
@@ -1673,7 +1701,6 @@ margin-right: auto; */
         }
 
     }
-
     
   </style>
 
