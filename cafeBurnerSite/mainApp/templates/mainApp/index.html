@@ -51,19 +51,19 @@
               <!-- <div id="weekBar_left" >
                 
                 <button type="button" value="flyer" class="btn btn-dark weekday_button btn-sm active current_day">All</button>
-                <button type="button" value="thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
-                <button type="button" value="friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
-                <button type="button" value="saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
-                <button type="button" value="sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
+                <button type="button" value="Thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
+                <button type="button" value="Friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
+                <button type="button" value="Saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
+                <button type="button" value="Sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
                
           </div> -->
           <div  id="weekBar_desk">
                 
             <button type="button" value="flyer" class="weekbtn_desk weekday_button btn-sm current_day">&nbsp;All&nbsp;</button>
-            <button type="button" value="thursday" class="weekbtn_desk weekday_button ">Thursday</button>
-            <button type="button" value="friday" class="weekbtn_desk weekday_button btn-sm">Friday</button>
-            <button type="button" value="saturday" class="weekbtn_desk weekday_button btn-sm">Saturday</button>
-            <button type="button" value="sunday" class="weekbtn_desk weekday_button btn-sm">Sunday</button>
+            <button type="button" value="Thursday" class="weekbtn_desk weekday_button ">Thursday</button>
+            <button type="button" value="Friday" class="weekbtn_desk weekday_button btn-sm">Friday</button>
+            <button type="button" value="Saturday" class="weekbtn_desk weekday_button btn-sm">Saturday</button>
+            <button type="button" value="Sunday" class="weekbtn_desk weekday_button btn-sm">Sunday</button>
            
       </div>
           <!-- flterBarDiv -->
@@ -125,7 +125,7 @@
           <!-- mobileLogo -->
           <div id="mobileLogoDiv">
             {% load static %}
-            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.jpg' %}" alt="cafeLogo">
+            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.webp' %}" alt="cafeLogo">
             </div>
           
   
@@ -150,10 +150,10 @@
               <div id="weekBar" >
 
                 <button type="button" value="flyer" class="btn btn-dark weekday_button btn-sm active current_day">All</button>
-                <button type="button" value="thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
-                <button type="button" value="friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
-                <button type="button" value="saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
-                <button type="button" value="sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
+                <button type="button" value="Thursday" class="btn btn-dark weekday_button btn-sm">Thursday</button>
+                <button type="button" value="Friday" class="btn btn-dark weekday_button btn-sm">Friday</button>
+                <button type="button" value="Saturday" class="btn btn-dark weekday_button btn-sm">Saturday</button>
+                <button type="button" value="Sunday" class="btn btn-dark weekday_button btn-sm">Sunday</button>
                     
               </div>
               <!-- blog -->
@@ -220,7 +220,7 @@
                   
                   <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-pk = "{{event.pk}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.pk}}" {% endif %}>
                       
-                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="Flyer_image">
+                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
 
                         <div class="flyer-buttons">
                             <i class="bi bi-alarm flyerAlarm" onclick="watch(this)" data-value="{{event.Flyer.pk}}"></i>
@@ -232,15 +232,17 @@
                             <p>&nbsp;</p>                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
                            <div class="user_info">
 
-                               <div class="tag_div"> <span class="type_tag">Comedy</span> <span class="boro_tag">Brooklyn</span> </div>
-                               <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maiores quasi eveniet et vel, a iure dignissimos delectus neque nihil</div>
-                               <div>full Description / ticket info:</div>
-                               <a class="contact_info" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and 'http://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
-                        
+                                <div class="tag_div"> <span class="type_tag">Comedy</span> <span class="boro_tag">Brooklyn</span> </div>
+                                <div class="event_description">{{event.Flyer.Description}}</div>
+                                <div>full Description / tickets / RSVP : </div>
+                                <div class="scroll_behind_padding">
+                                  <a class="link" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and '://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
+                                </div>
                             </div> 
                             <p>Address:</p>
-                            <a class="user_info address" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
-                            
+                            <div class="user_info scroll_behind_padding">
+                              <a class="link" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
+                            </div>
                         </div>
                         
                  
@@ -253,10 +255,10 @@
                   <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer brooklyn food Saturday"><img class = "flyer-img" src="/media/flyer_imgs/dummyFlyer0.png" alt="fuck"><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer brooklyn comedy Friday"><img class = "flyer-img" src="dummyFlyer1.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
-                  <div class="flyer-div flyer brooklyn rock saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
-                  <div class="flyer-div flyer brooklyn comedy saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
-                  <div class="flyer-div flyer brooklyn rock saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
-                  <div class="flyer-div flyer brooklyn comedy saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
+                  <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer brooklyn comedy Saturday"><img class = "flyer-img" src="dummyFlyer11.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer brooklyn rock Saturday"><img class = "flyer-img" src="dummyFlyer8.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
@@ -507,12 +509,13 @@
         var flyers = document.getElementsByClassName("flyer-div");
         var moreInfo_divs = document.getElementsByClassName("moreInfo");
         var blog = document.getElementById("blog");
-        
+
         // blog.scrollTop = 0; //smooth scroll moved to bottom
         let sb =document.getElementById('side-bar-mobile');
         if (sb.classList.contains('open')){toggleSideBar();}
 
-        $('.flyer').hide();
+        document.querySelectorAll('.flyer').forEach((flyer) => {flyer.style['display']='none'});
+        // $('.flyer').hide();
         no_result_div.style['display'] = 'none';
         no_reminders_div.style['display']='none';
         let no_Results = true;
@@ -805,26 +808,37 @@
             }
             else
             {
-                moreInfo.style["height"]= "119px";
+                // moreInfo.style["height"]= "119px";
+                moreInfo.style["height"]= "18.5em";
+
             }
             
             moreInfo.style["bottom"]= "0%";
             moreInfo.style["margin-bottom"]= "2%";
             children[0].innerHTML="Contact Info:";
 
-            for(i=0; i<userInfo.length; i++)
-            {
-                userInfo[i].style["padding"] = "2%";
+            console.log(userInfo);
 
-                if(document.documentElement.clientWidth >=1000)
-                {
-                userInfo[i].style["height"] = "auto";
-                }
-                else
-                {
-                    userInfo[i].style["height"] = "34px";
-                }
-            }
+            userInfo[0].style["transition"] = ".4s";
+            userInfo[1].style["transition"] = ".4s";
+
+            userInfo[1].style["height"] = "auto";
+            userInfo[1].style["padding"] = ".6rem";
+            userInfo[0].style["height"] = "auto";
+            userInfo[0].style["padding"] = ".6rem";
+            // for(i=0; i<userInfo.length; i++)
+            // {
+            //     userInfo[i].style["padding"] = "2%";
+
+            //     if(document.documentElement.clientWidth >=1000)
+            //     {
+            //     userInfo[i].style["height"] = "auto";
+            //     }
+            //     else
+            //     {
+            //         userInfo[i].style["height"] = "34px";
+            //     }
+            // }
 
             //make sure moe info div doesnt appear below viewable screen
 
@@ -840,12 +854,13 @@
             moreInfo.style["height"]= "0px";
 
             moreInfo.style["bottom"]= "15%";
-            moreInfo.style["margin-bottom"]= "auto";
+            // moreInfo.style["margin-bottom"]= "auto";
 
             // children[0].innerHTML="\u00A0";  added to bottom to make animation look smoother
 
 
             for(i=0; i<userInfo.length; i++){
+                userInfo[i].style["transition"] = "2s";
                 userInfo[i].style["padding"] = "0px";
                 userInfo[i].style["padding-left"] = "20%";
                 userInfo[i].style["padding-right"] = "20%";
@@ -915,8 +930,8 @@
     display: flex;
     flex-direction: column;
     max-height: 100vh;
-    
     flex: 2.5;
+    max-width:  29ch;
     /* background-color: white; */
   
   }
@@ -1109,6 +1124,7 @@
     cursor: pointer;
     scroll-behavior: smooth;
     flex-grow: 1;
+    
 }
     #filter-options-Desktop{
         margin-top: 4%;
@@ -1470,11 +1486,13 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       /* height: 95%;
       width:fit-content; */
       width: 45vw;
-      height: auto;
+      /* min-width: 24vw; */
+      /* max-width: 26vw; */
+      /* height: auto; */
       margin-left: auto;
       margin-right: auto;
-      margin-top:1%;
 
+      margin-top:1%;
       display: flex;
       /* margin-left: auto;
 margin-right: auto; */
@@ -1485,13 +1503,17 @@ margin-right: auto; */
     .flyer-img{
       /* width: 80%; */
       /* height: 100%; */
+      /* min-width: 25vw; */
       width: 100%;
+      /* width: 299px; */
+      /* height: 400px; */
+      /* object-fit:fill; */
       /* object-fit: contain; */
       /* margin-left: 10%; */
       /* margin-right: 10%; */
       /* margin-bottom: 1em; */
       /* margin:1em; */
-      display: block;
+      /* display: block; */
       z-index: 1;
       
       
@@ -1558,8 +1580,6 @@ margin-right: auto; */
           padding-left: 20%;
           padding-right: 20%;
           height: 0px;
-          color: #007bff;
-          text-decoration: none;
           
           overflow-y: hidden;
           overflow-x: scroll;
@@ -1571,15 +1591,38 @@ margin-right: auto; */
             .user_info::-webkit-scrollbar {
                 display: none;}
 
+    
+    .link{
+        color: #007bff;
+        text-decoration: none;
+    }
     .tag_div{
         font-family: comicy;
-        font-size: larger;
+        font-size: .8rem;
+
     }
-    .contact_info{
-        white-space:nowrap;
+    .event_description
+    {
+        margin-top: .4rem;
+        margin-bottom: 1rem;
+/* 
+        color: #0b0e07; */
+
+        /* text-overflow: ellipsis; */
+        overflow: hidden;
+        height: 4rem;
+        /* display: -webkit-box;
+
+        -webkit-box-orient: vertical;   */
+ 
     }
-    .address{
+
+    .scroll_behind_padding{
         white-space:nowrap;
+        overflow: scroll;
+    }
+    .scroll_behind_padding::-webkit-scrollbar {
+        display: none;
     }
 
     .newPostIcon{
