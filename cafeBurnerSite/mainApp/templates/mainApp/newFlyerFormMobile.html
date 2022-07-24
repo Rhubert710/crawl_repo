@@ -35,38 +35,7 @@
         <div id="textFomDiv">
             <form action="/saveFlyerMobile/" method="POST" onsubmit="return validateForm()">
                 {% csrf_token %}
-                <div id="selectors">
-                    <div class="selectorDiv">
-                        <label for="Boro">Boro:</label>
-                            <select id="boroSelector" name="Boro" class="selector required">
-                                <option value=""></option>
-                                <option value="brooklyn">Brooklyn</option>
-                                <option value="queens">Queens</option>
-                                <option value="manhattan">Manhattan</option>
-                                <option value="bronx">Bronx</option>
-                                <option value="staten">Staten Island</option>
-                                <option value="nassau">Nassau</option>
-                            </select>
-                    </div>
-                
-                <div class="selectorDiv">
-                    <label for="Event_type">Event Type:</label>
-                        <select id="eventTypeSelector" name="Event_type" class="selector required">
-                            <option value=""></option>
-                            <option value="comedy">Comedy</option>
-                            <option value="food">Food/Drink</option>
-                            <option value="athletic">Athletic</option>
-                            <option value="sports">Sports</option>
-                            <option value="seasonal">Seasonal</option>
-                            <option value="rock">Live Music: Rock</option>
-                            <option value="hipHop">Live Music: HipHop</option>
-                            <option value="dance">Live Music: Dance</option>
-                            <option value="other">Live Music: Other</option>
-                        </select>
-                        <div class="help_text" style="font-size:x-small;">&nbsp;*Dont see your category? <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title='Dont see a category that fits your event? <br>  Most events fit in the "Community" category'></i></div>
-                        <br>
-                </div>
-            </div>
+
 
             <!-- <label for="Event_date">Event Date:</label>
             <input type="date" id="eventDate" name="Event_date" class="required"><br><br> -->
@@ -79,7 +48,42 @@
             </div>
             
             <br><br>
-
+            <div id="selectors">
+                <div class="selectorDiv">
+                    <label for="Boro">Boro:</label>
+                        <select id="boroSelector" name="Boro" class="selector required">
+                            <option value=""></option>
+                            <option value="brooklyn">Brooklyn</option>
+                            <option value="queens">Queens</option>
+                            <option value="manhattan">Manhattan</option>
+                            <option value="bronx">Bronx</option>
+                            <option value="staten">Staten Island</option>
+                            <option value="nassau">Nassau</option>
+                        </select>
+                </div>
+            
+            <div class="selectorDiv">
+                <label for="Event_type">Event Type:</label>
+                    <select id="eventTypeSelector" name="Event_type" class="selector required">
+                        <option value=""></option>
+                        <option value="comedy">Comedy</option>
+                        <option value="food">Food</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="outdoor">Outdoor</option>
+                        <option value="community">Community</option>
+                        <option value="class">Class / Info</option>
+                        <option value="athletic">Athletic</option>
+                        <option value="sports">Sports</option>
+                        <option value="seasonal">Seasonal</option>
+                        <option value="rock">Live Music: Rock</option>
+                        <option value="hipHop">Live Music: HipHop</option>
+                        <option value="dance">Live Music: Dance</option>
+                        <option value="other">Live Music: Other</option>
+                    </select>
+                    <div class="help_text" style="font-size:x-small;">&nbsp;*Dont see your category? <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title='Dont see a category that fits your event? <br>  Most events fit in the "Community" category'></i></div>
+                    <br>
+            </div>
+        </div>
                 <label for="Contact_information" style="margin-left:10%;">Contact Info:</label><br>
                     <input type="text" id="contactInfo" name="Contact_information" class="textField" style="margin-bottom: 0px;">
                     <div class="help_text" style="margin-bottom:5%;margin-left:10%;font-size: x-small;">&nbsp;*Use a vaild URL</div>
@@ -151,7 +155,7 @@
             gap: 10%;
             padding-bottom: .5%;
             /* margin-bottom: 10% ; */
-
+            height: 80px;
             margin-left: 10%;
             }
 

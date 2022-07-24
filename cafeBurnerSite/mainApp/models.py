@@ -22,12 +22,14 @@ class Flyer(models.Model):
     Flyer_image = models.ForeignKey(Flyer_Image, on_delete=models.CASCADE, primary_key=True)
 
 
-    event_types = [('comedy', 'Comedy'), ('food','Food/Drink'), ('athletic','Athletic'),
-                ('sports','Sports'), ('seasonal','Seasonal'), ('rock','Live Music: Rock'), 
-                ('hipHop','Live Music: HipHop'), ('dance','Live Music: Dance'), ('other','Live Music: Other')]
+    event_types = [('comedy', 'Comedy'), ('food','Food'), ('athletic','Athletic'), ('outdoor','Outdoor'),
+                ('sports','Sports'), ('seasonal','Seasonal'), ('rock','Live Music: Rock'), ('drinks','Drinks'),
+                ('hipHop','Live Music: HipHop'), ('dance','Live Music: Dance'),
+                ('other','Live Music: Other'), ('community', 'Community'),
+                ('class', 'Class / Info'),]
     Event_type = models.CharField(max_length=10, choices=event_types)
 
-    Contact_information = models.CharField(max_length=200)
+    Contact_information = models.CharField(max_length=200, default='NONE')
     Address = models.CharField(max_length=200)
 
     Description = models.CharField(max_length=500, null=True, blank=True)
