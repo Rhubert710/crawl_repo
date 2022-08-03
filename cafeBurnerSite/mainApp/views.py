@@ -144,7 +144,7 @@ def saveFlyerDesktop(request):
         #removing 'https' and replacing with 'http'
         # formatted_contact_info = 
 
-        newFlyer = Flyer(Flyer_image=newImg, Boro=p["Boro"], Event_type=p['Event_type'],
+        newFlyer = Flyer(Flyer_image=newImg, Boro=p["Boro"], Event_type=p['Event_type'], Description=p['Description'],
                             Contact_information=p['Contact_information'], Address=p['Address'])
         # print(f'img:{newImg}')
         print(p)

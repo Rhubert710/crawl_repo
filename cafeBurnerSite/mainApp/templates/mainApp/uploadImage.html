@@ -136,12 +136,20 @@
             </div>
 
             <!-- BOTTOM TEXT INPUT -->
-        
-                    <label for="Contact_information">Link to More Info:</label><br>
+
+                    <label for="Description">Description:</label>
+                    <span id="frac" class="help_text" style="margin-left: 1rem;"><span id="char_count_span">0</span> / 400</span><br>
+                
+                    <textarea name="Description" id="ta" maxlength = "400" onkeyup="count_chars()" style="margin-bottom: 0px;" cols="" rows="3"></textarea>
+                    <div class="help_text">
+                        *Description will be shortend to about 150 characters on mobile devices
+                    </div><br>
+
+                    <label for="Contact_information">Exterrnal link :</label><br>
                     <input type="text" id="contactInfo" name="Contact_information" class="textField" style="margin-bottom: 0px;" >
                     <!-- <div class="help_text">This should be a link where users can find more info or contact your about your event.  </div>
                     <div class="help_text">(ie. ticket page, soicial media account, e-mail address)</div> -->
-                    <div class="help_text">&nbsp;*Use a vaild URL</div>
+                    <div class="help_text">&nbsp;*link to tickets, more information, RSVP etc.</div>
                     <br>
 
                     <label for="Address">Event Adress:</label><br>
@@ -199,7 +207,7 @@ body{
     margin: auto;
     padding-top: 1%;
     padding-right: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 2.5rem;
     }
 
     #mainDiv{
@@ -535,10 +543,37 @@ $( function() {
      let url = '/newFlyerForm?imageName=' + file["name"]
     window.location.href = url;
   }
+  
+  
+  //WORD COUNT//
+  let MAX_LENGTH = 400;
 
+  let char_count_elem = document.getElementById('char_count_span');
+  let text_area_elem = document.getElementById('ta');
+
+  //text_area_elem.maxlength = MAX_LENGTH.toString;
+
+  function count_chars(x)
+  {
+    if (char_count_elem.innerText == MAX_LENGTH)
+    {
+        frac.style.color = 'green'
+        return
+    }
+
+
+    char_count_elem.innerText = text_area_elem.value.length;
+  }
+  
+
+  //VALIDATE//
   function validateForm() 
   {
-
+console.log();
+    if(ta.value =='a')
+    {
+        return false
+    }
     let requiredFields = document.getElementsByClassName("required");
     // let x = document.forms["myForm"]["fname"].value;
     let formIsValid= true;
@@ -550,7 +585,7 @@ $( function() {
 
     for (i = 0; i < requiredFields.length; i++)
     {
-        console.log(requiredFields[i].previousElementSibling.innerHTML);
+        // console.log(requiredFields[i].previousElementSibling.innerHTML);
         requiredFields[i].style["border-color"] = "black";
 
         if (requiredFields[i].value == "") 
@@ -562,11 +597,13 @@ $( function() {
         }
     }
     
+    window.scrollTo(0, document.body.scrollHeight);//scroll to botttom to show errors
+
     let date_value = $('#eventDate1').datepicker('getFormattedDate');
 
     if(!date_value) 
     {
-        errorMessage.innerHTML += 'Please pick a Date or multiple Dates of event';
+        errorMessage.innerHTML += 'Please pick a Date or multiple Dates for this event';
         formIsValid=false;
     }
 

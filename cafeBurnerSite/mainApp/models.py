@@ -8,6 +8,7 @@ class Flyer_Image(models.Model):
     Img_src_url = models.CharField(max_length=500, null=True, blank=True)
     Hash = models.CharField(max_length=200, null=True, blank=True)
     Flyer = models.ForeignKey('Flyer', on_delete=models.CASCADE, null=True, blank=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
 
 
 class Flyer(models.Model):
@@ -32,7 +33,7 @@ class Flyer(models.Model):
     Contact_information = models.CharField(max_length=200, default='NONE')
     Address = models.CharField(max_length=200)
 
-    Description = models.CharField(max_length=500, null=True, blank=True)
+    Description = models.CharField(max_length=500,null=True, default='Come by !')
     pub_date = models.DateTimeField(auto_now_add=True)
 
     Posistion = models.SmallIntegerField(default=0)

@@ -226,28 +226,29 @@
 
                   {% for event in flyerList reversed %}
                   
-                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-pk = "{{event.pk}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.pk}}" {% endif %}>
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %}>
                       
-                        <img class = "flyer-img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
+                        <img class = "flyer-img" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)"
+                            src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
 
                         <div class="flyer-buttons">
-                            <i class="bi bi-alarm flyerAlarm" onclick="watch(this)" data-value="{{event.Flyer.pk}}"></i>
-                            <i class="bi bi-three-dots-vertical" onclick="toggleMoreInfo(this)"></i>
+                            <i class="bi bi-alarm flyerAlarm" data-value="{{event.Flyer.pk}}" onclick="watch(this)"></i>
+                            <i class="bi bi-three-dots-vertical" data-f = "k" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)"></i>
                         </div>
                     </div>
                         <!-- more info -->
-                        <div id="info{{event.pk}}" class="moreInfo flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" >
-                            <p>&nbsp;</p>                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
+                        <div id="more_info_{{event.pk}}" class="moreInfo flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" >
+                            <p></p><!--Contact Info:-->                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
                            <div class="user_info">
 
-                                <div class="tag_div"> <span class="type_tag">Comedy</span> <span class="boro_tag">Brooklyn</span> </div>
+                                <div class="tag_div"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> </div>
                                 <div class="event_description">{{event.Flyer.Description}}</div>
                                 <div>full Description / tickets / RSVP : </div>
                                 <div class="scroll_behind_padding">
                                   <a class="link" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and '://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
                                 </div>
                             </div> 
-                            <p>Address:</p>
+                            <p></p><!--Address:-->
                             <div class="user_info scroll_behind_padding">
                               <a class="link" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
                             </div>
@@ -802,9 +803,12 @@
     //     $(this).children().slideDown(); // does not run a DOM query
     // }); 
 
-    function toggleMoreInfo(x){
+    function toggleMoreInfo(thisElement)
+    {
 
-        let moreInfo = x.parentElement.parentElement.nextElementSibling;
+        let flyer_id = thisElement.dataset.flyer_id;
+        let moreInfo = document.querySelector(`#more_info_${flyer_id}`);
+
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
 
@@ -824,8 +828,9 @@
             moreInfo.style["bottom"]= "0%";
             moreInfo.style["margin-bottom"]= "2%";
             children[0].innerHTML="Contact Info:";
+            children[2].innerHTML="Address:";            
 
-            console.log(userInfo);
+            // console.log(userInfo);
 
             // userInfo[0].style["transition"] = ".4s";
             // userInfo[1].style["transition"] = ".4s";
@@ -855,7 +860,7 @@
             if(rect.bottom >=469 && document.documentElement.clientWidth >=1000){
                 blog.scrollTop = moreInfo.offsetTop - 470;}
 
-            console.log(rect.bottom+','+document.documentElement.clientWidth)
+            // console.log(rect.bottom+','+document.documentElement.clientWidth)
         }
         else{
             moreInfo.style["transition"] ="0.29s";
@@ -877,6 +882,7 @@
             }
 
             children[0].innerHTML="\u00A0";
+            children[2].innerHTML="\u00A0";
         }
 
     }
