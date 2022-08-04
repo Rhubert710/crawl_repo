@@ -907,6 +907,9 @@
             current_user_email ='null';
         }
 
+        //set line clamp size for event description div
+        let root = document.documentElement;
+        root.style.setProperty('--clampCount', String(10-7));
         filter(); //to remove duplicte Flyers on load
 
     }
@@ -1615,8 +1618,8 @@ margin-right: auto; */
     .tag_div{
         font-family: comicy;
         font-size: .8rem;
-
     }
+
     .event_description
     {
         margin-top: .4rem;
@@ -1627,9 +1630,9 @@ margin-right: auto; */
         /* text-overflow: ellipsis; */
         overflow: hidden;
         height: 4rem;
-        /* display: -webkit-box;
-
-        -webkit-box-orient: vertical;   */
+        display: -webkit-box;
+        -webkit-line-clamp: var(--clampCount); /*clampCount defined in onLoad function*/
+        -webkit-box-orient: vertical;  
  
     }
 
