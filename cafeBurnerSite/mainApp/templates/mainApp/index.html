@@ -344,7 +344,17 @@
     var current_user_email = "null";
     var csrftoken = getCookie('csrftoken');
 
+    const flyers = document.getElementsByClassName("flyer-div");
+    let moreInfo_divs = document.getElementsByClassName("moreInfo");
+    
+    let Flyer_images = document.getElementsByClassName('flyer-img')
+
+    let blog = document.getElementById("blog");
+    let sb =document.getElementById('side-bar-mobile');
+
     let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop"
+
+    filter(); //to remove duplicte Flyers on load
 
     //on screen change
     window.addEventListener('resize', function(event)
@@ -534,21 +544,33 @@
 
     function filter() {
         
-        var boro = document.getElementsByClassName("current_boro");
-        var day = document.getElementsByClassName("current_day");
-        var checked = document.getElementsByClassName("checked");
-        var flyers = document.getElementsByClassName("flyer-div");
-        var moreInfo_divs = document.getElementsByClassName("moreInfo");
-        var blog = document.getElementById("blog");
+        let boro = document.getElementsByClassName("current_boro");
+        let day = document.getElementsByClassName("current_day");
+
+        let checked = document.getElementsByClassName("checked");
 
         // blog.scrollTop = 0; //smooth scroll moved to bottom
-        let sb =document.getElementById('side-bar-mobile');
+        
         if (sb.classList.contains('open')){toggleSideBar();}
 
-        document.querySelectorAll('.flyer').forEach((flyer) => {flyer.style['display']='none'});
-        // $('.flyer').hide();
+        // document.querySelectorAll('.flyer').forEach((flyer) => {flyer.style['display']='none'});
+        // document.querySelectorAll('.more').forEach((flyer) => {flyer.style['display']='none'});
+
+        for (let i = 0; i < flyers.length; i++) 
+        {
+
+            flyers[i].style['display']='none';
+            moreInfo_divs[i].style['display']='none';
+
+            if(Flyer_images[i].classList.contains('moreInfo_open')){
+                toggleMoreInfo(Flyer_images[i]);}
+
+        }
+       
+        
         no_result_div.style['display'] = 'none';
         no_reminders_div.style['display']='none';
+
         let no_Results = true;
 
 
@@ -834,7 +856,9 @@
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
 
-        if(moreInfo.style["height"]== "0px" || moreInfo.style["height"]== ""){
+        if(!thisElement.classList.contains('moreInfo_open')){
+
+            thisElement.classList.add('moreInfo_open')
 
             if(document.documentElement.clientWidth >=1000)
             {
@@ -887,6 +911,9 @@
             // console.log(rect.bottom+','+document.documentElement.clientWidth)
         }
         else{
+
+            thisElement.classList.remove('moreInfo_open')
+
             moreInfo.style["transition"] ="0.29s";
             moreInfo.style["height"]= "0px";
 
@@ -936,7 +963,7 @@
         let root = document.documentElement;
         root.style.setProperty('--clampCount', String(10-7));
         
-        filter(); //to remove duplicte Flyers on load
+    
 
     }
 
