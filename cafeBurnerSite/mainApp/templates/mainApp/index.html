@@ -3,17 +3,14 @@
 <head>
     
     <title>CRAWL-NYC</title>
-    <meta name="description" content="Find things to do this weekend in the five boroughs. Events in Brooklyn, Queens, Manhattan, Staten Island, the Bronx, and NJ. advertise New York, nyc">
+    <meta name="description" content="Find things to do this weekend in nyc, in all five boroughs. Events in Brooklyn, Manhattan, Queens, Staten Island, the Bronx, and NJ. promote in New York, nyc">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     <!-- <script src="https://kit.fontawesome.com/a2fdac4b18.js" crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    
     <!-- <link rel="stylesheet" href="gg.css"> -->
 
 </head>
@@ -26,7 +23,7 @@
         <!-- mainLogo -->
         <div>
             {% load static %}
-            <img id = "mainLogo" src="{% static '/mainApp/clo.png' %}" alt="cafeLogo">
+            <img id = "mainLogo" src="{% static '/mainApp/clop.webp' %}" alt="cafeLogo">
         </div>
 
         <div id="border" ></div>
@@ -90,7 +87,7 @@
                         <div class="check_option" onclick="check(this)" data-value="seasonal"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text_desk" >  Seasonal</div></div>
                             
                         <!-- <br> -->
-                        <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol_desk" src="{% static '/mainApp/refresh.jpeg' %}" alt="refresh_symbol"><div class="filter_text_desk" style="font-size: 1.29rem;padding-left: 7px;">Clear Filters</div></div>
+                        <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol_desk" src="{% static '/mainApp/refresh.webp' %}" alt="refresh_symbol"><div class="filter_text_desk" style="font-size: 1.29rem;padding-left: 7px;">Clear Filters</div></div>
                     </div>
                     <!-- <div id="blank-space"></div> -->
             
@@ -129,7 +126,7 @@
           <!-- mobileLogo -->
           <div id="mobileLogoDiv">
             {% load static %}
-            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.webp' %}" alt="cafeLogo">
+            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.webp' %}"  alt="cafeLogo"><!--width="159" height="400"-->
             </div>
           
   
@@ -190,7 +187,7 @@
                                         <div class="check_option" onclick="check(this)" data-value="seasonal"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Seasonal</div></div>
                                     
                                 <br>
-                                <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol" src="{% static '/mainApp/refresh.jpeg' %}" alt="refresh_symbol"><div class="filter_text" >  Clear Filters</div></div>
+                                <div class="check_option showingAll showAll_button" style="transform:translateX(-29px);" onclick="showAll(this)" ><img class="refresh_symbol" src="{% static '/mainApp/refresh.webp' %}" alt="refresh_symbol"><div class="filter_text" >  Clear Filters</div></div>
                                 <!-- <div class="check_box" style="background: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> -->
                             </div>
                             <!-- <div id="blank-space"></div> -->
@@ -209,9 +206,12 @@
                         </div>
                             
                     </div>
-                <div id="blog-inner" >
-                </div>
+                <!-- <div id="blog-inne" >
                 
+                </div> -->
+
+
+                <!-- <div id="blog-inner" > -->
                   <div id="no_result_div" class="no_results_text" style="display:none;">No Results</div>
                   <div id="no_reminders_div" class="no_results_text" style="display:none;">
                     <i class="bi bi-alarm"></i> No Upcoming Reminders</div>
@@ -258,6 +258,7 @@
                     
                 <!-- <p style="color: #F76F07;">{{flyer.dayOfWeek}}</p> -->
                   {% endfor %}
+                <!-- </div> -->
                   <!-- <div class="flyer-div flyer Queens rock music Saturday"><img class = "flyer-img" src="dummyFlyer2.png" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer stni rock show Saturday"><img class = "flyer-img" src="dummyFlyer7.jpeg" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
                   <div class="flyer-div flyer Nassau food Sunday"><img class = "flyer-img " src="DummyFlyer4.jpeg" alt=""><div class="flyer-buttons"><i class="bi bi-alarm" onclick="watch(this)"></i></div></div>
@@ -329,11 +330,32 @@
 
 </body>
 </html>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 <script type="text/javascript">
 
+    //variables
 
     var current_user_email = "null";
     var csrftoken = getCookie('csrftoken');
+
+    let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop"
+
+    //on screen change
+    window.addEventListener('resize', function(event)
+    {
+        if (window.innerWidth < 1001) {
+            screen_size = "mobile"
+
+            return
+        }
+        screen_size = "laptop";
+    });
 
     // boro Bar Logic
     $('.borobtn').click(function()
@@ -817,6 +839,8 @@
             if(document.documentElement.clientWidth >=1000)
             {
                 moreInfo.style["height"]= "150px";
+                moreInfo.style["width"]= "900px";
+
             }
             else
             {
@@ -870,7 +894,7 @@
             // moreInfo.style["margin-bottom"]= "auto";
 
             // children[0].innerHTML="\u00A0";  added to bottom to make animation look smoother
-
+            // moreInfo.style["width"]= "0px";
 
             for(i=0; i<userInfo.length; i++){
                 userInfo[i].style["transition"] = ".4s";
@@ -908,8 +932,10 @@
         }
 
         //set line clamp size for event description div
+
         let root = document.documentElement;
         root.style.setProperty('--clampCount', String(10-7));
+        
         filter(); //to remove duplicte Flyers on load
 
     }
@@ -1334,7 +1360,7 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
   #mobileLogoDiv{
       /* display: none; */
       width: auto;
-      max-height: 7%;
+      max-height: 7vh;
       /* height: auto; */
       /* background-color: #c4ff61; */
       
@@ -1417,6 +1443,7 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       /* display: flex;
       flex-direction: column; */
       flex: 1;
+
       height: 100%;
       
     }
@@ -1619,6 +1646,8 @@ margin-right: auto; */
         font-family: comicy;
         font-size: .8rem;
     }
+        .type_tag{color: #F76F07;}
+        .boro_tag{color: #1a6e05;}
 
     .event_description
     {
@@ -1764,10 +1793,39 @@ margin-right: auto; */
             font-size: 95%;
         }
 
+        .flyer-div{
+            margin-left:1%;
+            margin-right:1%;
+            height: 350px;
+            min-width:350px;
+            width:350px;
+        }
+        .flyer-img{
+            height: 350px;
+
+            min-width:350px;
+            width:350px;
+        }
+        .moreInfo{
+            width: 0px;;
+        }
+        #blog{
+display: flex;
+flex-wrap: wrap;
+
+justify-content:center;
+padding-top: 160px;
+        }
+        .flyer-buttons{
+            display: none;
+        }
+
     }
     
   </style>
 
+     
+  
   <!-- Your flyer was successflly Posted!  
   If you dont see your flyer its because cafe burner only displays flyers for the upcoming weekend.
   So if your event is taking place after this upcoming weekend, you wont see your flyer untill then.

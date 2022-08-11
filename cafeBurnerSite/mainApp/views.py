@@ -12,6 +12,7 @@ from collections import Counter
 import hashlib
 
 from django.contrib.auth.decorators import user_passes_test
+# from django.core import serializers
 
 
 def index(request):
@@ -19,11 +20,12 @@ def index(request):
     # flyerList = Flyer.objects.filter(Event_date__gte = datetime.date.today()
     #                                 ).filter(Event_date__lte = datetime.date.today()+ datetime.timedelta(days=6))
     
-    
+
     # flyerList = Event.objects.all().order_by('-Posistion')
     flyerList = Event.objects.all()
 
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
+    # print(serializers.serialize('json', flyerList))
     return render(request, 'mainApp/index.html', {'flyerList':flyerList})
 
 def index2(request):
@@ -83,11 +85,19 @@ def saveImage(request):
     # print (request.POST['imageInput'])
     form = Flyer_ImageForm(request.POST, request.FILES)
     # clearMessages(request)
-    print(form.errors)
+    # print(form.errors)
     if form.is_valid():
-        print("okkkkkkkkk")
+        
+        # print("okkkkkkkkk")
         newImg = form.save()
-        print(newImg.pk)
+
+        #create md5
+        with open(f'media/{newImg.Flyer_image}', 'rb') as saved_image_file:
+            f = saved_image_file.read()
+            new_md5 = hashlib.md5(f).hexdigest()
+            newImg.Hash = new_md5
+            newImg.save()
+        # print(newImg.pk)
 
         return redirect('newFlyerFormMobile', imgPk = newImg.pk)
     return HttpResponse(str(form.errors()))
@@ -99,35 +109,52 @@ def newFlyerFormMobile(request, imgPk):
 
 def saveFlyerMobile(request):
 
-    #formatting date
+    # try:
     
-    post_data = request.POST.copy()
-    post_data['Event_date'] = datetime.datetime.strptime(post_data['Event_date'], "%m/%d/%Y").strftime("%Y-%m-%d")
-    
-    form = FlyerForm(post_data)
+    p = request.POST.dict()
+    new_img = Flyer_Image.objects.get(pk=p['Flyer_image'])
 
-    if form.is_valid():
-        print("okkkkkkkkk")
-        form.save()
-        messages.add_message(request, messages.ERROR, 'Successfully Posted')
-        return redirect('index')
+    print('s'+p['Date'])
+
+    newFlyer = Flyer(Flyer_image=new_img, Boro=p["Boro"], Event_type=p['Event_type'], Description=p['Description'],
+                            Contact_information=p['Contact_information'], Address=p['Address'])
+
+    newFlyer.full_clean()
+    newFlyer.save()
+
+
+    dates = json.loads(p['Date'])
+    days_of_week = json.loads(p['Day_of_week'])
+
+    for i, date in enumerate(dates):
+
+        newEvent = Event(Date = date, Day_of_week =days_of_week[i], Flyer = newFlyer)
+
+        newEvent.full_clean()
+        newEvent.save()
+
+    messages.add_message(request, messages.ERROR, 'Successfully Posted')
+    return redirect('index')
+
+    # except:
     messages.add_message(request, messages.ERROR, 'There was an error, please try again.')
     return redirect('uploadImage')
 
+#SAVE DESKTOP
 def saveFlyerDesktop(request):
     # clearMessages()
     # print(00)
-    print(request.POST)
-    print(request.FILES)
+    # print(request.POST)
+    # print(request.FILES)
 
     imageForm = Flyer_ImageForm(request.POST, request.FILES)
     for field in imageForm:
-        print(field)
+        # print(field)
         for error in field.errors:
              print(error)
     if imageForm.is_valid():
         newImg = imageForm.save()
-        print(1)
+        # print(1)
 
 #create md5
         with open(f'media/{newImg.Flyer_image}', 'rb') as saved_image_file:
@@ -147,7 +174,7 @@ def saveFlyerDesktop(request):
         newFlyer = Flyer(Flyer_image=newImg, Boro=p["Boro"], Event_type=p['Event_type'], Description=p['Description'],
                             Contact_information=p['Contact_information'], Address=p['Address'])
         # print(f'img:{newImg}')
-        print(p)
+        # print(p)
         #REMEMBER TO CLEAN DATA!!!!!
         # try:
         newFlyer.full_clean()
@@ -251,6 +278,7 @@ def saveMultiple(request):
         new_img.full_clean()
         new_img.save()
 
+        
 
         #create ne flyer object
         new_flyer = Flyer(Boro = obj['Boro'], Address= obj['Address'], Event_type= obj['Event_type'],

@@ -125,7 +125,7 @@
                         <!-- <label for="Event_date1">Event Date: </label> -->
                         <div>&emsp; Event Date </div>
 
-                        <div id="eventDate1" name="Event_date" class="required date picker" data-date_input="a"></div>
+                        <div id="eventDate1" name="Event_date" class="date picker" data-date_input="a"></div>
                         <div class="help_text" style="margin-top: 1%;">&nbsp;&nbsp;&nbsp;&nbsp; Pick all the dates you need! <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Select all the dates you need for your event! <br>  For ex, If your event is thursday - sunday.&nbsp; Or if your event is every Saturday of the month"></i></div>
                         
                         <input id="Date_input" type="text" name="Date" style="display:none">
@@ -145,16 +145,16 @@
                         *Description will be shortend to about 150 characters on mobile devices
                     </div><br>
 
-                    <label for="Contact_information">Exterrnal link :</label><br>
-                    <input type="text" id="contactInfo" name="Contact_information" class="textField" style="margin-bottom: 0px;" >
+                    <div for="Contact_information">Exterrnal link :</div>
+                    <input type="text" id="contactInfo" name="Contact_information" class="textField required" style="margin-bottom: 0px;" >
                     <!-- <div class="help_text">This should be a link where users can find more info or contact your about your event.  </div>
                     <div class="help_text">(ie. ticket page, soicial media account, e-mail address)</div> -->
-                    <div class="help_text">&nbsp;*link to tickets, more information, RSVP etc.</div>
+                    <div class="help_text">&nbsp;*link to tickets, more information, RSVP etc. <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title='URL, E-mail, Phone number or n/a'></i></div>
                     <br>
 
-                    <label for="Address">Event Adress:</label><br>
+                    <div for="Address">Event Adress:</div>
 
-                        <input type="text" id="address" name="Address" class="textField" >
+                        <input type="text" id="address" name="Address" class="textField required" >
                         <!-- <div class="help_text">This is the street address for your event.  It will link the users to your event on google mpas</div><br> -->
 
                         <!-- <input accept="image/*" type='file' id="difImgFile" name="Flyer_image" style="display: none;"/> -->
@@ -190,7 +190,7 @@
 <style>
 
 body{
-    overflow-y: scroll;
+    /* overflow-y:scroll; */
 }
 #logoDiv{
         text-align: center;
@@ -211,6 +211,7 @@ body{
     }
 
     #mainDiv{
+
        display: flex;
        
     }
@@ -226,13 +227,12 @@ body{
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
+            max-height: 74vh;
             /* background-color: cyan; */
         }
                 #iconDiv{
 
                     width: 15vw;
-                    height: auto;
                     /* margin: auto; */
                     box-shadow: 2px 2px 5px #333;
                     border: 1px solid;
@@ -278,7 +278,6 @@ body{
             flex: 1;
             /* display: flex;
             flex-direction: column; */
-            
         }
         #textFormDiv > * {
             margin-left:10%;
@@ -493,8 +492,29 @@ body{
 </style>
 
 <script>
+
     //enable toolptips
     $('.bi-info-circle').tooltip('enable')
+
+    let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop"
+
+    //on screen change
+    window.addEventListener('resize', function(event)
+    {
+        if (window.innerWidth < 1001) {
+            screen_size = "mobile"
+
+            imageForm.action = "saveImage/";
+            imageForm.setAttribute("onSubmit", "");
+
+            return
+        }
+        screen_size = "laptop";
+
+        imageForm.action = "saveFlyerDesktop/";
+        imageForm.setAttribute("onSubmit", "return validateForm()");
+    });
+
 
     //image selector
     fileInput.onchange = evt => {
@@ -504,12 +524,15 @@ body{
     
     
 
-    if (window.innerWidth > 1000){
+    if (screen_size == "laptop"){
 
         iconDiv.style["height"] = "60vh";
-        iconDiv.style["width"] = "auto";
 
-        nextButton.style["display"]="none";
+        iconDiv.style["width"] = "auto";
+        iconDiv.style["max-width"] = "100%";
+        // imageFormButtons.style["display"]="flex";
+        // image_label.style["display"]="block";
+        // nextButton.style["display"]="none";
     }
     else{
 
@@ -517,7 +540,7 @@ body{
         iconDiv.style["width"] = "80vw";
         border.style["margin-bottom"] = "10%";
         image_label.style["display"]="block";
-        image_help_text.style["display"]="none";
+        // image_help_text.style["display"]="none";
     }
 
   }
@@ -532,10 +555,10 @@ function disableWeekdays(date) {
     return [day != 0 && day !=1 && day !=2]
  }
 
-$( function() {
-    $( "#datepicker" ).datepicker({ beforeShowDay: disableWeekdays,
-                                                         minDate:0});
-  } );
+// $( function() {
+//     $( "#datepicker" ).datepicker({ beforeShowDay: disableWeekdays,
+//                                                          minDate:0});
+//   } );
 
   function next(){
     const [file] = fileInput.files
@@ -569,19 +592,28 @@ $( function() {
   //VALIDATE//
   function validateForm() 
   {
-console.log();
-    if(ta.value =='a')
-    {
-        return false
-    }
+
     let requiredFields = document.getElementsByClassName("required");
     // let x = document.forms["myForm"]["fname"].value;
     let formIsValid= true;
     errorMessage.innerHTML = "";
     // console.log(fileInput.value)
-    if(fileInput.value == ""){
+    if(fileInput.value == "")
+    {
         errorMessage.innerHTML = "An image is requried <br>";
-        formIsValid = false;}
+        formIsValid = false;
+    }
+
+    ta.style["border-color"] = "black";
+
+    if(ta.value == "")
+    {
+
+        ta.style["border-color"] = "red";
+
+        errorMessage.innerHTML += 'Description is a required field <br>';
+        formIsValid=false;
+    }
 
     for (i = 0; i < requiredFields.length; i++)
     {
