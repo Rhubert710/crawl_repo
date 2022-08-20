@@ -3,7 +3,7 @@
 <head>
     
     <title>CRAWL-NYC</title>
-    <meta name="description" content="Find things to do this weekend in nyc, in all five boroughs. Events in Brooklyn, Manhattan, Queens, Staten Island, the Bronx, and NJ. promote in New York, nyc">
+    <meta name="description" content="Find things to do this weekend in nyc, in all five boroughs. Events in Brooklyn, Manhattan, Queens, Staten Island, the Bronx, and NJ. promote restaurants in New York City">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,12 +107,12 @@
                 </div>
             <!-- buttonsBottom -->
             <footer id="buttonsBottom" >
-                <!-- <button id="myRemindersButton" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
+                <!-- <button id="myRemindersButton_desk" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
                         My Reminders</button> -->
-                        <button id="myRemindersButton" type="button" class="btn btn-info bottomLeftButton bottomButtonDesk btn-sm" onclick="myRemindersButton()"><i class="bi bi-alarm"></i>&nbsp;
+                        <button id="myRemindersButton_desk" type="button" class="btn btn-info bottomLeftButton bottomButtonDesk btn-sm" onclick="myRemindersButton_click()"><i class="bi bi-alarm"></i>&nbsp;
                             My Reminders</button>
-                    <!-- <button id="postFlyerButton" type="button" class="btn btn-warning btn-lg bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
-                        <a id="postFlyerButton" class="btn btn-warning bottomLeftButton bottomButtonDesk btn-sm" href="/uploadImage" role="button">
+                    <!-- <button id="postFlyerButton_desk" type="button" class="btn btn-warning btn-lg bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
+                        <a id="postFlyerButton_desk" class="btn btn-warning bottomLeftButton bottomButtonDesk btn-sm" href="/uploadImage" role="button">
                             Post Flyer</a>
             <a style="margin-left: auto;margin-right: auto;" href="/about">Help / About</a>
             </footer>
@@ -126,7 +126,7 @@
           <!-- mobileLogo -->
           <div id="mobileLogoDiv">
             {% load static %}
-            <img id = "mobileLogo" src="{% static '/mainApp/mob_logo_crook_yel2.webp' %}"  alt="cafeLogo"><!--width="159" height="400"-->
+            <img id = "mobileLogo" src="{% static '/mainApp/mobile_logo.webp' %}"  alt="cafeLogo"><!--width="159" height="400"-->
             </div>
           
   
@@ -141,7 +141,7 @@
                     <button type="button" value="queens" class="btn btn-dark btn-sm borobtn">Queens</button>
                     <button type="button" value="manhattan" class="btn btn-dark btn-sm borobtn">Manhattan</button>
                     <button type="button" value="bronx" class="btn btn-dark btn-sm borobtn">Bronx</button>
-                    <button type="button" value="staten" class="btn btn-dark btn-sm borobtn">SI</button>
+                    <button type="button" value="staten" class="btn btn-dark btn-sm borobtn" style="width: 34px;">SI</button>
                   </div>    
               </div>
           </div>
@@ -164,13 +164,13 @@
                         <!-- <div id="mobileLogoDiv">
                             <img id="mobileLogo" src="cafeLogo.png" alt="mobileLogo">
                           </div> -->
-                        <button id="filterButton" type="button" class="btn btn-dark" onclick="toggleSideBar(this)"><i class="bi bi-list"></i></button>
+                        <button id="filterButton" type="button" class="btn btn-dark" onclick="toggleSideBar(this)" aria-label="show menu button"><i class="bi bi-list"></i></button>
                           <div id="mobile-side-bar-inner">
                             <div id="filter-options-mobile">
 
                                 <div onclick="expandCollapse(this)"><div class="expand_symbol">+</div><div class="filter_text" >Live Music</div></div>
                                         <ul class="nest">
-                                            <div class="check_option" onclick="check(this)" data-value="rock"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >\f102  Rock</div></div>
+                                            <div class="check_option" onclick="check(this)" data-value="rock"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" > Rock</div></div>
                                             <div class="check_option" onclick="check(this)" data-value="hipHop"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  HipHop</div></div>
                                             <div class="check_option" onclick="check(this)" data-value="dance"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Dance</div></div>
                                             <div class="check_option" onclick="check(this)" data-value="other"><div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div class="filter_text" >  Other</div></div>
@@ -193,12 +193,12 @@
                             <!-- <div id="blank-space"></div> -->
                             <!-- bottom buttons -->
                             <div id = "buttonsBottomLeft">
-                                <!-- <button id="myRemindersButton" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
+                                <!-- <button id="myRemindersButton_mobile" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
                                      My Reminders</button> -->
-                                     <button id="myRemindersButton" type="button" class="btn btn-info bottomLeftButton btn-sm" onclick="myRemindersButton()"><i class="bi bi-alarm"></i>&nbsp;
+                                     <button id="myRemindersButton_mobile" type="button" class="btn btn-info bottomLeftButton btn-sm" onclick="myRemindersButton_click()"><i class="bi bi-alarm"></i>&nbsp;
                                         My Reminders</button>
-                                <!-- <button id="postFlyerButton" type="button" class="btn btn-warning bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
-                                    <a id="postFlyerButton" class="btn btn-warning bottomLeftButton btn-sm" href="/uploadImage" role="button">
+                                <!-- <button id="postFlyerButton_mobile" type="button" class="btn btn-warning bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
+                                    <a id="postFlyerButton_mobile" class="btn btn-warning bottomLeftButton btn-sm" href="/uploadImage" role="button">
                                         Post Flyer</a>
                                     
                                     <a style="margin-left: auto;margin-right: auto;" href="/about">Help / About</a>
@@ -242,7 +242,7 @@
                            <div class="user_info">
 
                                 <div class="tag_div"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> </div>
-                                <div class="event_description">{{event.Flyer.Description}}</div>
+                                <div class="event_description" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)">{{event.Flyer.Description}}</div>
                                 <div>full Description / tickets / RSVP : </div>
                                 <div class="scroll_behind_padding">
                                   <a class="link" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and '://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
@@ -255,7 +255,32 @@
                         </div>
                         
                  
-                    
+                    <div id="more_info_desk{{event.pk}}" class="moreInfo_desk">
+
+                        <div class="moreInfo_desk_img_div">
+                            <img class = "moreInfo_desk_img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} 
+                                alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> 
+                        </div>
+
+                        <div class="moreInfo_desk_text_div">
+
+                            <div class="moreInfo_desk_userInfo">
+
+                                <div class="tag_div_desk"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> </div>
+                                <div class="event_description_desk">{{event.Flyer.Description}}</div>
+                                <div style="font-family: comicy;font-weight: bolder;">full Description / tickets / RSVP : </div>
+                                <div class="scroll_behind_padding">
+                                  <a class="link" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and '://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
+                                </div>
+
+                            </div>
+
+                            <div class="moreInfo_desk_address">
+                                <a class="link" href="http://maps.google.com/?q={{event.Flyer.Address}}" target="_blank"> {{event.Flyer.Address}}</a>
+                            </div>
+                        </div>
+
+                    </div>
                 <!-- <p style="color: #F76F07;">{{flyer.dayOfWeek}}</p> -->
                   {% endfor %}
                 <!-- </div> -->
@@ -347,7 +372,7 @@
     const flyers = document.getElementsByClassName("flyer-div");
     let moreInfo_divs = document.getElementsByClassName("moreInfo");
     
-    let Flyer_images = document.getElementsByClassName('flyer-img')
+    let flyer_images = document.getElementsByClassName('flyer-img')
 
     let blog = document.getElementById("blog");
     let sb =document.getElementById('side-bar-mobile');
@@ -562,8 +587,8 @@
             flyers[i].style['display']='none';
             moreInfo_divs[i].style['display']='none';
 
-            if(Flyer_images[i].classList.contains('moreInfo_open')){
-                toggleMoreInfo(Flyer_images[i]);}
+            if(flyer_images[i].classList.contains('moreInfo_open')){
+                toggleMoreInfo(flyer_images[i]);}
 
         }
        
@@ -621,46 +646,60 @@
     function toggleSideBar(){
 
         // console.log("bb")
-        var filterButton = document.getElementById("filterButton")
+        let filterButton = document.getElementById("filterButton")
 
         if(filterButton.firstChild.classList.contains("bi-list"))
         {
-            var sideBar =document.getElementById("side-bar-mobile");
+            let sideBar =document.getElementById("side-bar-mobile");
                 sideBar.style.width = "59%";
                 sideBar.classList.add('open');
-            var options =document.getElementById("filter-options-mobile");
+            let options =document.getElementById("filter-options-mobile");
                 options.style["padding-left"] = "25%";
-            var filter_btn = filterButton.firstChild
-                filter_btn.classList.remove("bi-list");
-                filter_btn.classList.add("bi-chevron-double-left");
+            let filter_btn_icon = filterButton.firstChild
+                filter_btn_icon.classList.remove("bi-list");
+                filter_btn_icon.classList.add("bi-chevron-double-left");
             filterButton.style["left"] = "100%";
 
+
+            filterButton.style["background-color"] = "#1d2124";
+            filterButton.style["border-color"] = "#171a1d";
+
+            myRemindersButton_mobile.style['display'] = 'block';
+            postFlyerButton_mobile.style['display'] = 'block';
+
             // adding listener to flyer-div so user can click off and away mobile-side-bar
-            var currentFlyers = document.getElementsByClassName("flyer-div")
-            for (var i = 0; i < currentFlyers.length; i++) {
-                currentFlyers[i].addEventListener("click", toggleSideBar);
+            // let currentFlyers = document.getElementsByClassName("flyer-div")
+            for (let i = 0; i < flyers.length; i++) {
+                flyers[i].addEventListener("click", toggleSideBar);
             }
             // blog-inner.addEventListener("click", toggleSideBar);no_results_text
             let no_results_text = document.getElementsByClassName("no_results_text")
-            for (var i = 0; i < no_results_text.length; i++) {
+            for (let i = 0; i < no_results_text.length; i++) {
                 no_results_text[i].addEventListener("click", toggleSideBar);
             }
         }
         else{
-            var sideBar =document.getElementById("side-bar-mobile");
+            let sideBar = document.getElementById("side-bar-mobile");
                 sideBar.style.width = "0px";
                 sideBar.classList.remove('open')
-            var options =document.getElementById("filter-options-mobile");
+            let options =document.getElementById("filter-options-mobile");
                 options.style["padding-left"] = "0px";
-            var filter_btn = filterButton.firstChild
-                filter_btn.classList.remove("bi-chevron-double-left");
-                filter_btn.classList.add("bi-list");
-            filterButton.style["left"] = "105%";
+            let filter_btn_icon = filterButton.firstChild
+                filter_btn_icon.classList.remove("bi-chevron-double-left");
+                filter_btn_icon.classList.add("bi-list");
+            // filterButton.style["left"] = "105%";
+
+
+            filterButton.style["background-color"] = "#343a40";
+            filterButton.style["border-color"] = "#343a40";
+
+            myRemindersButton_mobile.style['display'] = 'none';
+            postFlyerButton_mobile.style['display'] = 'none';
 
             // removing listener to flyer-div
-            var currentFlyers = document.getElementsByClassName("flyer-div")
-            for (var i = 0; i < currentFlyers.length; i++) {
-                currentFlyers[i].removeEventListener("click", toggleSideBar);
+            // let currentFlyers = document.getElementsByClassName("flyer-div")
+            for (var i = 0; i < flyers.length; i++) {
+                flyers[i].removeEventListener("click", toggleSideBar);
             }
             let no_results_text = document.getElementsByClassName("no_results_text")
             for (var i = 0; i < no_results_text.length; i++) {
@@ -820,7 +859,7 @@
 
     }
 
-    function myRemindersButton(){
+    function myRemindersButton_click(){
         
         if (current_user_email != "null"){
             
@@ -856,9 +895,9 @@
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
 
-        if(!thisElement.classList.contains('moreInfo_open')){
+        if(!moreInfo.classList.contains('moreInfo_open')){
 
-            thisElement.classList.add('moreInfo_open')
+            moreInfo.classList.add('moreInfo_open')
 
             if(document.documentElement.clientWidth >=1000)
             {
@@ -867,8 +906,8 @@
 
             }
             else
+            // moreInfo.style["height"]= "119px";
             {
-                // moreInfo.style["height"]= "119px";
                 moreInfo.style["height"]= "18.5em";
 
             }
@@ -912,7 +951,7 @@
         }
         else{
 
-            thisElement.classList.remove('moreInfo_open')
+            moreInfo.classList.remove('moreInfo_open')
 
             moreInfo.style["transition"] ="0.29s";
             moreInfo.style["height"]= "0px";
@@ -935,6 +974,32 @@
             children[0].innerHTML="\u00A0";
             children[2].innerHTML="\u00A0";
         }
+
+    }
+
+    //TOGGLE MORE INFO DESK
+    function toggle_moreInfo_desk(thisElement){
+
+        let flyer_id = thisElement.dataset.flyer_id;
+        let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
+
+        //open
+        if(!thisElement.classList.contains('moreInfo_open')){
+
+            thisElement.classList.add('moreInfo_open')
+            thisElement.style['border'] = '5px solid chartreuse';
+
+            moreInfo.style['display'] = 'flex'}
+
+
+        //close
+        else{
+
+            thisElement.classList.remove('moreInfo_open')
+            thisElement.style['border'] = '0px';
+
+            moreInfo.style['display'] = 'none'}
+
 
     }
 
@@ -962,6 +1027,14 @@
 
         let root = document.documentElement;
         root.style.setProperty('--clampCount', String(10-7));
+
+        if (screen_size == 'laptop')
+        {
+            for (let i = 0; i < flyer_images.length; i++) 
+            {
+                flyer_images[i].setAttribute('onclick', 'toggle_moreInfo_desk(this)');
+            }
+        }
         
     
 
@@ -974,8 +1047,8 @@
 
     @font-face {
     font-family: comicy;
-    src: url({% static '/mainApp/ComicNeue-Bold.ttf' %});
-}
+    src: url({% static '/mainApp/ComicNeue-Bold.ttf' %});}
+
     html {
   scroll-behavior: smooth;}
 
@@ -1344,7 +1417,10 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
                 transform: translateX(-10px);
             }
             .refresh_symbol{
+
                 width: 1.4rem;
+                /* height: 1.4rem; */
+                
                 transform: translateY(-2.9px);
             }
             .refresh_symbol_desk{
@@ -1409,9 +1485,14 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       
   }
 
-  #boros{
-    text-align: center;
-  }
+    #boros{
+        text-align: center; }
+
+        .lastBoro::after{
+            content: "";
+            width: 48px;
+
+        }
   /* #boros .btn{
       font-size: smaller;
   } */
@@ -1488,7 +1569,7 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
         margin-left: 25%; */
         transition: 0.4s;
         z-index: 2;
-        /* display: flex; */    
+        /* display: flex; */ 
     }
     #mobile-side-bar-inner{
       display: flex;
@@ -1515,12 +1596,16 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
 
         position: relative;
         top: 1%;
-        right:105%;
+        /* left: 2px; */
+        /* right:105%; */
         font-weight: bold;
+        /* border: #eef1f5 solid .5px; */
+        /* box-shadow: inset 0px 0px 1px #f5f5f5; */
     }
     #filterButton:focus {
-        outline: none;
-        box-shadow: none;
+
+        background-color: #343a40;
+        border-color: #343a40;
       }
 
       #blank-space{
@@ -1654,11 +1739,11 @@ margin-right: auto; */
           padding-right: 20%;
           height: 0px;
           
-          overflow-y: hidden;
-          overflow-x: scroll;
-          /* for IE and firefox */
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
+          overflow: hidden;
+          /* overflow-x: scroll; */
+
+          /*-ms-overflow-style: none;*/  /* IE and Edge */
+          /*scrollbar-width: none;*/  /* Firefox */
       }
         
             .user_info::-webkit-scrollbar {
@@ -1699,6 +1784,80 @@ margin-right: auto; */
     .scroll_behind_padding::-webkit-scrollbar {
         display: none;
     }
+
+    .moreInfo_desk
+    {
+
+        display: none;
+        height: 90vh;
+        width: 95%;
+        margin-top: 1%;
+        /* background-color: #007bff; */
+        border-top: aliceblue solid 5px;
+        border-bottom:  aliceblue solid 5px;
+        
+
+    }
+        .moreInfo_desk_img_div{
+
+            flex: 1;
+            display: flex;
+
+           justify-content: center;
+           align-items: center;
+
+        }
+            .moreInfo_desk_img{
+                max-width:95%;
+                max-height:95%;
+            }
+
+        .moreInfo_desk_text_div{
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            /* background-color: #174ea6; */
+            gap: .7rem;
+        }
+            .moreInfo_desk_userInfo{
+                background-color: rgb(249,247,249);
+                width: 85%;
+                max-width:350px;
+                border-radius: 4px;
+                color: black;
+                color: #174ea6;
+                padding: .6rem;
+                /* padding-left: 20%;
+                padding-right: 20%; */
+                height: 74%;
+                max-height: 500px;
+                display: flex;
+                flex-direction: column;
+            }
+                .tag_div_desk{
+                    font-family: comicy;
+                    /* font-size: .8rem; */
+                }
+                .event_description_desk
+                {
+                    margin-top: .4rem;
+                    margin-bottom: auto;
+            
+                }
+
+            .moreInfo_desk_address{
+                background-color: rgb(249,247,249);
+                width:85%;
+                max-width:350px;
+                border-radius: 4px;
+                color: black;
+                padding: .5rem;
+            }
 
     .newPostIcon{
         color: yellow;
@@ -1760,7 +1919,59 @@ margin-right: auto; */
     
     }
 
-    @media only screen and (max-width: 1000px) {
+@media only screen and (min-width: 601px){
+
+    #blog{
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content:center;
+    }
+
+    .flyer-div{
+        margin-left:auto;
+        margin-right:.5rem;
+        height: 350px;
+        min-width:350px;
+        width:350px;
+    }
+    .flyer-img{
+        height: 350px;
+
+        min-width:350px;
+        width:350px;
+    }
+
+    #side-bar-mobile {
+ 
+            left: 8px;
+
+        }
+}
+@media only screen and (min-width: 712px) {
+    .flyer-div{
+            margin-left:.5rem;
+    }
+           /* main panel */
+
+           #mobileLogoDiv{
+        display: none;
+        }
+        #boroBar{
+        display: none;
+        }
+        #weekBar{
+          display: none;
+        }
+        #side-bar-mobile{
+          display: none;
+        }
+
+
+}
+
+    @media only screen and (max-width: 712px) {
         #boroBar_left{
             background-color:yellowgreen;
         }
@@ -1796,22 +2007,11 @@ margin-right: auto; */
 
 
     }
-    @media only screen and (min-width: 1001px) {
 
-        /* main panel */
 
-        #mobileLogoDiv{
-        display: none;
-        }
-        #boroBar{
-        display: none;
-        }
-        #weekBar{
-          display: none;
-        }
-        #side-bar-mobile{
-          display: none;
-        }
+    @media only screen and (min-width: 1010px) {
+
+ 
 
         #success_modal{
             /* height: 46vh; */
@@ -1820,29 +2020,13 @@ margin-right: auto; */
             font-size: 95%;
         }
 
-        .flyer-div{
-            margin-left:1%;
-            margin-right:1%;
-            height: 350px;
-            min-width:350px;
-            width:350px;
-        }
-        .flyer-img{
-            height: 350px;
+        #blog{
+            padding-top: 160px;}
 
-            min-width:350px;
-            width:350px;
-        }
         .moreInfo{
             width: 0px;;
         }
-        #blog{
-display: flex;
-flex-wrap: wrap;
-
-justify-content:center;
-padding-top: 160px;
-        }
+        
         .flyer-buttons{
             display: none;
         }

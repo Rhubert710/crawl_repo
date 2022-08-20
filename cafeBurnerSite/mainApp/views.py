@@ -20,6 +20,7 @@ def index(request):
     # flyerList = Flyer.objects.filter(Event_date__gte = datetime.date.today()
     #                                 ).filter(Event_date__lte = datetime.date.today()+ datetime.timedelta(days=6))
     
+    # Flyer_Image.objects.get(id=444).delete()
 
     # flyerList = Event.objects.all().order_by('-Posistion')
     flyerList = Event.objects.all()
@@ -209,11 +210,16 @@ def test(request):
     # form = FlyerForm()
     # return render(request, 'mainApp/test.html',{'form':form})
 
-    flyerList = Reminder.objects.all()
+    # flyerList = list(Reminder.objects.all().values())
+    # flyerList=list(Flyer.objects.filter(event__isnull=True).values())
+
+    # flyerList=list(Flyer_Image.objects.filter(Flyer__event__isnull=False).values())
+    flyerList=list(Flyer_Image.objects.filter(flyer__event__isnull=True).values())
+
     # flyerList=list(flyerList)
     # flyerList.
     print(type(flyerList))
-    return HttpResponse(flyerList);
+    return JsonResponse(flyerList,safe=False);
 # def clearMessages(request):
 #     storage = messages.get_messages(request)
 #     for _ in storage:
