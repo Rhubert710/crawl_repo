@@ -12,7 +12,13 @@ from collections import Counter
 import hashlib
 
 from django.contrib.auth.decorators import user_passes_test
-# from django.core import serializers
+from django.core import serializers
+
+from django.db import connection
+
+
+
+
 
 
 def index(request):
@@ -25,9 +31,13 @@ def index(request):
     # flyerList = Event.objects.all().order_by('-Posistion')
     flyerList = Event.objects.all()
 
+    moreInfo_data = json.dumps(list(Flyer.objects.all().values()),default=str)
+    # moreInfo_data  = serializers.serialize("json", Flyer.objects.all())
+
+
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
     # print(serializers.serialize('json', flyerList))
-    return render(request, 'mainApp/index.html', {'flyerList':flyerList})
+    return render(request, 'mainApp/index.html', {'flyerList':flyerList, 'moreInfo_data':moreInfo_data})
 
 def index2(request):
     
@@ -89,7 +99,7 @@ def saveImage(request):
     # print(form.errors)
     if form.is_valid():
         
-        # print("okkkkkkkkk")
+        print("okkkkkkkkk")
         newImg = form.save()
 
         #create md5
@@ -214,12 +224,29 @@ def test(request):
     # flyerList=list(Flyer.objects.filter(event__isnull=True).values())
 
     # flyerList=list(Flyer_Image.objects.filter(Flyer__event__isnull=False).values())
-    flyerList=list(Flyer_Image.objects.filter(flyer__event__isnull=True).values())
 
-    # flyerList=list(flyerList)
-    # flyerList.
-    print(type(flyerList))
-    return JsonResponse(flyerList,safe=False);
+    #get all flyer_imgs that dont have any events
+    # flyerList=list(Flyer_Image.objects.filter(flyer__event__isnull=True).values())
+
+    # flyerList = list(Event.objects.all().values('Flyer'))
+
+
+    # print(flyerList.query)
+    # return JsonResponse(flyerList,safe=False);
+
+    # flyerList = Event.objects.all()
+    # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
+    # print(serializers.serialize('json', flyerList))
+    # return render(request, 'mainApp/x.html', {'flyerList':flyerList})
+
+    with connection.cursor() as cursor:
+
+        cursor.execute("SELECT mainApp_event.Day_of_week, mainApp_event.Flyer_id, mainApp_flyer.Address  "
+                        "FROM mainApp_event INNER JOIN mainApp_flyer ON mainApp_event.Flyer_id=mainApp_flyer.Flyer_image_id;")
+        row = cursor.fetchall()
+
+    return JsonResponse(row,safe=False);
+
 # def clearMessages(request):
 #     storage = messages.get_messages(request)
 #     for _ in storage:
@@ -279,7 +306,7 @@ def saveMultiple(request):
     for obj in p['new_flyers_data']:
          
         #create new img object
-        new_img = Flyer_Image(Img_src_url = obj['Img_src_url'])
+        new_img = Flyer_Image(Img_src_url = obj['Img_src_url'], Orientation= obj['Orientation'])
 
         new_img.full_clean()
         new_img.save()
@@ -287,9 +314,10 @@ def saveMultiple(request):
         
 
         #create ne flyer object
-        new_flyer = Flyer(Boro = obj['Boro'], Address= obj['Address'], Event_type= obj['Event_type'],
-                            Contact_information= obj['Contact_information'], Description= obj['Description'],
-                            Posted_by_me= obj['Posted_by_me'], Flyer_image= new_img)
+        new_flyer = Flyer( Boro = obj['Boro'], Address= obj['Address'], 
+                            Event_type= obj['Event_type'], Contact_information= obj['Contact_information'], 
+                            Description= obj['Description'], Posted_by_me= obj['Posted_by_me'], 
+                            Flyer_image= new_img )
 
         new_flyer.full_clean()
         new_flyer.save()

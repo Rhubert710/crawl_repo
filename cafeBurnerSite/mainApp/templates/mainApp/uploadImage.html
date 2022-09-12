@@ -46,7 +46,7 @@
         <div id="mainDiv">
         
             <div id="imageFormDiv">
-                <form id="imageForm" runat="server" action="saveImage/" method="POST" enctype="multipart/form-data" autocomplete="on"> <!-- onsubmit="return validateForm()" -->
+                <form id="imageForm" runat="server" action="saveImage/" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return mobile_validate()"> <!-- onsubmit="return validateForm()" -->
                     {% csrf_token %}
                     <label for="fileInput" id="image_label">
                         <div id="iconDiv">
@@ -67,6 +67,8 @@
 
 
                     <input accept="image/*" type='file' id="fileInput" name="Flyer_image"/>
+                    <input type="text" id="orientation_input" style="display: none;" name="Orientation">
+
                 <!-- </form> -->
             </div>
             
@@ -609,7 +611,7 @@ body{
             screen_size = "mobile"
 
             imageForm.action = "saveImage/";
-            imageForm.setAttribute("onSubmit", "");
+            imageForm.setAttribute("onSubmit", "return mobile_validate()");
 
             return
         }
@@ -628,7 +630,7 @@ body{
     
     
 
-    if (screen_size == "laptop"){
+    if (window.innerWidth >= 1001){
 
         iconDiv.style["height"] = "60vh";
 
@@ -637,6 +639,7 @@ body{
         // imageFormButtons.style["display"]="flex";
         // image_label.style["display"]="block";
         // nextButton.style["display"]="none";
+        
     }
     else{
 
@@ -660,8 +663,10 @@ function disableWeekdays(date) {
  }
 
 // $( function() {
+
 //     $( "#datepicker" ).datepicker({ beforeShowDay: disableWeekdays,
 //                                                          minDate:0});
+
 //   } );
 
   function next(){
@@ -694,8 +699,24 @@ function disableWeekdays(date) {
   
 
   //VALIDATE//
-  function validateForm() 
-  {
+
+  //mobile validate//
+  function mobile_validate(){
+
+    loading_div.style['display'] = 'flex';
+
+    orientation_input.value = 'q';
+
+    if(iconDiv.offsetWidth > iconDiv.offsetHeight + 50) orientation_input.value = 'w';
+    if(iconDiv.offsetWidth + 10 < iconDiv.offsetHeight) orientation_input.value = 'l';
+
+    return true
+  }
+
+
+
+  //Desk validate//
+  function validateForm() {
 
     let requiredFields = document.getElementsByClassName("required");
     // let x = document.forms["myForm"]["fname"].value;
@@ -770,15 +791,24 @@ function disableWeekdays(date) {
     }
 
     
-    console.log(Date_input.value)
-    console.log(Day_of_week_input.value)
+    // console.log(Date_input.value)
+    // console.log(Day_of_week_input.value)
     // var imgInput = document.getElementById("difImgFile");
     // difImgFile.value = fileInput.files
     // console.log(difImgFile.value)
     // imageForm.action ="/saveFlyerDestop/"
     // console.log(x)
 
+    //loading animation//
     if(formIsValid) loading_div.style['display'] = 'flex';
+
+    //setting 'Orientation'//
+    orientation_input.value = 'q';
+
+    if(iconDiv.offsetWidth > iconDiv.offsetHeight + 50) orientation_input.value = 'w';
+    if(iconDiv.offsetWidth + 10 < iconDiv.offsetHeight) orientation_input.value = 'l';
+
+
     return formIsValid;
   }
 

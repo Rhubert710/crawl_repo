@@ -19,4 +19,4 @@ class Flyer_ImageForm(forms.ModelForm):
     
     class Meta:
         model = Flyer_Image
-        fields = ('Flyer_image',)
+        fields = ('Flyer_image', 'Orientation')

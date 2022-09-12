@@ -7,6 +7,7 @@ class Flyer_Image(models.Model):
     Flyer_image = models.ImageField(upload_to='flyer_imgs/', null = True, blank=True)
     Img_src_url = models.CharField(max_length=500, null=True, blank=True)
     Hash = models.CharField(max_length=200, null=True, blank=True)
+    Orientation = models.CharField(max_length=1, null=True, blank=True)
     Flyer = models.ForeignKey('Flyer', on_delete=models.CASCADE, null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
 
