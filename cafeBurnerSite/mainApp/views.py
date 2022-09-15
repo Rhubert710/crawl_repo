@@ -234,18 +234,18 @@ def test(request):
     # print(flyerList.query)
     # return JsonResponse(flyerList,safe=False);
 
-    # flyerList = Event.objects.all()
+    flyerList = Event.objects.all()
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
     # print(serializers.serialize('json', flyerList))
-    # return render(request, 'mainApp/x.html', {'flyerList':flyerList})
+    return render(request, 'mainApp/x.html', {'flyerList':flyerList})
 
-    with connection.cursor() as cursor:
+    # with connection.cursor() as cursor:
 
-        cursor.execute("SELECT mainApp_event.Day_of_week, mainApp_event.Flyer_id, mainApp_flyer.Address  "
-                        "FROM mainApp_event INNER JOIN mainApp_flyer ON mainApp_event.Flyer_id=mainApp_flyer.Flyer_image_id;")
-        row = cursor.fetchall()
+    #     cursor.execute("SELECT mainApp_event.Day_of_week, mainApp_event.Flyer_id, mainApp_flyer.Address  "
+    #                     "FROM mainApp_event INNER JOIN mainApp_flyer ON mainApp_event.Flyer_id=mainApp_flyer.Flyer_image_id;")
+    #     row = cursor.fetchall()
 
-    return JsonResponse(row,safe=False);
+    # return JsonResponse(row,safe=False);
 
 # def clearMessages(request):
 #     storage = messages.get_messages(request)

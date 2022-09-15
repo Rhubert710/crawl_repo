@@ -231,7 +231,7 @@
 
                   {% for event in flyerList reversed %}
                   
-                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %}>
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} data-orientation ="{{event.Flyer.Flyer_image.Orientation}}">
                       
                         <img class = "flyer-img" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)"
                             src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
@@ -581,7 +581,7 @@
     // console.log(blog.scrollTop)
     }
 
-    function filter() {
+    function filter_stable() {
         
         let boro = document.getElementsByClassName("current_boro");
         let day = document.getElementsByClassName("current_day");
@@ -670,6 +670,213 @@
             {no_result_div.style['display'] = 'block';}
     }
 
+    function filter() {
+        
+        let boro = document.getElementsByClassName("current_boro");
+        let day = document.getElementsByClassName("current_day");
+
+        let checked = document.getElementsByClassName("checked");
+
+        // blog.scrollTop = 0; //smooth scroll moved to bottom
+        
+        if (sb.classList.contains('open')){toggleSideBar();}
+
+        mobile_top_buffer_div.style['height']='50px';
+
+        mobile_top_buffer_div.addEventListener("transitionend", (ev) => {
+            mobile_top_buffer_div.style['height']='0px';}, true);
+
+        // document.querySelectorAll('.flyer').forEach((flyer) => {flyer.style['display']='none'});
+        // document.querySelectorAll('.more').forEach((flyer) => {flyer.style['display']='none'});
+
+        for (let i = 0; i < flyers.length; i++) 
+        {
+
+            flyers[i].style['display']='none';
+            moreInfo_divs[i].style['display']='none';
+
+            flyers[i].style['height'] = 'auto';
+
+        }
+        
+        // collapse moreInfo divs mobile / laptop
+        for (let i = 0; i < moreInfo_divs.length; i++) {
+
+            if(moreInfo_divs[i].classList.contains('moreInfo_open')){
+                toggleMoreInfo(moreInfo_divs[i].children[1].children[1]);}
+
+        }
+
+        let open_desk_element = document.querySelector('.selected_flyer_desk');
+        if(open_desk_element) toggle_moreInfo_desk(open_desk_element);
+        
+
+        no_result_div.style['display'] = 'none';
+        no_reminders_div.style['display']='none';
+
+        let no_Results = true;
+
+
+        let hash_list = [];
+
+        if (checked.length > 0)
+        {
+            for (i = 0; i < flyers.length; i++){
+                for (j = 0; j < checked.length; j++)
+                {
+                    if(flyers[i].classList.contains(boro[0].value) &&
+                        flyers[i].classList.contains(day[0].value) &&
+                        flyers[i].classList.contains(checked[j].dataset.value) &&
+                        !hash_list.includes(flyers[i].dataset.md5))
+                    {
+                        flyers[i].style.display ="flex";
+                        moreInfo_divs[i].style.display ="flex";
+
+                        hash_list.push(flyers[i].dataset.md5)
+                        no_Results = false;
+                    }
+                }
+            }
+        }
+
+        if (checked.length == 0)
+        {
+            for (i = 0; i < flyers.length; i++){
+                if(flyers[i].classList.contains(boro[0].value) &&
+                    flyers[i].classList.contains(day[0].value) &&
+                    !hash_list.includes(flyers[i].dataset.md5))
+                {
+                    flyers[i].style.display ="flex";
+                    moreInfo_divs[i].style.display ="flex";
+
+                    hash_list.push(flyers[i].dataset.md5)
+                    no_Results=false;
+                }
+            }
+        }
+
+        blog.scrollTo({top: 0, behavior: 'smooth'});
+
+        //FORMAT LAYOUT FOR DESK//
+        if (window.innerWidth >= 712) format_layout_for_desk();
+        
+
+        //finally
+        if(no_Results)
+            {no_result_div.style['display'] = 'block';}
+
+    }
+
+    //FORMAT LAYOUT FOR DESK//
+    function format_layout_for_desk(){
+
+        let l = [];
+        for (let i of flyers){if(i.getAttribute('data-orientation')=='l' && i.style['display']=='flex'){i.removeAttribute('id'); l.push(i);}}
+
+        let w = [];
+        for (let i of flyers){if(i.getAttribute('data-orientation')=='w' && i.style['display']=='flex') {i.removeAttribute('id'); w.push(i);}}
+
+        let q = [];
+        for (let i of flyers){if(i.getAttribute('data-orientation')=='q' && i.style['display']=='flex') {i.removeAttribute('id'); q.push(i);}}
+
+        let counter = 1;
+        let row =1
+
+        let isFlyers = true;
+
+
+        while (isFlyers) 
+        {
+
+            let COLUMS = 2;
+
+            if (l.length > COLUMS){
+                for (let i = 0; i <= COLUMS; i++) {
+                    
+                    l[i].style['order'] = counter;
+                    l[i].dataset['row'] = row;
+
+                    if(i==COLUMS) {l[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    counter ++;
+
+                }
+                for (let i = 0; i <= COLUMS; i++) {l.shift()}
+                
+            }
+
+            if (l.length > COLUMS){
+                for (let i = 0; i <= COLUMS; i++) {
+                    
+                    l[i].style['order'] = counter;
+                    l[i].dataset['row'] = row;
+
+                    if(i==COLUMS) {l[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    counter ++;
+
+                }
+                for (let i = 0; i <= COLUMS; i++) {l.shift()}
+            }
+
+            if (q.length > COLUMS){
+                for (let i = 0; i <= COLUMS; i++) {
+                    
+                    q[i].style['order'] = counter;
+                    q[i].dataset['row'] = row;
+
+                    if(i==COLUMS) {q[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    counter ++;
+
+                }
+                for (let i = 0; i <= COLUMS; i++) {q.shift()}
+            }
+            if (w.length > COLUMS){
+                for (let i = 0; i <= COLUMS; i++) {
+                    
+                    w[i].style['order'] = counter;
+                    w[i].dataset['row'] = row;
+
+                    if(i==COLUMS) {w[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    counter ++;
+
+                }
+                for (let i = 0; i <= COLUMS; i++) {w.shift()}
+            }
+            if (w.length > COLUMS){
+                for (let i = 0; i <= COLUMS; i++) {
+                    
+                    w[i].style['order'] = counter;
+                    w[i].dataset['row'] = row;
+
+                    if(i==COLUMS) {w[i].setAttribute('id', `last_in_row_${row}`);row++;counter++;}
+                    counter ++;
+
+                }
+                for (let i = 0; i <= COLUMS; i++) {w.shift()}
+            }
+
+            //last of
+            if(l.length<=COLUMS && w.length<=COLUMS && q.length<=COLUMS){
+
+                for(let list of [l,w,q]){
+
+                    for (let i=0; i< list.length; i++){
+
+                        list[i].style['order'] = counter;
+                        list[i].dataset['row'] = row;
+
+                        list[i].style['height'] = 'fit-content'
+
+                        if(i==list.length-1) {list[i].setAttribute('id', `last_in_row_${row}`);row++;counter++;}
+                        counter ++;
+                    }
+                }
+                isFlyers = false;
+            }
+        }
+        
+    }
+    
+    
     function toggleSideBar(){
 
         // console.log("bb")
@@ -1017,7 +1224,8 @@ function toggle_moreInfo_desk(thisElement){
         let flyer_id = thisElement.dataset.flyer_id;
         let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
 
-        var last_element_in_row = find_last_in_row(thisElement.parentElement);
+        let row = thisElement.parentElement.dataset.row;
+        let last_element_in_row = document.querySelector(`#last_in_row_${row}`);
 
         const para = document.createElement("div");
         para.innerHTML = `
@@ -1027,7 +1235,10 @@ function toggle_moreInfo_desk(thisElement){
         para.style['width'] ='90%';
         para.style['background-color'] ='blue';
 
-        last_element_in_row.insertAdjacentElement('afterend', moreInfo);
+        let order = last_element_in_row.style['order']
+        moreInfo.style['order'] = parseInt(order) + 1;
+
+        // last_element_in_row.insertAdjacentElement('afterend', moreInfo);
 
         //open
         if(!thisElement.classList.contains('selected_flyer_desk')){
@@ -1147,6 +1358,20 @@ function toggle_moreInfo_desk(thisElement){
         // return element.nextSibling.nextSibling.nextSibling.nextSibling
 
     }
+    function find_last_in_row_old(element) {
+
+
+        if (element.classList.contains('last_in_row')){
+            return element
+
+        }
+
+        let last_element = find_last_in_row(element.nextElementSibling)
+
+        return last_element
+        // return element.nextSibling.nextSibling.nextSibling.nextSibling
+
+        }
 
 //SET_moreInfo_toggle_type
 function set_moreInfo_toggle_type(){
@@ -1202,7 +1427,7 @@ function set_moreInfo_toggle_type(){
         root.style.setProperty('--clampCount', String(10-7));
 
         set_moreInfo_toggle_type();
-        assign_last_in_row();
+        // assign_last_in_row();
 
     }
 
@@ -1721,7 +1946,8 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       flex: 1;
 
       height: 100%;
-      
+      padding-bottom: 19vh;
+
     }
     /* #blog-inner{
         display: inline-block;
@@ -2101,129 +2327,130 @@ margin-right: auto; */
         }
   
   
-    @media only screen and (max-width: 1298px) {
-        
-    
-    }
+        @media only screen and (max-width: 1298px) {
+
+
+}
 
 @media only screen and (min-width: 601px){
 
-    #blog{
+#blog{
 
-    display: flex;
-    flex-wrap: wrap;
+display: flex;
+flex-wrap: wrap;
 
-    justify-content: center;
-    /* align-items:flex-end */
+justify-content: center;
+padding-bottom: 50vh;
+
+}
+
+.flyer-div{
+    margin-left:auto;
+    margin-right:1%;
+
+     /* height: 350px; */
+    height: auto;
+
+    min-width:350px;
+    width:350px;
+}
+.flyer-img{
+     /* height: 350px; */
+    height:auto;
+
+    min-width:350px;
+    width:350px;
+}
+
+#side-bar-mobile {
+
+        left: 8px;
+
     }
-
-    .flyer-div{
-        margin-left:auto;
-        margin-right:1%;
-        height: 350px;
-        /* height:auto; */
-        min-width:350px;
-        width:350px;
-    }
-    .flyer-img{
-        height: 350px;
-        /* height:fit-content; */
-
-        min-width:350px;
-        width:350px;
-    }
-
-    #side-bar-mobile {
- 
-            left: 8px;
-
-        }
-
-
 }
 @media only screen and (min-width: 712px) {
-    .flyer-div{
-            /* margin-left:.5rem; */
+.flyer-div{
+        margin-left:.5rem;
+}
+       /* main panel */
+
+       #mobileLogoDiv{
+    display: none;
     }
-           /* main panel */
+    #boroBar{
+    display: none;
+    }
+    #weekBar{
+      display: none;
+    }
+    #side-bar-mobile{
+      display: none;
+    }
 
-
-           #mobileLogoDiv{
-        display: none;
-        }
-        #boroBar{
-        display: none;
-        }
-        #weekBar{
-          display: none;
-        }
-        #side-bar-mobile{
-          display: none;
-        }
 
 }
 
-    @media only screen and (max-width: 712px) {
-        #boroBar_left{
-            background-color:yellowgreen;
-        }
-        #leftPanel{
-            display: none;
-        }
-        #mainPanel{
-          flex: 1;
-        }
-        .flyer-div
-      {
-        height: auto;
-        min-width:80vw;
-        /* margin-left: auto;
-        margin-right: auto;
-        margin-top:1%;
+@media only screen and (max-width: 712px) {
+    #boroBar_left{
+        background-color:yellowgreen;
+    }
+    #leftPanel{
+        display: none;
+    }
+    #mainPanel{
+      flex: 1;
+    }
+    .flyer-div
+  {
+    height: auto;
+    min-width:80vw;
+    /* margin-left: auto;
+    margin-right: auto;
+    margin-top:1%;
 
-        display: flex; */
-        
-        /* margin-left: auto;
-      margin-right: auto; */
-      /* position: relative; */
-      }
-      
+    display: flex; */
+
+    /* margin-left: auto;
+  margin-right: auto; */
+  /* position: relative; */
+  }
+
+
+.flyer-buttons{
+font-size: 4.8vw;
+/* width: 7vw; */
+}
+
+.user_info{
+width: 80vw;}
+
+
+}
+
+
+@media only screen and (min-width: 1010px) {
+
+
+
+    #success_modal{
+        /* height: 46vh; */
+        width: 40vw;
+        padding: 2%;
+        font-size: 95%;
+    }
+
+    #blog{
+        padding-top: 160px;}
+
+    .moreInfo{
+        width: 0px;;
+    }
 
     .flyer-buttons{
-    font-size: 4.8vw;
-    /* width: 7vw; */
+        display: none;
+    }
+
 }
-   
-    .user_info{
-    width: 80vw;}
-
-
-    }
-
-
-    @media only screen and (min-width: 1010px) {
-
- 
-
-        #success_modal{
-            /* height: 46vh; */
-            width: 40vw;
-            padding: 2%;
-            font-size: 95%;
-        }
-
-        #blog{
-            padding-top: 160px;}
-
-        .moreInfo{
-            width: 0px;;
-        }
-        
-        .flyer-buttons{
-            display: none;
-        }
-
-    }
     
   </style>
 
