@@ -219,7 +219,7 @@
                   <div id="no_reminders_div" class="no_results_text" style="display:none;">
                     <i class="bi bi-alarm"></i> No Upcoming Reminders</div>
 
-                <div id="mobile_top_buffer_div" style="transition: 2s;"></div>
+                <div id="mobile_top_buffer_div"></div>
 
                   <!-- <div class="flyer-div flyer Brooklyn comedy Friday">
                       <img class = "flyer-img" src="dummyFlyer1.png" alt="flyer1">
@@ -377,10 +377,9 @@
 
     var current_user_email = "null";
     var csrftoken = getCookie('csrftoken');
-
     const flyers = document.getElementsByClassName("flyer-div");
     let moreInfo_divs = document.getElementsByClassName("moreInfo");
-    
+    let prev_firstFlyer;
     let flyer_images = document.getElementsByClassName('flyer-img');
     const moreInfo_data =  JSON.parse(document.getElementById('moreInfo_data').textContent);
 
@@ -674,17 +673,12 @@
         
         let boro = document.getElementsByClassName("current_boro");
         let day = document.getElementsByClassName("current_day");
-
+        let first 
         let checked = document.getElementsByClassName("checked");
 
         // blog.scrollTop = 0; //smooth scroll moved to bottom
         
         if (sb.classList.contains('open')){toggleSideBar();}
-
-        mobile_top_buffer_div.style['height']='50px';
-
-        mobile_top_buffer_div.addEventListener("transitionend", (ev) => {
-            mobile_top_buffer_div.style['height']='0px';}, true);
 
         // document.querySelectorAll('.flyer').forEach((flyer) => {flyer.style['display']='none'});
         // document.querySelectorAll('.more').forEach((flyer) => {flyer.style['display']='none'});
@@ -757,9 +751,11 @@
 
         blog.scrollTo({top: 0, behavior: 'smooth'});
 
-        //FORMAT LAYOUT FOR DESK//
+        //FORMAT LAYOUT FOR DESK
         if (window.innerWidth >= 712) format_layout_for_desk();
         
+        //(mobile only <for some reason>) 'buffer animation' (only if rirst result is same flyer)
+        mobile_buffer_animation();
 
         //finally
         if(no_Results)
@@ -767,8 +763,23 @@
 
     }
 
-    //FORMAT LAYOUT FOR DESK//
-    function format_layout_for_desk(){
+//MOBILE BUFFER ANIMATION//
+function mobile_buffer_animation(){
+
+    let current_firstFlyer = (function(){for(let x of flyers){if(x.style['display'] == 'flex'){return x.dataset.md5; break}}})();
+
+        if (prev_firstFlyer == current_firstFlyer){
+
+            mobile_top_buffer_div.classList.add('buffer_animation');
+            setTimeout(() => { mobile_top_buffer_div.classList.remove('buffer_animation') ;}, 501)
+            
+        }
+        prev_firstFlyer = current_firstFlyer;
+    
+}
+
+//FORMAT LAYOUT FOR DESK//
+function format_layout_for_desk(){
 
         let l = [];
         for (let i of flyers){if(i.getAttribute('data-orientation')=='l' && i.style['display']=='flex'){i.removeAttribute('id'); l.push(i);}}
@@ -2325,9 +2336,18 @@ margin-right: auto; */
             margin-right: auto;
             margin-top: 2%;
         }
+
+        .buffer_animation{
+            animation-name: buffer_animation;
+            animation-duration: .4s;
+        }
+        @keyframes buffer_animation {
+            0%, 100% {height: 0px;}
+            50% {height: 2px;}
+            }
   
   
-        @media only screen and (max-width: 1298px) {
+@media only screen and (max-width: 1298px) {
 
 
 }
