@@ -79,7 +79,7 @@
                     <div id="selectors">
                         <div class="selectorDiv">
                             <!-- <label for="Boro">Boro:</label> -->
-                                <div>Boro:</div>
+                                <div class="label">Boro:</div>
                                 <select id="boroSelector" name="Boro" class="selector required"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="#343538" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 13.379l5.94-5.94a1.5 1.5 0 012.12 2.122l-7 7a1.5 1.5 0 01-2.12 0l-7-7a1.5 1.5 0 112.12-2.122L12 13.38z"></path></svg>
                                     <option value=""></option>
                                     <option value="brooklyn">Brooklyn</option>
@@ -93,7 +93,7 @@
                     
                     <div class="selectorDiv">
                         <!-- <label for="Event_type">Event Type:</label> -->
-                            <div>Event Type: </div>
+                            <div class="label">Event Type: </div>
                             <select id="eventTypeSelector" name="Event_type" class="selector required" style="margin-bottom: 0px;">
                                 <option value=""></option>
                                 <option value="comedy">Comedy</option>
@@ -125,7 +125,7 @@
 
                     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center; ">
                         <!-- <label for="Event_date1">Event Date: </label> -->
-                        <div>&emsp; Event Date </div>
+                        <div class="label">&emsp; Event Date </div>
 
                         <div id="eventDate1" name="Event_date" class="date picker" data-date_input="a"></div>
                         <div class="help_text" style="margin-top: 1%;">&nbsp;&nbsp;&nbsp;&nbsp; Pick all the dates you need! <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Select all the dates you need for your event! <br>  For ex, If your event is thursday - sunday.&nbsp; Or if your event is every Saturday of the month"></i></div>
@@ -139,7 +139,7 @@
 
             <!-- BOTTOM TEXT INPUT -->
 
-                    <label for="Description">Description:</label>
+                    <label class="label" for="Description">Description:</label>
                     <span id="frac" class="help_text" style="margin-left: 1rem;"><span id="char_count_span">0</span> / 400</span><br>
                 
                     <textarea name="Description" id="ta" maxlength = "400" onkeyup="count_chars()" style="margin-bottom: 0px;" cols="" rows="3"></textarea>
@@ -147,14 +147,14 @@
                         *Description will be shortend to about 150 characters on mobile devices
                     </div><br>
 
-                    <div for="Contact_information">Exterrnal link :</div>
+                    <div class="label" for="Contact_information">Exterrnal link :</div>
                     <input type="text" id="contactInfo" name="Contact_information" class="textField required" style="margin-bottom: 0px;" >
                     <!-- <div class="help_text">This should be a link where users can find more info or contact your about your event.  </div>
                     <div class="help_text">(ie. ticket page, soicial media account, e-mail address)</div> -->
                     <div class="help_text">&nbsp;*link to tickets, more information, RSVP etc. <i class="bi bi-info-circle" data-toggle="tooltip" data-placement="bottom" data-html="true" title='URL, E-mail, Phone number or n/a'></i></div>
                     <br>
 
-                    <div for="Address">Event Adress:</div>
+                    <div class="label" for="Address">Event Adress:</div>
 
                         <input type="text" id="address" name="Address" class="textField required" >
                         <!-- <div class="help_text">This is the street address for your event.  It will link the users to your event on google mpas</div><br> -->
@@ -205,6 +205,13 @@
 
 body{
     /* overflow-y:scroll; */
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    
 }
 #logoDiv{
         text-align: center;
@@ -227,7 +234,10 @@ body{
     #mainDiv{
 
        display: flex;
-       
+       justify-items: center;
+
+       width: 100vw;
+       max-width: 1400px; 
     }
         #imageFormDiv{
             /* margin: auto; */
@@ -301,6 +311,9 @@ body{
         #top{
             display: flex;
             column-gap: 100px;
+        }
+        .label{
+            margin-bottom: .19rem;
         }
         input[type=text] {
 
