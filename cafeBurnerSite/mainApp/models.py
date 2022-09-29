@@ -41,6 +41,9 @@ class Flyer(models.Model):
 
     Posted_by_me = models.BooleanField(default=False)
 
+    Lattitude = models.CharField(max_length=19)
+    Longitude = models.CharField(max_length=19)
+
     # def dayOfWeek(this):
     #     return this.Event_date.strftime('%A').lower()
 

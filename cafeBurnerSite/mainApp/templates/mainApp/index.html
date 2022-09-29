@@ -171,7 +171,7 @@
 
                             <div id="mobile-sort-div">
 
-                                <div class="check_box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> <div class="sortOption">Sort by Nearest</div>
+                                <div class="check_box" id="sortAddress_checkbox">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> <div class="sortOption">Sort by Nearest</div>
                                 <input type="text" id="address_input">
 
                             </div>
@@ -254,9 +254,9 @@
                             <p></p><!--Contact Info:-->                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
                            <div class="user_info">
 
-                                <div class="tag_div"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> </div>
+                                <div class="tag_div"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> <span style="margin-left: auto;">{{event.Flyer.pk}}</span> </div>
                                 <div class="event_description" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)">{{event.Flyer.Description}}</div>
-                                <div>full Description / tickets / RSVP : </div>
+                                <div style="font-family: comicy;font-weight: bolder;">full Description / tickets / RSVP : </div>
                                 <div class="scroll_behind_padding">
                                   <a class="link" href="{% if '@' in  event.Flyer.Contact_information %}mailto:{% endif %}{% if '@' not in event.Flyer.Contact_information and '://' not in event.Flyer.Contact_information %}http://{% endif %}{{event.Flyer.Contact_information}}" target="_blank"> {{event.Flyer.Contact_information}}</a><!-- {% if '@' not in flyer.Contact_information and 'www' not in flyer.Contact_information %}www.{% endif %} -->
                                 </div>
@@ -401,7 +401,6 @@
     // console.log(kiloBytesq);
 
     // let blog = document.getElementById("blog");
-    let sb =document.getElementById('side-bar-mobile');
 
     let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop"
 
@@ -682,8 +681,9 @@
         
         let boro = document.getElementsByClassName("current_boro");
         let day = document.getElementsByClassName("current_day");
-        let first 
+        let first;
         let checked = document.getElementsByClassName("checked");
+        let sb = document.getElementById('side-bar-mobile');
 
         // blog.scrollTop = 0; //smooth scroll moved to bottom
         
@@ -1441,7 +1441,7 @@ function initMap() {
 //   const getFormInputElement = (component) => document.getElementById(component + '-input');
 //   const autocompleteInput = getFormInputElement('location');
   const autocomplete = new google.maps.places.Autocomplete(address_input, {
-    fields: ["address_components", "geometry", "name"],
+    fields: ["address_components", "geometry"],
     types: ["address"],
   });
   autocomplete.addListener('place_changed', function () {
@@ -1450,10 +1450,24 @@ function initMap() {
       // User entered the name of a Place that was not suggested and
       // pressed the Enter key, or the Place Details request failed.
       window.alert('No details available for input: \'' + place.name + '\'');
+      sortAddress_checkbox.style["background-color"] = "white";
+      
+      address_input.value = '';
       return;
     }
+
     fillInAddress(place);
-    console.log(place.name);
+
+    sortAddress_checkbox.style['background-color'] = 'black';
+    console.log(place.geometry.location.toJSON());
+
+    //asign distances
+    for ( let flyer of flyers){
+        console.log(flyer)
+    }
+
+    
+
   });
 
   function fillInAddress(place) {  // optional parameter
@@ -2262,8 +2276,11 @@ margin-right: auto; */
         text-decoration: none;
     }
     .tag_div{
+
         font-family: comicy;
         font-size: .8rem;
+
+        display: inline-block;
     }
         .type_tag{color: #F76F07;}
         .boro_tag{color: #1a6e05;}
