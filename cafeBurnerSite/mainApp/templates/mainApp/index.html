@@ -379,7 +379,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 
-{{ moreInfo_data|json_script:"moreInfo_data" }}
+<!-- {{ moreInfo_data|json_script:"moreInfo_data" }} -->
 <script type="text/javascript">
 
     //variables
@@ -389,8 +389,7 @@
     const flyers = document.getElementsByClassName("flyer-div");
     let moreInfo_divs = document.getElementsByClassName("moreInfo");
     let prev_firstFlyer;
-    let flyer_images = document.getElementsByClassName('flyer-img');
-    const moreInfo_data =  JSON.parse(document.getElementById('moreInfo_data').textContent);
+    // const moreInfo_data =  JSON.parse(document.getElementById('moreInfo_data').textContent);
 
     // const size = new TextEncoder().encode(JSON.stringify(moreInfo_divs)).length;
     // const sizeq = new TextEncoder().encode(JSON.stringify(moreInfo_data)).length
@@ -402,7 +401,7 @@
 
     // let blog = document.getElementById("blog");
 
-    let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop"
+    let screen_size = window.innerWidth  < 1001 ? "mobile" : "laptop";
 
     filter(); //to remove duplicte Flyers on load
 
@@ -893,7 +892,8 @@ function format_layout_for_desk(){
                 isFlyers = false;
             }
         }
-        
+console.log('l');
+        assign_last_in_row();
     }
     
     
@@ -1239,7 +1239,9 @@ function format_layout_for_desk(){
 
 
 //TOGGLE MORE INFO DESK
-function toggle_moreInfo_desk(thisElement){
+function toggle_moreInfo_desk(thisElement, scroll = 'scroll'){
+
+        // if(document.querySelector('.moreInfo_desk_open')) document.querySelector('.moreInfo_desk_open').classList.remove('moreInfo_desk_open');
 
         let flyer_id = thisElement.dataset.flyer_id;
         let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
@@ -1262,6 +1264,17 @@ function toggle_moreInfo_desk(thisElement){
 
         //open
         if(!thisElement.classList.contains('selected_flyer_desk')){
+
+            //close open flyers
+            if(document.querySelector('.selected_flyer_desk')) {
+
+                let openElem = document.querySelector('.selected_flyer_desk')
+                openElem.classList.remove('selected_flyer_desk')
+                openElem.style['border'] = 'none';
+                openElem.style['box-shadow'] = 'none';
+                document.querySelector(`#more_info_desk${openElem.dataset.flyer_id}`).classList.remove('moreInfo_desk_open')
+
+            }
 
             thisElement.classList.add('selected_flyer_desk')
             moreInfo.classList.add('moreInfo_desk_open')
@@ -1297,9 +1310,8 @@ function toggle_moreInfo_desk(thisElement){
             let forty_vh = (40 * document.documentElement.clientHeight) / 100;
 
             blog.scrollTo({top: offsetT_top - forty_vh, behavior: 'smooth'});
+
         }
-
-
 }
 
     //TOGGLE MORE INFO DESK OLD
@@ -1354,6 +1366,8 @@ function toggle_moreInfo_desk(thisElement){
     //ASSIGN LAST IN ROW
     function assign_last_in_row() {
         
+        // let shownFlyers = flyers.filter(f => f.style['display'] == 'flex');
+
         for (let i = 0; i < flyers.length; i++) 
         {
             
@@ -1395,6 +1409,8 @@ function toggle_moreInfo_desk(thisElement){
 
 //SET_moreInfo_toggle_type
 function set_moreInfo_toggle_type(){
+
+    let flyer_images = document.getElementsByClassName('flyer-img');
 
     // < 1001px - mobile
     if (window.innerWidth < 1001) {
@@ -2312,10 +2328,9 @@ margin-right: auto; */
     .moreInfo_desk
     {
 
-        display: none;
-        
-        
+        display: none; 
     }
+
     .moreInfo_desk_open{
             
         display: flex;

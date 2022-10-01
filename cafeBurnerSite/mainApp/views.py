@@ -31,13 +31,13 @@ def index(request):
     # flyerList = Event.objects.all().order_by('-Posistion')
     flyerList = Event.objects.all()
 
-    moreInfo_data = json.dumps(list(Flyer.objects.all().values()),default=str)
-    # moreInfo_data  = serializers.serialize("json", Flyer.objects.all())
+    # moreInfo_data = json.dumps(list(Flyer.objects.all().values()),default=str)
+    
 
 
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
     # print(serializers.serialize('json', flyerList))
-    return render(request, 'mainApp/index.html', {'flyerList':flyerList, 'moreInfo_data':moreInfo_data})
+    return render(request, 'mainApp/index.html', {'flyerList':flyerList}) # ,'moreInfo_data':moreInfo_data
 
 def index2(request):
     
@@ -234,6 +234,8 @@ def test(request):
     # print(flyerList.query)
     # return JsonResponse(flyerList,safe=False);
 
+    # Flyer_Image.objects.all().delete()
+
     flyerList = Event.objects.all()
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
     # print(serializers.serialize('json', flyerList))
@@ -315,8 +317,9 @@ def saveMultiple(request):
 
         #create ne flyer object
         new_flyer = Flyer( Boro = obj['Boro'], Address= obj['Address'], 
-                            Event_type= obj['Event_type'], Contact_information= obj['Contact_information'], 
-                            Description= obj['Description'], Posted_by_me= obj['Posted_by_me'], 
+                            Event_type= obj['Event_type'], Contact_information= obj['Contact_information'],
+                            Description= obj['Description'], Posted_by_me= obj['Posted_by_me'],
+                            Lattitude= obj['lattitude'], Longitude= obj['longitude'],
                             Flyer_image= new_img )
 
         new_flyer.full_clean()
