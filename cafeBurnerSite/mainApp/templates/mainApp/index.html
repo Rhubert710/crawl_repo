@@ -239,7 +239,7 @@
 
                   {% for event in flyerList reversed %}
                   
-                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} data-orientation ="{{event.Flyer.Flyer_image.Orientation}}">
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} data-orientation ="{{event.Flyer.Flyer_image.Orientation}}" data-latt="{{event.Flyer.Lattitude}}" data-long="{{event.Flyer.Longitude}}">
                       
                         <img class = "flyer-img" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)"
                             src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
@@ -270,7 +270,7 @@
                  
                     <div id="more_info_desk{{event.pk}}" class="moreInfo_desk">
 
-                        <div class="moreInfo_desk_close_text"><< close</div>
+                        <div class="moreInfo_desk_close_text" onclick="toggle_moreInfo_desk()"><< close</div>
 
                         <div class="moreInfo_desk_img_div">
                             <img class = "moreInfo_desk_img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} 
@@ -386,7 +386,9 @@
 
     var current_user_email = "null";
     var csrftoken = getCookie('csrftoken');
-    const flyers = document.getElementsByClassName("flyer-div");
+
+    let flyers = document.getElementsByClassName("flyer-div");
+
     let moreInfo_divs = document.getElementsByClassName("moreInfo");
     let prev_firstFlyer;
     // const moreInfo_data =  JSON.parse(document.getElementById('moreInfo_data').textContent);
@@ -470,8 +472,9 @@
             x.firstChild.innerHTML = "+";}
         // console.log(x.nextElementSibling)
     }
-    function check(x)
-    {
+
+    function check(x){
+
         //turn off "show all" button
         let showAllButton = document.getElementsByClassName("showAll_button")
 
@@ -1148,6 +1151,9 @@ function format_layout_for_desk(){
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
 
+        //set css order
+        if(thisElement.parentElement.style['order']) { moreInfo.style['order'] = thisElement.parentElement.style['order']}
+
         if(!moreInfo.classList.contains('moreInfo_open')){
 
             moreInfo.classList.add('moreInfo_open')
@@ -1181,8 +1187,8 @@ function format_layout_for_desk(){
             userInfo[0].style["height"] = "10.26rem";
             userInfo[0].style["padding"] = ".6rem";
 
-            userInfo[0].style["width"] = "80vw";
-            userInfo[1].style["width"] = "80vw";
+            // userInfo[0].style["width"] = "80vw";
+            // userInfo[1].style["width"] = "80vw";
             // for(i=0; i<userInfo.length; i++)
             // {
             //     userInfo[i].style["padding"] = "2%";
@@ -1220,13 +1226,14 @@ function format_layout_for_desk(){
             // moreInfo.style["width"]= "0px";
 
             for(i=0; i<userInfo.length; i++){
-                userInfo[i].style["transition"] = ".4s";
+                userInfo[i].style["transition"] = ".19s";
                 userInfo[i].style["padding"] = "0px";
-                // userInfo[i].style["padding-left"] = "19%";
-                // userInfo[i].style["padding-right"] = "19%";
+                userInfo[i].style["padding-left"] = "19%";
+                userInfo[i].style["padding-right"] = "19%";
                 // children[i].style["padding-top"] = "2%";
+                
                 userInfo[i].style["height"] = "0px";
-                userInfo[i].style["width"] = "78vw";
+                // userInfo[i].style["width"] = "78vw";
 
             }
 
@@ -1238,7 +1245,7 @@ function format_layout_for_desk(){
 
 
 //TOGGLE MORE INFO DESK
-function toggle_moreInfo_desk(thisElement, scroll = 'scroll'){
+function toggle_moreInfo_desk(thisElement){
 
         // if(document.querySelector('.moreInfo_desk_open')) document.querySelector('.moreInfo_desk_open').classList.remove('moreInfo_desk_open');
 
@@ -1292,7 +1299,6 @@ function toggle_moreInfo_desk(thisElement, scroll = 'scroll'){
 
         }
 
-
         //close
         else{
 
@@ -1306,9 +1312,9 @@ function toggle_moreInfo_desk(thisElement, scroll = 'scroll'){
             moreInfo.classList.remove('moreInfo_desk_open')
 
             let offsetT_top = thisElement.offsetTop;
-            let forty_vh = (40 * document.documentElement.clientHeight) / 100;
+            let five_vh = (5 * document.documentElement.clientHeight) / 100;
 
-            blog.scrollTo({top: offsetT_top - forty_vh, behavior: 'smooth'});
+            blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
 
         }
 }
@@ -1476,10 +1482,40 @@ function initMap() {
     sortAddress_checkbox.style['background-color'] = 'black';
     console.log(place.geometry.location.toJSON());
 
+    let USERS_LOCATION = place.geometry.location.toJSON()
+
     //asign distances
     for ( let flyer of flyers){
-        console.log(flyer)
+       
+        //find distance
+        let dist;
+
+        let [lat1, lon1, lat2, lon2] = [USERS_LOCATION.lat, USERS_LOCATION.lng, flyer.dataset.latt, flyer.dataset.long]
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            dist = 0;
+        }
+        else {
+            let radlat1 = Math.PI * lat1/180;
+            let radlat2 = Math.PI * lat2/180;
+            let theta = lon1-lon2;
+            let radtheta = Math.PI * theta/180;
+            dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1) {
+                dist = 1;
+            }
+
+            dist = Math.acos(dist);
+            dist = dist * 180/Math.PI;
+
+            dist = dist * 60 * 1.1515;
+            flyer.setAttribute('data-distance', dist)
+        }
+
+        
     }
+
+    let sorted = $('.flyer-div').sort(function(a, b) {return +a.dataset.distance - +b.dataset.distance;})
+    sorted.each(function( index ) { $( this ).css('order', index) ; });
 
     
 
@@ -2070,8 +2106,10 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       overflow: scroll;
       overflow-x: hidden; 
       /* line-height: 10ßx; space between posts */
+
       /* display: flex;
       flex-direction: column; */
+
       flex: 1;
 
       height: 100%;
