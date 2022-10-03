@@ -169,7 +169,7 @@
                         <button id="filterButton" type="button" class="btn btn-dark" onclick="toggleSideBar(this)" aria-label="show menu button"><i class="bi bi-list"></i></button>
                           <div id="mobile-side-bar-inner">
 
-                            <div id="mobile-sort-div">
+                            <div id="mobile-sort-div" style="display:none;">
 
                                 <div class="check_box" id="sortAddress_checkbox">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> <div class="sortOption">Sort by Nearest</div>
                                 <input type="text" id="address_input">
@@ -920,6 +920,8 @@ function format_layout_for_desk(){
             filterButton.style["background-color"] = "#1d2124";
             filterButton.style["border-color"] = "#171a1d";
 
+            document.querySelector('#mobile-sort-div').style['display'] = 'block';
+
             myRemindersButton_mobile.style['display'] = 'block';
             postFlyerButton_mobile.style['display'] = 'block';
 
@@ -948,6 +950,8 @@ function format_layout_for_desk(){
 
             filterButton.style["background-color"] = "#343a40";
             filterButton.style["border-color"] = "#343a40";
+
+            document.querySelector('#mobile-sort-div').style['display'] = 'none';
 
             myRemindersButton_mobile.style['display'] = 'none';
             postFlyerButton_mobile.style['display'] = 'none';
@@ -1151,8 +1155,8 @@ function format_layout_for_desk(){
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
 
-        //set css order
-        if(thisElement.parentElement.style['order']) { moreInfo.style['order'] = thisElement.parentElement.style['order']}
+        //set css order + 1
+        // if(thisElement.parentElement.style['order']) { moreInfo.style['order'] = ( parseInt(thisElement.parentElement.style['order']) + 1 )}
 
         if(!moreInfo.classList.contains('moreInfo_open')){
 
@@ -1514,12 +1518,29 @@ function initMap() {
         
     }
 
+    //sort by distance
     let sorted = $('.flyer-div').sort(function(a, b) {return +a.dataset.distance - +b.dataset.distance;})
-    sorted.each(function( index ) { $( this ).css('order', index) ; });
-
     
+    //assign css order to flyer-div and moreInfo divs
+    let orderCounter = 1;
 
-  });
+    sorted.each(function( index, element ) {
+
+        // $( this ).css( 'order', index );
+        // $(`#more_info_${$(this).find(">:first-child").data('flyer_id')}`).css( 'order', index );
+
+        element.style['order'] = (index + orderCounter);
+        document.querySelector(`#more_info_${element.firstElementChild.dataset.flyer_id}`).style['order'] = (index + orderCounter) + 1;
+        
+        orderCounter ++;
+
+        // console.log(index);
+    
+    });
+
+    filter();
+
+  });//end autocomplete call back
 
   function fillInAddress(place) {  // optional parameter
     const addressNameFormat = {
@@ -2107,8 +2128,8 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       overflow-x: hidden; 
       /* line-height: 10ßx; space between posts */
 
-      /* display: flex;
-      flex-direction: column; */
+      display: flex;
+      flex-direction: column;
 
       flex: 1;
 
