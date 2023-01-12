@@ -222,6 +222,11 @@
 
 
                 <!-- <div id="blog-inner" > -->
+
+                    <div id="desk_sort_div">
+                        <input type="text" id="address_input_desk">
+                    </div>
+
                   <div id="no_result_div" class="no_results_text" style="display:none;">No Results</div>
 
                   <div id="no_reminders_div" class="no_results_text" style="display:none;">
@@ -239,7 +244,7 @@
 
                   {% for event in flyerList reversed %}
                   
-                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} data-orientation ="{{event.Flyer.Flyer_image.Orientation}}" data-latt="{{event.Flyer.Lattitude}}" data-long="{{event.Flyer.Longitude}}">
+                  <div class="flyer-div flyer {{event.Flyer.Boro}} {{event.Flyer.Event_type}} {{event.Day_of_week}}" data-md5 = {% if event.Flyer.Flyer_image.Hash %}"{{event.Flyer.Flyer_image.Hash}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} data-orientation ="{{event.Flyer.Flyer_image.Orientation}}" data-latt="{{event.Flyer.Lattitude}}" data-long="{{event.Flyer.Longitude}}" data-distance="">
                       
                         <img class = "flyer-img" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)"
                             src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} alt="things to do in NYC {{event.Flyer.Event_type}} {{event.Flyer.Boro}} {{event.Day_of_week}}"> <!-- double brackets here are the first thing to go to improving performance -->
@@ -254,7 +259,7 @@
                             <p></p><!--Contact Info:-->                <!--  if statemnt for email "mailto:" (all INLINE to avoid bugs)-->
                            <div class="user_info">
 
-                                <div class="tag_div"> <span class="type_tag">{{event.Flyer.Event_type}}</span> <span class="boro_tag">{{event.Flyer.Boro.capitalize}}</span> <span style="margin-left: auto;">{{event.Flyer.pk}}</span> </div>
+                                <div class="tag_div"> <div class="type_tag">{{event.Flyer.Event_type}}</div> <div class="boro_tag">{{event.Flyer.Boro.capitalize}}</div> <div class="distance_tag" style="margin-left: auto;">{{event.Flyer.pk}}</div> </div>
                                 <div class="event_description" data-flyer_id = "{{event.pk}}" onclick="toggleMoreInfo(this)">{{event.Flyer.Description}}</div>
                                 <div style="font-family: comicy;font-weight: bolder;">full Description / tickets / RSVP : </div>
                                 <div class="scroll_behind_padding">
@@ -270,7 +275,7 @@
                  
                     <div id="more_info_desk{{event.pk}}" class="moreInfo_desk">
 
-                        <div class="moreInfo_desk_close_text" onclick="toggle_moreInfo_desk()"><< close</div>
+                        <div class="moreInfo_desk_close_text" onclick="toggle_moreInfo_desk(document.querySelector('.selected_flyer_desk'))"><< close</div>
 
                         <div class="moreInfo_desk_img_div">
                             <img class = "moreInfo_desk_img" src={% if event.Flyer.Flyer_image.Flyer_image %}"/media/{{event.Flyer.Flyer_image.Flyer_image}}" {% else %} "{{event.Flyer.Flyer_image.Img_src_url}}" {% endif %} 
@@ -355,7 +360,6 @@
     </div>
 
     <!-- // successful post modal //-->
-
     <div id="success_modal" style="display: none;">
         <h5 style="text-align: center;">Your Flyer Successfully Posted!</h5>
         <div id="modal_line"></div>
@@ -373,7 +377,9 @@
 </html>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -761,6 +767,9 @@
         }
 
         blog.scrollTo({top: 0, behavior: 'smooth'});
+        // $('#blog').animate({
+        //                 scrollTop: 0
+        // }, 299);
 
         //FORMAT LAYOUT FOR DESK
         if (window.innerWidth >= 712) format_layout_for_desk();
@@ -1145,11 +1154,14 @@ function format_layout_for_desk(){
     function toggleMoreInfo(thisElement)
     {
 
-        let flyer_id = thisElement.dataset.flyer_id;
-        let moreInfo = document.querySelector(`#more_info_${flyer_id}`);
+        // let flyer_id = thisElement.dataset.flyer_id;
+        let moreInfo = document.querySelector(`#more_info_${thisElement.dataset.flyer_id}`);
 
         let children = moreInfo.children;
         let userInfo = moreInfo.getElementsByClassName("user_info");
+
+        //set distance text
+        // moreInfo.querySelector(".distance_tag").innerText = `${thisElement.parentElement.dataset.distance} mi`;
 
         //set css order + 1
         // if(thisElement.parentElement.style['order']) { moreInfo.style['order'] = ( parseInt(thisElement.parentElement.style['order']) + 1 )}
@@ -1508,7 +1520,7 @@ function initMap() {
             dist = dist * 180/Math.PI;
 
             dist = dist * 60 * 1.1515;
-            flyer.setAttribute('data-distance', dist)
+            flyer.setAttribute('data-distance', dist.toFixed(2))
         }
 
         
@@ -1517,7 +1529,7 @@ function initMap() {
     //sort by distance
     let sorted = $('.flyer-div').sort(function(a, b) {return +a.dataset.distance - +b.dataset.distance;})
     
-    //assign css order to flyer-div and moreInfo divs
+    //assign css order to flyer-div and moreInfo divs ALSO add mi to moreInfo distance_tag
     let orderCounter = 1;
 
     sorted.each(function( index, element ) {
@@ -1526,8 +1538,11 @@ function initMap() {
         // $(`#more_info_${$(this).find(">:first-child").data('flyer_id')}`).css( 'order', index );
 
         element.style['order'] = (index + orderCounter);
+
         document.querySelector(`#more_info_${element.firstElementChild.dataset.flyer_id}`).style['order'] = (index + orderCounter) + 1;
-        
+        document.querySelector(`#more_info_${element.firstElementChild.dataset.flyer_id}`).querySelector('.distance_tag').innerText = element.dataset.distance + ' mi ';
+
+        console.log( document.querySelector(`#more_info_${element.firstElementChild.dataset.flyer_id}`).querySelector('.distance_tag'));
         orderCounter ++;
 
         // console.log(index);
@@ -2050,8 +2065,8 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
   }
   #mobileLogo{
 
-    max-width: 100%;
-    max-height: 90%;
+    /* max-width: 100%; */
+    max-height: 6.5vh;
     display: block;
     margin-left: auto;
     margin-right: auto 
@@ -2210,7 +2225,7 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
 
             #buttonsBottomLeft{
             
-            display: flex;
+            display: none;
             flex-direction: column;
             padding: 5%;
             transform: translateY(-10px);
@@ -2355,7 +2370,8 @@ margin-right: auto; */
         font-family: comicy;
         font-size: .8rem;
 
-        display: inline-block;
+        display: flex;
+        gap: 1ch;
     }
         .type_tag{color: #F76F07;}
         .boro_tag{color: #1a6e05;}
@@ -2410,8 +2426,7 @@ margin-right: auto; */
             margin-right: 1rem;
             top: .4rem;
             font-size: 1.2rem;
-
-        
+            cursor: pointer;
         }
 
         .moreInfo_desk_img_div{
