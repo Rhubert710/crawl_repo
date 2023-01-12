@@ -1259,78 +1259,62 @@ function format_layout_for_desk(){
 //TOGGLE MORE INFO DESK
 function toggle_moreInfo_desk(thisElement){
 
-        // if(document.querySelector('.moreInfo_desk_open')) document.querySelector('.moreInfo_desk_open').classList.remove('moreInfo_desk_open');
+let flyer_id = thisElement.dataset.flyer_id;
+let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
 
-        let flyer_id = thisElement.dataset.flyer_id;
-        let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
+var last_element_in_row = find_last_in_row(thisElement.parentElement);
 
-        let row = thisElement.parentElement.dataset.row;
-        let last_element_in_row = document.querySelector(`#last_in_row_${row}`);
+// const para = document.createElement("div");
+// para.innerHTML = `
+// gfyf
 
-        const para = document.createElement("div");
-        para.innerHTML = `
-        gfyf
-        
-        `;
-        para.style['width'] ='90%';
-        para.style['background-color'] ='blue';
+// `;
+// para.style['width'] ='90%';
+// para.style['background-color'] ='blue';
 
-        let order = last_element_in_row.style['order']
-        moreInfo.style['order'] = parseInt(order) + 1;
+last_element_in_row.insertAdjacentElement('afterend', moreInfo);
 
-        // last_element_in_row.insertAdjacentElement('afterend', moreInfo);
+//open
+if(!thisElement.classList.contains('selected_flyer_desk')){
 
-        //open
-        if(!thisElement.classList.contains('selected_flyer_desk')){
+    thisElement.classList.add('selected_flyer_desk')
+    moreInfo.classList.add('moreInfo_desk_open')
 
-            //close open flyers
-            if(document.querySelector('.selected_flyer_desk')) {
+    // thisElement.style['borx'] = '5px solid chartreuse';
 
-                let openElem = document.querySelector('.selected_flyer_desk')
-                openElem.classList.remove('selected_flyer_desk')
-                openElem.style['border'] = 'none';
-                openElem.style['box-shadow'] = 'none';
-                document.querySelector(`#more_info_desk${openElem.dataset.flyer_id}`).classList.remove('moreInfo_desk_open')
+    thisElement.style['border'] = '1px solid black';
+    thisElement.style['box-shadow'] = '0px 0px 10px 4px chartreuse';
 
-            }
+    // moreInfo.style['display'] = 'flex'
 
-            thisElement.classList.add('selected_flyer_desk')
-            moreInfo.classList.add('moreInfo_desk_open')
+    let offsetT_top = moreInfo.offsetTop;
+    let five_vh = (5 * document.documentElement.clientHeight) / 100;
 
-            // thisElement.style['borx'] = '5px solid chartreuse';
+    blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
 
-            thisElement.style['border'] = '1px solid black';
-            thisElement.style['box-shadow'] = '0px 0px 10px 4px chartreuse';
-
-            // moreInfo.style['display'] = 'flex'
-
-            let offsetT_top = moreInfo.offsetTop;
-            let five_vh = (5 * document.documentElement.clientHeight) / 100;
-
-            blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
-
-        }
-
-        //close
-        else{
-
-            thisElement.classList.remove('selected_flyer_desk')
-
-            thisElement.style['border'] = 'none';
-            thisElement.style['box-shadow'] = 'none';
-            
-
-            // moreInfo.style['display'] = 'none'
-            moreInfo.classList.remove('moreInfo_desk_open')
-
-            let offsetT_top = thisElement.offsetTop;
-            let five_vh = (5 * document.documentElement.clientHeight) / 100;
-
-            blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
-
-        }
 }
 
+
+//close
+else{
+
+    thisElement.classList.remove('selected_flyer_desk')
+
+    thisElement.style['border'] = 'none';
+    thisElement.style['box-shadow'] = 'none';
+    
+
+    // moreInfo.style['display'] = 'none'
+    moreInfo.classList.remove('moreInfo_desk_open')
+
+    let offsetT_top = thisElement.offsetTop;
+    let forty_vh = (40 * document.documentElement.clientHeight) / 100;
+
+    blog.scrollTo({top: offsetT_top - forty_vh, behavior: 'smooth'});
+}
+
+
+}
     //TOGGLE MORE INFO DESK OLD
     function toggle_moreInfo_desk_old(thisElement){
 

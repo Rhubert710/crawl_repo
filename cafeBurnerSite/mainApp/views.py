@@ -239,7 +239,7 @@ def test(request):
     flyerList = Event.objects.all()
     # flyerList = Flyer.objects.filter(Boro='brooklyn').order_by('-Posistion')
     # print(serializers.serialize('json', flyerList))
-    # return render(request, 'mainApp/x.html', {'flyerList':flyerList})
+    return render(request, 'mainApp/x.html', {'flyerList':flyerList})
 
     return render(request, 'mainApp/e.html')
 
