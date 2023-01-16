@@ -223,9 +223,9 @@
 
                 <!-- <div id="blog-inner" > -->
 
-                    <div id="desk_sort_div">
+                    <!-- <div id="desk_sort_div">
                         <input type="text" id="address_input_desk">
-                    </div>
+                    </div> -->
 
                   <div id="no_result_div" class="no_results_text" style="display:none;">No Results</div>
 
@@ -772,7 +772,7 @@
         // }, 299);
 
         //FORMAT LAYOUT FOR DESK
-        if (window.innerWidth >= 712) format_layout_for_desk();
+        if (window.innerWidth >= 712) format_layout_for_desk(); //added assign_last_in_row() INSIDE format_layout_for_desk()
         
         //(mobile only <for some reason>) 'buffer animation' (only if rirst result is same flyer)
         mobile_buffer_animation();
@@ -827,7 +827,12 @@ function format_layout_for_desk(){
                     l[i].style['order'] = counter;
                     l[i].dataset['row'] = row;
 
-                    if(i==COLUMS) {l[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    if(i==COLUMS) {
+                        l[i].setAttribute('id', `last_in_row_${row}`);
+
+                        l[i].classList.add('last_in_row');
+                        row++;counter++;}
+
                     counter ++;
 
                 }
@@ -841,7 +846,12 @@ function format_layout_for_desk(){
                     l[i].style['order'] = counter;
                     l[i].dataset['row'] = row;
 
-                    if(i==COLUMS) {l[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    if(i==COLUMS) {
+                        l[i].setAttribute('id', `last_in_row_${row}`);
+
+                        l[i].classList.add('last_in_row');
+                        row++;counter++;}
+                        
                     counter ++;
 
                 }
@@ -854,7 +864,12 @@ function format_layout_for_desk(){
                     q[i].style['order'] = counter;
                     q[i].dataset['row'] = row;
 
-                    if(i==COLUMS) {q[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    if(i==COLUMS) {
+                        q[i].setAttribute('id', `last_in_row_${row}`);
+
+                        q[i].classList.add('last_in_row');
+                        row++;counter++;}
+                        
                     counter ++;
 
                 }
@@ -866,7 +881,12 @@ function format_layout_for_desk(){
                     w[i].style['order'] = counter;
                     w[i].dataset['row'] = row;
 
-                    if(i==COLUMS) {w[i].setAttribute('id', `last_in_row_${row}`); row++;counter++;}
+                    if(i==COLUMS) {
+                        w[i].setAttribute('id', `last_in_row_${row}`);
+
+                        w[i].classList.add('last_in_row');
+                        row++;counter++;}
+                        
                     counter ++;
 
                 }
@@ -878,7 +898,12 @@ function format_layout_for_desk(){
                     w[i].style['order'] = counter;
                     w[i].dataset['row'] = row;
 
-                    if(i==COLUMS) {w[i].setAttribute('id', `last_in_row_${row}`);row++;counter++;}
+                    if(i==COLUMS) {
+                        w[i].setAttribute('id', `last_in_row_${row}`);
+
+                        w[i].classList.add('last_in_row');
+                        row++;counter++;}
+                        
                     counter ++;
 
                 }
@@ -897,14 +922,20 @@ function format_layout_for_desk(){
 
                         list[i].style['height'] = 'fit-content'
 
-                        if(i==list.length-1) {list[i].setAttribute('id', `last_in_row_${row}`);row++;counter++;}
-                        counter ++;
+                        if(i==COLUMS) {
+                        list[i].setAttribute('id', `last_in_row_${row}`);
+
+                        list[i].classList.add('last_in_row');
+                        row++;counter++;}
+                        
+                    counter ++;
                     }
                 }
                 isFlyers = false;
             }
         }
 
+        // assign_last_in_row()
     }
     
     
@@ -1259,38 +1290,39 @@ function format_layout_for_desk(){
 //TOGGLE MORE INFO DESK
 function toggle_moreInfo_desk(thisElement){
 
-let flyer_id = thisElement.dataset.flyer_id;
-let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
+    let flyer_id = thisElement.dataset.flyer_id;
+    let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
 
-var last_element_in_row = find_last_in_row(thisElement.parentElement);
+    let last_element_in_row = find_last_in_row(thisElement.parentElement);
+console.log(last_element_in_row);
+    // const para = document.createElement("div");
+    // para.innerHTML = `
+    // gfyf
 
-// const para = document.createElement("div");
-// para.innerHTML = `
-// gfyf
+    // `;
+    // para.style['width'] ='90%';
+    // para.style['background-color'] ='blue';
 
-// `;
-// para.style['width'] ='90%';
-// para.style['background-color'] ='blue';
+    moreInfo.style['order'] = parseInt(last_element_in_row.style['order'])+1;
+    // last_element_in_row.insertAdjacentElement('afterend', moreInfo);
 
-last_element_in_row.insertAdjacentElement('afterend', moreInfo);
+    //open
+    if(!thisElement.classList.contains('selected_flyer_desk')){
 
-//open
-if(!thisElement.classList.contains('selected_flyer_desk')){
+        thisElement.classList.add('selected_flyer_desk')
+        moreInfo.classList.add('moreInfo_desk_open')
 
-    thisElement.classList.add('selected_flyer_desk')
-    moreInfo.classList.add('moreInfo_desk_open')
+        // thisElement.style['borx'] = '5px solid chartreuse';
 
-    // thisElement.style['borx'] = '5px solid chartreuse';
+        thisElement.style['border'] = '1px solid black';
+        thisElement.style['box-shadow'] = '0px 0px 10px 4px chartreuse';
 
-    thisElement.style['border'] = '1px solid black';
-    thisElement.style['box-shadow'] = '0px 0px 10px 4px chartreuse';
+        // moreInfo.style['display'] = 'flex'
 
-    // moreInfo.style['display'] = 'flex'
+        let offsetT_top = moreInfo.offsetTop;
+        let five_vh = (5 * document.documentElement.clientHeight) / 100;
 
-    let offsetT_top = moreInfo.offsetTop;
-    let five_vh = (5 * document.documentElement.clientHeight) / 100;
-
-    blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
+        blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
 
 }
 
@@ -1368,6 +1400,12 @@ else{
     function assign_last_in_row() {
 
 
+        // clear old assignments
+        for( flyer of flyers ){
+            flyer.classList.remove('last_in_row');
+        }
+
+        // assign
         for (let i = 0; i < flyers.length; i++) 
         {
             
@@ -1606,6 +1644,7 @@ function initMap() {
 
         set_moreInfo_toggle_type();
         // assign_last_in_row();
+        format_layout_for_desk();
 
         // document.querySelector('#mobile-side-bar-inner').style['height'] = 100 -(
         //     document.querySelector('#boros').style['height'] + document.querySelector('#weekBar').style['height']);
