@@ -938,7 +938,7 @@ function format_layout_for_desk(){
                     }
                 }
 
-                f.classList.add('lfuck');
+                f.setAttribute('id', `last_in_row_${row}`);
                 isFlyers = false;
             }
         }
@@ -1303,7 +1303,7 @@ function toggle_moreInfo_desk(thisElement){
 
     // let last_element_in_row = find_last_in_row(thisElement.parentElement);
     let last_element_in_row = document.querySelector(`#last_in_row_${thisElement.parentElement.dataset.row}`)
-console.log(thisElement.parentElement.dataset.row);
+    
     // const para = document.createElement("div");
     // para.innerHTML = `
     // gfyf
