@@ -831,7 +831,7 @@ function format_layout_for_desk(){
                         l[i].setAttribute('id', `last_in_row_${row}`);
 
                         l[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        row++; counter++;}
 
                     counter ++;
 
@@ -850,7 +850,7 @@ function format_layout_for_desk(){
                         l[i].setAttribute('id', `last_in_row_${row}`);
 
                         l[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        row++; counter++;}
                         
                     counter ++;
 
@@ -868,7 +868,7 @@ function format_layout_for_desk(){
                         q[i].setAttribute('id', `last_in_row_${row}`);
 
                         q[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        row++; counter++;}
                         
                     counter ++;
 
@@ -885,7 +885,7 @@ function format_layout_for_desk(){
                         w[i].setAttribute('id', `last_in_row_${row}`);
 
                         w[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        row++; counter++;}
                         
                     counter ++;
 
@@ -902,7 +902,7 @@ function format_layout_for_desk(){
                         w[i].setAttribute('id', `last_in_row_${row}`);
 
                         w[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        row++; counter++;}
                         
                     counter ++;
 
@@ -910,27 +910,35 @@ function format_layout_for_desk(){
                 for (let i = 0; i <= COLUMS; i++) {w.shift()}
             }
 
-            //last of
+            //last of (remaining)
             if(l.length<=COLUMS && w.length<=COLUMS && q.length<=COLUMS){
 
-                for(let list of [l,w,q]){
+                let remaining_rowCounter = 0;
 
-                    for (let i=0; i< list.length; i++){
+                for(var list of [l,w,q]){
 
-                        list[i].style['order'] = counter;
-                        list[i].dataset['row'] = row;
+                    for ( var f of list ) {
 
-                        list[i].style['height'] = 'fit-content'
+                        f.style['order'] = counter;
+                        f.dataset['row'] = row;
 
-                        if(i==COLUMS) {
-                        list[i].setAttribute('id', `last_in_row_${row}`);
+                        f.style['height'] = 'fit-content'
 
-                        list[i].classList.add('last_in_row');
-                        row++;counter++;}
+                        remaining_rowCounter++;
+
+                        if( remaining_rowCounter == COLUMS+1 ) {
+
+                            f.setAttribute('id', `last_in_row_${row}`);
+                            f.classList.add('last_in_row');
+
+                            row++; counter++;
+                            remaining_rowCounter =0}
                         
                     counter ++;
                     }
                 }
+
+                f.classList.add('lfuck');
                 isFlyers = false;
             }
         }
@@ -1293,8 +1301,9 @@ function toggle_moreInfo_desk(thisElement){
     let flyer_id = thisElement.dataset.flyer_id;
     let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
 
-    let last_element_in_row = find_last_in_row(thisElement.parentElement);
-console.log(last_element_in_row);
+    // let last_element_in_row = find_last_in_row(thisElement.parentElement);
+    let last_element_in_row = document.querySelector(`#last_in_row_${thisElement.parentElement.dataset.row}`)
+console.log(thisElement.parentElement.dataset.row);
     // const para = document.createElement("div");
     // para.innerHTML = `
     // gfyf
@@ -1303,11 +1312,13 @@ console.log(last_element_in_row);
     // para.style['width'] ='90%';
     // para.style['background-color'] ='blue';
 
-    moreInfo.style['order'] = parseInt(last_element_in_row.style['order'])+1;
+   
     // last_element_in_row.insertAdjacentElement('afterend', moreInfo);
 
     //open
     if(!thisElement.classList.contains('selected_flyer_desk')){
+
+        moreInfo.style['order'] = parseInt(last_element_in_row.style['order'])+1;
 
         thisElement.classList.add('selected_flyer_desk')
         moreInfo.classList.add('moreInfo_desk_open')
@@ -1329,6 +1340,8 @@ console.log(last_element_in_row);
 
 //close
 else{
+
+    moreInfo.style['order'] = 0;
 
     thisElement.classList.remove('selected_flyer_desk')
 
