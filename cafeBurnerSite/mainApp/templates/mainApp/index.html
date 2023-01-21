@@ -414,10 +414,14 @@
     filter(); //to remove duplicte Flyers on load
 
     //on screen change
-    window.addEventListener('resize', function(event){
+    window.addEventListener('resize', function(event) {
 
         set_moreInfo_toggle_type();
         filter();
+
+       
+        if ( window.innerWidth < 1001 ){
+            for (let f of flyers){  f.style.removeProperty('order'); } }
 
     });
 
@@ -771,8 +775,8 @@
         //                 scrollTop: 0
         // }, 299);
 
-        //FORMAT LAYOUT FOR DESK
-        if (window.innerWidth >= 712) format_layout_for_desk(); //added assign_last_in_row() INSIDE format_layout_for_desk()
+        //FORMAT LAYOUT
+        if (window.innerWidth >= 1001) format_layout_for_desk(); //added assign_last_in_row() INSIDE format_layout_for_desk()
         
         //(mobile only <for some reason>) 'buffer animation' (only if rirst result is same flyer)
         mobile_buffer_animation();
@@ -798,6 +802,7 @@ function mobile_buffer_animation(){
     
 }
 
+
 //FORMAT LAYOUT FOR DESK//
 function format_layout_for_desk(){
 
@@ -811,7 +816,7 @@ function format_layout_for_desk(){
         for (let i of flyers){if(i.getAttribute('data-orientation')=='q' && i.style['display']=='flex') {i.removeAttribute('id'); q.push(i);}}
 
         let counter = 1;
-        let row =1
+        let row = 1
 
         let isFlyers = true;
 
@@ -819,7 +824,7 @@ function format_layout_for_desk(){
         while (isFlyers) 
         {
 
-            let COLUMS = 2;
+            let COLUMS = (window.innerWidth > 1416) ? 2 : 1;
 
             if (l.length > COLUMS){
                 for (let i = 0; i <= COLUMS; i++) {
@@ -1298,25 +1303,34 @@ function format_layout_for_desk(){
 //TOGGLE MORE INFO DESK
 function toggle_moreInfo_desk(thisElement){
 
+    // close any open moreInfo_divs
+
+    try {
+       close_moreInfo_desk( document.querySelector( '.selected_flyer_desk' ) )
+    } catch (error) {
+        
+    }
+
     let flyer_id = thisElement.dataset.flyer_id;
     let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
 
     // let last_element_in_row = find_last_in_row(thisElement.parentElement);
     let last_element_in_row = document.querySelector(`#last_in_row_${thisElement.parentElement.dataset.row}`)
     
-    // const para = document.createElement("div");
-    // para.innerHTML = `
-    // gfyf
 
-    // `;
-    // para.style['width'] ='90%';
-    // para.style['background-color'] ='blue';
-
-   
-    // last_element_in_row.insertAdjacentElement('afterend', moreInfo);
 
     //open
     if(!thisElement.classList.contains('selected_flyer_desk')){
+        open_moreInfo_desk(); }
+
+
+    //close
+    else{
+        close_moreInfo_desk( thisElement ); }
+
+
+
+    function open_moreInfo_desk() {
 
         moreInfo.style['order'] = parseInt(last_element_in_row.style['order'])+1;
 
@@ -1335,28 +1349,28 @@ function toggle_moreInfo_desk(thisElement){
 
         blog.scrollTo({top: offsetT_top - five_vh, behavior: 'smooth'});
 
-}
+
+    }
+
+    function close_moreInfo_desk( thisElement ) {
 
 
-//close
-else{
+        moreInfo.style.removeProperty('order');
 
-    moreInfo.style['order'] = 0;
+        thisElement.classList.remove('selected_flyer_desk')
 
-    thisElement.classList.remove('selected_flyer_desk')
+        thisElement.style['border'] = 'none';
+        thisElement.style['box-shadow'] = 'none';
+        
 
-    thisElement.style['border'] = 'none';
-    thisElement.style['box-shadow'] = 'none';
-    
+        // moreInfo.style['display'] = 'none'
+        moreInfo.classList.remove('moreInfo_desk_open')
 
-    // moreInfo.style['display'] = 'none'
-    moreInfo.classList.remove('moreInfo_desk_open')
+        let offsetT_top = thisElement.offsetTop;
+        let forty_vh = (40 * document.documentElement.clientHeight) / 100;
 
-    let offsetT_top = thisElement.offsetTop;
-    let forty_vh = (40 * document.documentElement.clientHeight) / 100;
-
-    blog.scrollTo({top: offsetT_top - forty_vh, behavior: 'smooth'});
-}
+        blog.scrollTo({top: offsetT_top - forty_vh, behavior: 'smooth'});
+    }
 
 
 }
@@ -1657,7 +1671,7 @@ function initMap() {
 
         set_moreInfo_toggle_type();
         // assign_last_in_row();
-        format_layout_for_desk();
+        
 
         // document.querySelector('#mobile-side-bar-inner').style['height'] = 100 -(
         //     document.querySelector('#boros').style['height'] + document.querySelector('#weekBar').style['height']);
@@ -1685,7 +1699,7 @@ function initMap() {
       body{
     padding: 0;
     margin: 0;
-
+    background-color: #a8a8a8;
     display: block !important;
   }
   #bodyDiv{
@@ -1693,6 +1707,8 @@ function initMap() {
     height: 100vh;
     width:100vw;
     /* overflow: hidden; */
+    max-width: 1769px;
+    margin-inline: auto;
   }
   .btn:focus {
         box-shadow: none !important;
@@ -1705,7 +1721,7 @@ function initMap() {
     max-height: 100vh;
     flex: 2.5;
     max-width:  29ch;
-    /* background-color: white; */
+    background-color: white;
   
   }
 
@@ -2095,7 +2111,7 @@ text-shadow: calc(var(--stroke-width) * 1) calc(var(--stroke-width) * 0) 0
       width: auto;
       max-height: 7vh;
       /* height: auto; */
-      /* background-color: #c4ff61; */
+      background-color: white;
       
       
   }
@@ -2586,8 +2602,8 @@ margin-right: auto; */
             animation-duration: .4s;
         }
         @keyframes buffer_animation {
-            0%, 100% {height: 0px;}
-            50% {height: 2px;}
+            0%, 100% {min-height: 0px;}
+            50% {min-height: 9px;}
             }
   
   
