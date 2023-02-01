@@ -646,9 +646,12 @@ body{
     if (window.innerWidth >= 1001){
 
         iconDiv.style["height"] = "60vh";
+        // iconDiv.style["width"] = "";
 
-        iconDiv.style["width"] = "auto";
-        iconDiv.style["max-width"] = "100%";
+        iconDiv.style.removeProperty('width');
+        icon.style.removeProperty('width');
+
+        // iconDiv.style["max-width"] = "100%";
         // imageFormButtons.style["display"]="flex";
         // image_label.style["display"]="block";
         // nextButton.style["display"]="none";

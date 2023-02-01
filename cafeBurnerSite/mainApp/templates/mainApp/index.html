@@ -205,7 +205,7 @@
                             <div id = "buttonsBottomLeft">
                                 <!-- <button id="myRemindersButton_mobile" type="button" class="btn btn-info btn-lg bottomLeftButton" data-toggle="modal" data-target="#emailModal"><i class="bi bi-alarm"></i>&nbsp;
                                      My Reminders</button> -->
-                                     <button id="myRemindersButton_mobile" type="button" class="btn btn-info bottomLeftButton btn-sm" onclick="myRemindersButton_click()"><i class="bi bi-alarm"></i>&nbsp;
+                                     <button id="myRemindersButton_mobile" type="button" class="btn btn-info bottomLeftButton btn-sm" onclick="myRemindersButton_click()"> <i class="bi bi-alarm"></i>&nbsp;
                                         My Reminders</button>
                                 <!-- <button id="postFlyerButton_mobile" type="button" class="btn btn-warning bottomLeftButton" onclick="getFlyers()">post Flyer </button> -->
                                     <a id="postFlyerButton_mobile" class="btn btn-warning bottomLeftButton btn-sm" href="/uploadImage" role="button">
@@ -780,7 +780,7 @@
         
         //(mobile only <for some reason>) 'buffer animation' (only if rirst result is same flyer)
         mobile_buffer_animation();
-
+        
         //finally
         if(no_Results)
             {no_result_div.style['display'] = 'block';}
@@ -943,7 +943,9 @@ function format_layout_for_desk(){
                     }
                 }
 
-                f.setAttribute('id', `last_in_row_${row}`);
+                if (f)
+                    f.setAttribute('id', `last_in_row_${row}`);
+
                 isFlyers = false;
             }
         }
@@ -1304,12 +1306,19 @@ function format_layout_for_desk(){
 function toggle_moreInfo_desk(thisElement){
 
     // close any open moreInfo_divs
-
     try {
-       close_moreInfo_desk( document.querySelector( '.selected_flyer_desk' ) )
-    } catch (error) {
-        
-    }
+
+        let open_element = document.querySelector( '.selected_flyer_desk' )
+        console.log(open_element);
+        let flyer_id = open_element.dataset.flyer_id;
+        let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
+
+       close_moreInfo_desk( open_element , moreInfo );
+
+       if ( open_element == thisElement )
+            return
+    } catch (error) {}
+
 
     let flyer_id = thisElement.dataset.flyer_id;
     let moreInfo = document.querySelector(`#more_info_desk${flyer_id}`);
@@ -1326,7 +1335,7 @@ function toggle_moreInfo_desk(thisElement){
 
     //close
     else{
-        close_moreInfo_desk( thisElement ); }
+        close_moreInfo_desk( thisElement , moreInfo ); }
 
 
 
@@ -1352,7 +1361,7 @@ function toggle_moreInfo_desk(thisElement){
 
     }
 
-    function close_moreInfo_desk( thisElement ) {
+    function close_moreInfo_desk( thisElement , moreInfo ) {
 
 
         moreInfo.style.removeProperty('order');
@@ -2549,6 +2558,9 @@ margin-right: auto; */
         bottom: 2%;
         right: 5%;
     }
+    .btn-info{
+        background-color:#005c8e
+    }
 
     #emailModalText{
         font-size: 78%;
@@ -2630,8 +2642,8 @@ padding-bottom: 50vh;
     margin-left:auto;
     margin-right:1%;
 
-     /* height: 350px; */
-    height: auto;
+     max-height: 550px;
+    /* height: auto; */
 
     min-width:350px;
     width:350px;
@@ -2689,12 +2701,12 @@ padding-bottom: 50vh;
     /* margin-left: auto;
     margin-right: auto;
     margin-top:1%;
-
     display: flex; */
-
     /* margin-left: auto;
   margin-right: auto; */
   /* position: relative; */
+
+  max-height: 80vh;
   }
 
 
