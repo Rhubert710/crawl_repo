@@ -645,12 +645,14 @@ body{
 
     if (window.innerWidth >= 1001){
 
-        iconDiv.style["height"] = "60vh";
-        // iconDiv.style["width"] = "";
+        iconDiv.style["max-height"] = "60vh";
+        iconDiv.style["width"] = "50%";
 
-        iconDiv.style.removeProperty('width');
-        icon.style.removeProperty('width');
-
+        document.querySelector('#iconDiv').style['box-shadow']='0px 0px white';
+        document.querySelector('#iconDiv').style['border']='0px solid white';
+        // icon.style.removeProperty('width');
+        // iconDiv.style.removeProperty('box-shadow');
+        // console.log('fuckk');
         // iconDiv.style["max-width"] = "100%";
         // imageFormButtons.style["display"]="flex";
         // image_label.style["display"]="block";
